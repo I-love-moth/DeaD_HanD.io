@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeaD HanD — Главная</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Oswald:wght@300;400;500;700&display=swap');
+
+@keyframes neonPulse{0%,100%{text-shadow:0 0 8px rgba(200,67,42,.6),0 0 20px rgba(200,67,42,.3)}50%{text-shadow:0 0 20px rgba(200,67,42,1),0 0 40px rgba(200,67,42,.6)}}
+@keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes scanH{0%{left:-100%}100%{left:200%}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:#0a0a0c;color:#d0cfc8;
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+  position:relative;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(200,67,42,.07) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(200,67,42,.018) 60px,rgba(200,67,42,.018) 61px),
+    repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(200,67,42,.012) 60px,rgba(200,67,42,.012) 61px);
+}
+
+/* HEADER */
+.hdr{
+  background:linear-gradient(135deg,#0d0d10 0%,#1a0a08 50%,#0d0d10 100%);
+  border-bottom:2px solid #c8432a;
+  padding:16px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:10;
+  box-shadow:0 4px 40px rgba(200,67,42,.15);
+}
+.logo{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:6px;color:#f0ede8;animation:neonPulse 3s ease-in-out infinite;line-height:1;}
+.logo span{color:#c8432a;}
+.logo-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:3px;margin-top:3px;}
+.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
+
+/* MAIN */
+main{flex:1;display:flex;flex-direction:column;align-items:center;padding:48px 24px 80px;position:relative;z-index:1;}
+
+/* HERO */
+.hero{text-align:center;margin-bottom:48px;animation:fi .5s ease both;}
+.hero-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px;display:block;}
+.hero-title{font-family:'Oswald',sans-serif;font-size:46px;font-weight:700;letter-spacing:4px;color:#f0ede8;line-height:1.1;margin-bottom:12px;}
+.hero-title span{color:#c8432a;}
+.hero-desc{font-family:'Share Tech Mono',monospace;font-size:11px;color:#5a5a6a;letter-spacing:2px;line-height:1.9;max-width:440px;margin:0 auto;}
+
+/* STATUS */
+.status-bar{
+  width:100%;max-width:960px;
+  display:flex;align-items:center;gap:12px;margin-bottom:40px;
+  padding:9px 16px;background:#111116;border:1px solid #2e2e3e;border-radius:2px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:1.5px;
+  animation:fi .4s ease both;
+}
+.st-dot{width:5px;height:5px;border-radius:50%;background:#2e7d32;flex-shrink:0;animation:pulse 2s ease infinite;}
+.st-sep{color:#2e2e3e;}
+
+/* SECTION */
+.sec-wrap{width:100%;max-width:960px;margin-bottom:36px;animation:fi .5s ease both;}
+.sec-hdr{
+  display:flex;align-items:center;gap:12px;margin-bottom:14px;
+  padding-bottom:10px;border-bottom:1px solid #2e2e3e;
+}
+.sec-icon{font-size:16px;}
+.sec-title{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
+.sec-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;margin-left:auto;}
+
+/* CARDS GRID */
+.cards{display:grid;gap:12px;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c4{grid-template-columns:repeat(4,1fr);}
+
+/* CARD */
+.card{
+  background:#1a1a22;border:1px solid #2e2e3e;border-radius:3px;
+  padding:20px 20px 16px;cursor:pointer;position:relative;overflow:hidden;
+  transition:border-color .2s,background .2s,transform .16s,box-shadow .2s;
+  text-decoration:none;color:inherit;display:flex;flex-direction:column;
+}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#c8432a,#e05a3a,#c8432a);opacity:0;transition:opacity .2s;}
+.card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(200,67,42,.05),transparent);pointer-events:none;}
+.card:hover{background:#20202c;border-color:#3a3a50;transform:translateY(-2px);box-shadow:0 6px 24px rgba(200,67,42,.1);}
+.card:hover::before{opacity:1;}
+.card:hover::after{animation:scanH .5s ease;}
+.card.wip{opacity:.42;cursor:not-allowed;pointer-events:none;}
+
+.card-icon{font-size:22px;margin-bottom:10px;display:block;transition:filter .2s;}
+.card:hover .card-icon{filter:drop-shadow(0 0 10px rgba(200,67,42,.5));}
+
+.card-badge{
+  display:inline-block;font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:2px;padding:2px 7px;border:1px solid;border-radius:2px;
+  margin-bottom:8px;text-transform:uppercase;
+}
+.badge-core{color:#c8432a;border-color:rgba(200,67,42,.4);background:rgba(200,67,42,.08);}
+.badge-ref{color:#d4a017;border-color:rgba(212,160,23,.4);background:rgba(212,160,23,.08);}
+.badge-ext{color:#3a6bc7;border-color:rgba(58,107,199,.4);background:rgba(58,107,199,.08);}
+.badge-cat{color:#2e7d32;border-color:rgba(46,125,50,.4);background:rgba(46,125,50,.08);}
+.badge-wip{color:#3a3a50;border-color:#2e2e3e;background:transparent;}
+
+.card-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;letter-spacing:1.5px;color:#f0ede8;margin-bottom:6px;text-transform:uppercase;}
+.card-desc{font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.55;margin-bottom:14px;flex:1;}
+.card-meta{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #2e2e3e;padding-top:11px;}
+.card-link{font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;display:flex;align-items:center;gap:5px;}
+.card-arr{transition:transform .15s;}
+.card:hover .card-arr{transform:translateX(4px);}
+.card-tag{font-family:'Share Tech Mono',monospace;font-size:8px;color:#3a3a50;letter-spacing:1px;}
+
+/* EXPANDER (subsections) */
+.expander{width:100%;max-width:960px;margin-bottom:36px;animation:fi .5s ease both;}
+.exp-hdr{
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;
+  padding:14px 18px;cursor:pointer;
+  display:flex;align-items:center;gap:10px;
+  transition:border-color .18s,background .18s;
+  user-select:none;
+}
+.exp-hdr:hover{background:#1a1a22;border-color:#3a3a50;}
+.exp-hdr-icon{font-size:16px;}
+.exp-hdr-title{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
+.exp-hdr-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:2px;margin-left:auto;}
+.exp-arr{font-family:'Share Tech Mono',monospace;font-size:12px;color:#c8432a;margin-left:10px;transition:transform .2s;}
+.exp-arr.open{transform:rotate(90deg);}
+.exp-body{
+  border:1px solid #2e2e3e;border-top:none;border-radius:0 0 3px 3px;
+  background:#0f0f14;padding:16px;
+  display:none;
+}
+.exp-body.open{display:block;}
+
+/* DIVIDER */
+.div-line{width:100%;max-width:960px;border:none;border-top:1px solid #2e2e3e;margin:8px 0 36px;position:relative;}
+.div-line::after{content:'◆';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#0a0a0c;padding:0 12px;color:#c8432a;font-size:11px;}
+
+/* FOOTER */
+footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10;}
+.ft-l{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-r{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-dot{width:6px;height:6px;border-radius:50%;background:#c8432a;animation:pulse 2s ease infinite;}
+
+@media(max-width:760px){.cards.c3,.cards.c4{grid-template-columns:repeat(2,1fr);}.cards.c2{grid-template-columns:1fr;}}
+@media(max-width:480px){.cards.c3,.cards.c4,.cards.c2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div>
+    <div class="logo">DeaD <span>H</span>an<span>D</span></div>
+    <div class="logo-sub">СИСТЕМА ПРАВИЛ — НАВИГАЦИЯ</div>
+  </div>
+  <div class="hdr-ver">v1.03</div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <span class="hero-tag">◈ Добро пожаловать в систему ◈</span>
+    <h1 class="hero-title">Dead <span>Hand</span></h1>
+    <p class="hero-desc">Постапокалиптическая ролевая система.<br>Выбери раздел для начала.</p>
+  </div>
+
+  <div class="status-bar">
+    <div class="st-dot"></div>
+    <span>СИСТЕМА АКТИВНА</span>
+    <span class="st-sep">|</span>
+    <span>ВЕРСИЯ 1.03</span>
+    <span class="st-sep">|</span>
+    <span>РАЗДЕЛОВ: 2 ДОСТУПНО · 3 В РАЗРАБОТКЕ</span>
+  </div>
+
+  <!-- ══ ОСНОВНОЕ ══ -->
+  <div class="sec-wrap">
+    <div class="sec-hdr">
+      <span class="sec-icon">◈</span>
+      <span class="sec-title">Основные разделы</span>
+      <span class="sec-sub">CORE</span>
+    </div>
+    <div class="cards c2">
+
+      <a class="card" href="list_persa.html">
+        <span class="card-icon">⚔</span>
+        <div class="card-badge badge-core">ОСНОВНОЕ</div>
+        <div class="card-title">Лист персонажа</div>
+        <div class="card-desc">Создание и управление персонажем. Навыки, инвентарь, здоровье, броня, состояния, броски кубиков и интеграция с Discord.</div>
+        <div class="card-meta">
+          <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+          <span class="card-tag">list_persa.html</span>
+        </div>
+      </a>
+
+      <a class="card" href="rules.html">
+        <span class="card-icon">📖</span>
+        <div class="card-badge badge-ref">СПРАВОЧНИК</div>
+        <div class="card-title">Правила</div>
+        <div class="card-desc">Полный свод правил системы. Механики бросков, боевая система, навыки, состояния, снаряжение и все прочие разделы.</div>
+        <div class="card-meta">
+          <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+          <span class="card-tag">rules.html</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="div-line"></div>
+
+  <!-- ══ РАСШИРЕНИЯ ══ -->
+  <div class="expander" id="expExt">
+    <div class="exp-hdr" onclick="toggleExp('expExt')">
+      <span class="exp-hdr-icon">⬡</span>
+      <span class="exp-hdr-title">Расширения системы</span>
+      <span class="exp-hdr-sub">EXTENSIONS · 4 РАЗДЕЛА</span>
+      <span class="exp-arr" id="expExt-arr">▶</span>
+    </div>
+    <div class="exp-body" id="expExt-body">
+      <div class="cards c4">
+
+        <a class="card" href="ext-mutacii.html">
+          <span class="card-icon">☢</span>
+          <div class="card-badge badge-ext">РАСШИРЕНИЕ</div>
+          <div class="card-title">Мутации</div>
+          <div class="card-desc">Правила мутаций, радиационного заражения и физических изменений персонажа.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">ext-mutacii.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="ext-craft.html">
+          <span class="card-icon">🔧</span>
+          <div class="card-badge badge-ext">РАСШИРЕНИЕ</div>
+          <div class="card-title">Крафт</div>
+          <div class="card-desc">Расширенные правила создания предметов, модификации оружия и брони из подручных материалов.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">ext-craft.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="ext-transport.html">
+          <span class="card-icon">🚗</span>
+          <div class="card-badge badge-ext">РАСШИРЕНИЕ</div>
+          <div class="card-title">Транспорт</div>
+          <div class="card-desc">Правила управления транспортом, погони, поломок и модификаций машин.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">ext-transport.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="ext-baza.html">
+          <span class="card-icon">🏚</span>
+          <div class="card-badge badge-ext">РАСШИРЕНИЕ</div>
+          <div class="card-title">База / Лагерь</div>
+          <div class="card-desc">Управление базой группы: постройки, ресурсы, защита и развитие убежища.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">ext-baza.html</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ КЛАССЫ И РАСЫ ══ -->
+  <div class="expander" id="expChar">
+    <div class="exp-hdr" onclick="toggleExp('expChar')">
+      <span class="exp-hdr-icon">★</span>
+      <span class="exp-hdr-title">Классы и расы</span>
+      <span class="exp-hdr-sub">CLASSES &amp; ORIGINS · 2 РАЗДЕЛА</span>
+      <span class="exp-arr" id="expChar-arr">▶</span>
+    </div>
+    <div class="exp-body" id="expChar-body">
+      <div class="cards c2">
+
+        <a class="card" href="classes.html">
+          <span class="card-icon">⚡</span>
+          <div class="card-badge badge-core">ОСНОВНОЕ</div>
+          <div class="card-title">Классы</div>
+          <div class="card-desc">Все доступные классы персонажей — бонусы, пассивные умения, стартовые снаряжения и уникальные механики каждого класса.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">classes.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="races.html">
+          <span class="card-icon">👁</span>
+          <div class="card-badge badge-core">ОСНОВНОЕ</div>
+          <div class="card-title">Расы / Происхождения</div>
+          <div class="card-desc">Доступные расы и происхождения: особенности, пассивные черты и бонусы к характеристикам при создании персонажа.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">races.html</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ КАТАЛОГИ ══ -->
+  <div class="expander" id="expCat">
+    <div class="exp-hdr" onclick="toggleExp('expCat')">
+      <span class="exp-hdr-icon">◆</span>
+      <span class="exp-hdr-title">Каталоги и списки</span>
+      <span class="exp-hdr-sub">CATALOGUES · 5 РАЗДЕЛОВ</span>
+      <span class="exp-arr" id="expCat-arr">▶</span>
+    </div>
+    <div class="exp-body" id="expCat-body">
+      <div class="cards c3" style="margin-bottom:0">
+
+        <a class="card" href="items.html">
+          <span class="card-icon">🎒</span>
+          <div class="card-badge badge-cat">КАТАЛОГ</div>
+          <div class="card-title">Предметы</div>
+          <div class="card-desc">Полный список предметов, расходников, медикаментов и снаряжения с характеристиками.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">items.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="weapons.html">
+          <span class="card-icon">🔫</span>
+          <div class="card-badge badge-cat">КАТАЛОГ</div>
+          <div class="card-title">Оружие</div>
+          <div class="card-desc">Весь арсенал: огнестрельное, холодное, метательное. Урон, дальность, особые свойства.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">weapons.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="armor.html">
+          <span class="card-icon">🛡</span>
+          <div class="card-badge badge-cat">КАТАЛОГ</div>
+          <div class="card-title">Броня и защита</div>
+          <div class="card-desc">Виды брони, уровни защиты, шлемы и щиты. Бонусы и штрафы к передвижению.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">armor.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="abilities.html">
+          <span class="card-icon">⚗</span>
+          <div class="card-badge badge-cat">КАТАЛОГ</div>
+          <div class="card-title">Способности</div>
+          <div class="card-desc">Каталог всех способностей: активные, пассивные, реакции. Описание, стоимость и условия применения.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">abilities.html</span>
+          </div>
+        </a>
+
+        <a class="card" href="traits.html">
+          <span class="card-icon">◈</span>
+          <div class="card-badge badge-cat">КАТАЛОГ</div>
+          <div class="card-title">Особенности и черты</div>
+          <div class="card-desc">Особенности характера, происхождения и опыта. Список готовых черт для выбора при создании персонажа.</div>
+          <div class="card-meta">
+            <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
+            <span class="card-tag">traits.html</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ В РАЗРАБОТКЕ ══ -->
+  <div class="expander" id="expWip">
+    <div class="exp-hdr" onclick="toggleExp('expWip')">
+      <span class="exp-hdr-icon">⚙</span>
+      <span class="exp-hdr-title">В разработке</span>
+      <span class="exp-hdr-sub">WORK IN PROGRESS · 3 РАЗДЕЛА</span>
+      <span class="exp-arr" id="expWip-arr">▶</span>
+    </div>
+    <div class="exp-body" id="expWip-body">
+      <div class="cards c3">
+        <div class="card wip">
+          <span class="card-icon">🗺</span>
+          <div class="card-badge badge-wip">СКОРО</div>
+          <div class="card-title">Карты и локации</div>
+          <div class="card-desc">Интерактивные карты, описания локаций и таблицы случайных встреч.</div>
+          <div class="card-meta"><span class="card-link">В РАЗРАБОТКЕ</span><span class="card-tag">world-map.html</span></div>
+        </div>
+        <div class="card wip">
+          <span class="card-icon">⚙</span>
+          <div class="card-badge badge-wip">СКОРО</div>
+          <div class="card-title">Мастерский экран</div>
+          <div class="card-desc">Инструменты ведущего: NPC, инициатива, трекер сцен и случайные события.</div>
+          <div class="card-meta"><span class="card-link">В РАЗРАБОТКЕ</span><span class="card-tag">gm-screen.html</span></div>
+        </div>
+        <div class="card wip">
+          <span class="card-icon">📦</span>
+          <div class="card-badge badge-wip">СКОРО</div>
+          <div class="card-title">Бестиарий</div>
+          <div class="card-desc">Каталог существ, мутантов и фракций с характеристиками и тактикой поведения.</div>
+          <div class="card-meta"><span class="card-link">В РАЗРАБОТКЕ</span><span class="card-tag">bestiary.html</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="ft-l">DeaD HanD System © 2024</div>
+  <div class="ft-r"><div class="ft-dot"></div>ONLINE · v1.03</div>
+</footer>
+
+<script>
+function toggleExp(id){
+  const body=document.getElementById(id+'-body');
+  const arr=document.getElementById(id+'-arr');
+  const isOpen=body.classList.contains('open');
+  body.classList.toggle('open',!isOpen);
+  arr.classList.toggle('open',!isOpen);
+  arr.textContent=isOpen?'▶':'▼';
+}
+</script>
+</body>
+</html>
