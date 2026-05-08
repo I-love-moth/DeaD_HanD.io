@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeaD HanD — Правила v1.02</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Oswald:wght@300;400;500;700&display=swap');
+
+@keyframes neonPulse{0%,100%{text-shadow:0 0 8px rgba(200,67,42,.6),0 0 20px rgba(200,67,42,.3)}50%{text-shadow:0 0 20px rgba(200,67,42,1),0 0 40px rgba(200,67,42,.6)}}
+@keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes scanH{0%{left:-100%}100%{left:200%}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes progressFill{from{width:0}to{width:var(--w)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:#0a0a0c;color:#d0cfc8;
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+  position:relative;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(200,67,42,.07) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(200,67,42,.018) 60px,rgba(200,67,42,.018) 61px),
+    repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(200,67,42,.012) 60px,rgba(200,67,42,.012) 61px);
+}
+
+/* ═══ HEADER ═══ */
+.hdr{
+  background:linear-gradient(135deg,#0d0d10 0%,#1a0a08 50%,#0d0d10 100%);
+  border-bottom:2px solid #c8432a;
+  padding:16px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 4px 40px rgba(200,67,42,.15);
+}
+.logo{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:6px;color:#f0ede8;animation:neonPulse 3s ease-in-out infinite;line-height:1;text-decoration:none;}
+.logo span{color:#c8432a;}
+.logo-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:3px;margin-top:3px;}
+.hdr-right{display:flex;align-items:center;gap:14px;}
+.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
+.back-btn{
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:#c8432a;border:1px solid rgba(200,67,42,.4);border-radius:2px;
+  padding:5px 12px;text-decoration:none;background:rgba(200,67,42,.06);
+  transition:background .2s,border-color .2s;display:flex;align-items:center;gap:6px;
+}
+.back-btn:hover{background:rgba(200,67,42,.14);border-color:#c8432a;}
+
+/* ═══ LAYOUT ═══ */
+.layout{display:flex;flex:1;position:relative;z-index:1;}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar{
+  width:260px;flex-shrink:0;
+  background:#0d0d10;border-right:1px solid #1e1e28;
+  padding:24px 0;
+  position:sticky;top:70px;height:calc(100vh - 70px);
+  overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:#2e2e3e transparent;
+}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-track{background:transparent;}
+.sidebar::-webkit-scrollbar-thumb{background:#2e2e3e;border-radius:2px;}
+.nav-label{font-family:'Share Tech Mono',monospace;font-size:8px;color:#3a3a50;letter-spacing:3px;padding:0 20px 10px;text-transform:uppercase;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 20px;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;
+  color:#5a5a6a;text-decoration:none;
+  border-left:2px solid transparent;
+  transition:color .15s,background .15s,border-color .15s;
+  position:relative;
+}
+.nav-item:hover{color:#d0cfc8;background:rgba(200,67,42,.05);border-left-color:rgba(200,67,42,.4);}
+.nav-item.active{color:#c8432a;background:rgba(200,67,42,.08);border-left-color:#c8432a;}
+.nav-num{font-size:8px;color:#3a3a50;width:18px;flex-shrink:0;}
+.nav-item.active .nav-num{color:#c8432a;}
+.nav-sep{height:1px;background:#1e1e28;margin:10px 20px;}
+.progress-bar{height:2px;background:#1e1e28;margin:2px 20px 0;border-radius:1px;overflow:hidden;}
+.progress-fill{height:100%;background:#c8432a;width:0;transition:width .3s ease;}
+
+/* ═══ MAIN CONTENT ═══ */
+main{flex:1;padding:48px 56px 100px;max-width:900px;animation:fi .5s ease both;}
+
+/* ═══ PAGE HEADER ═══ */
+.page-hero{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid #2e2e3e;position:relative;}
+.page-hero::after{content:'';position:absolute;bottom:-1px;left:0;width:80px;height:2px;background:#c8432a;}
+.page-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;letter-spacing:4px;margin-bottom:12px;display:block;}
+.page-title{font-family:'Oswald',sans-serif;font-size:52px;font-weight:700;letter-spacing:4px;color:#f0ede8;line-height:1.05;margin-bottom:10px;}
+.page-title span{color:#c8432a;}
+.page-edition{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:3px;}
+
+/* ═══ SECTION ═══ */
+.rule-section{margin-bottom:64px;animation:fadeUp .4s ease both;}
+.sec-anchor{display:block;position:relative;top:-90px;visibility:hidden;}
+.sec-header{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:24px;padding-bottom:14px;
+  border-bottom:1px solid #2e2e3e;position:relative;
+}
+.sec-header::after{content:'';position:absolute;bottom:-1px;left:0;width:40px;height:2px;background:#c8432a;}
+.sec-num{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;
+  border:1px solid rgba(200,67,42,.35);border-radius:2px;
+  padding:3px 8px;letter-spacing:2px;background:rgba(200,67,42,.07);flex-shrink:0;
+}
+.sec-title{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
+.sec-icon{font-size:20px;}
+
+/* ═══ SUBSECTION ═══ */
+.sub-section{margin-bottom:36px;}
+.sub-title{
+  font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;
+  letter-spacing:2.5px;color:#e0ddd8;text-transform:uppercase;
+  margin-bottom:14px;padding-left:12px;
+  border-left:2px solid #c8432a;
+}
+
+/* ═══ PARAGRAPH ═══ */
+.rule-p{
+  font-family:'Rajdhani',sans-serif;font-size:15px;line-height:1.75;
+  color:#b0afaa;margin-bottom:14px;
+}
+.rule-p strong,.rule-p b{color:#e0ddd8;font-weight:600;}
+.rule-p em{color:#c8432a;font-style:normal;}
+
+/* ═══ TABLE ═══ */
+.tbl-wrap{overflow-x:auto;margin-bottom:20px;border-radius:3px;}
+table{
+  width:100%;border-collapse:collapse;
+  font-family:'Rajdhani',sans-serif;font-size:14px;
+}
+thead tr{background:#131318;border-bottom:1px solid #c8432a;}
+thead th{
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:#c8432a;text-transform:uppercase;padding:10px 14px;text-align:left;
+  white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid #1e1e28;transition:background .15s;}
+tbody tr:hover{background:rgba(200,67,42,.04);}
+tbody td{padding:10px 14px;color:#b0afaa;line-height:1.5;}
+tbody td:first-child{color:#d0cfc8;font-weight:500;}
+tbody tr:last-child{border-bottom:none;}
+
+/* ═══ FORMULA / HIGHLIGHT BOX ═══ */
+.formula{
+  background:#111116;border:1px solid #2e2e3e;border-left:3px solid #c8432a;
+  border-radius:0 3px 3px 0;padding:14px 18px;margin-bottom:20px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:#d0cfc8;
+  letter-spacing:1.5px;line-height:1.8;
+}
+.formula em{color:#c8432a;font-style:normal;}
+.note-box{
+  background:#0f0f14;border:1px solid #2e2e3e;border-left:3px solid #d4a017;
+  border-radius:0 3px 3px 0;padding:14px 18px;margin-bottom:20px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#9a9088;
+  letter-spacing:1px;line-height:1.7;
+}
+.note-box em{color:#d4a017;font-style:normal;}
+.info-box{
+  background:#0f0f14;border:1px solid #2e2e3e;border-left:3px solid #3a6bc7;
+  border-radius:0 3px 3px 0;padding:14px 18px;margin-bottom:20px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#9a9088;
+  letter-spacing:1px;line-height:1.7;
+}
+
+/* ═══ BULLET LIST ═══ */
+.rule-list{list-style:none;margin-bottom:18px;padding:0;}
+.rule-list li{
+  padding:6px 0 6px 20px;position:relative;
+  font-family:'Rajdhani',sans-serif;font-size:15px;color:#b0afaa;line-height:1.6;
+  border-bottom:1px solid #16161c;
+}
+.rule-list li:last-child{border-bottom:none;}
+.rule-list li::before{
+  content:'▸';position:absolute;left:0;top:8px;
+  color:#c8432a;font-size:11px;
+}
+.rule-list li strong{color:#e0ddd8;}
+.rule-list li em{color:#c8432a;font-style:normal;}
+
+/* ═══ BADGE INLINE ═══ */
+.bdg{
+  display:inline-block;font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:2px;padding:1px 6px;border:1px solid;border-radius:2px;
+  text-transform:uppercase;vertical-align:middle;margin:0 3px;
+}
+.bdg-r{color:#c8432a;border-color:rgba(200,67,42,.4);background:rgba(200,67,42,.08);}
+.bdg-y{color:#d4a017;border-color:rgba(212,160,23,.4);background:rgba(212,160,23,.08);}
+.bdg-b{color:#3a6bc7;border-color:rgba(58,107,199,.4);background:rgba(58,107,199,.08);}
+.bdg-g{color:#2e7d32;border-color:rgba(46,125,50,.4);background:rgba(46,125,50,.08);}
+
+/* ═══ DIV LINE ═══ */
+.div-line{border:none;border-top:1px solid #2e2e3e;margin:40px 0;position:relative;}
+.div-line::after{content:'◆';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#0a0a0c;padding:0 12px;color:#c8432a;font-size:11px;}
+
+/* ═══ OUTRO ═══ */
+.outro{
+  margin-top:64px;padding:28px 32px;
+  background:linear-gradient(135deg,#0d0d10,#1a0a08);
+  border:1px solid #2e2e3e;border-top:2px solid #c8432a;border-radius:3px;
+  text-align:center;
+}
+.outro-title{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:4px;color:#f0ede8;margin-bottom:8px;}
+.outro-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:3px;line-height:2;}
+
+/* ═══ FOOTER ═══ */
+footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10;}
+.ft-l{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-r{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-dot{width:6px;height:6px;border-radius:50%;background:#c8432a;animation:pulse 2s ease infinite;}
+
+/* ═══ SCROLL TOP ═══ */
+.scroll-top{
+  position:fixed;bottom:30px;right:30px;z-index:200;
+  width:38px;height:38px;background:#131318;border:1px solid #2e2e3e;
+  border-radius:3px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:14px;color:#c8432a;
+  transition:background .2s,border-color .2s,opacity .2s;
+  opacity:0;pointer-events:none;
+}
+.scroll-top.visible{opacity:1;pointer-events:all;}
+.scroll-top:hover{background:#1e1e28;border-color:#c8432a;}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .sidebar{display:none;}
+  main{padding:32px 24px 80px;}
+  .page-title{font-size:36px;}
+}
+@media(max-width:480px){
+  .hdr{padding:12px 20px;}
+  main{padding:24px 16px 80px;}
+  .page-title{font-size:28px;}
+  .hdr-ver{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a href="index.html" style="text-decoration:none;">
+    <div class="logo">DeaD <span>H</span>an<span>D</span></div>
+    <div class="logo-sub">СИСТЕМА ПРАВИЛ — СПРАВОЧНИК</div>
+  </a>
+  <div class="hdr-right">
+    <div class="hdr-ver">v1.03</div>
+    <a href="index.html" class="back-btn">← ГЛАВНАЯ</a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ═══ SIDEBAR NAV ═══ -->
+  <nav class="sidebar" id="sidebar">
+    <div class="nav-label">Навигация</div>
+
+    <a class="nav-item active" href="#sec-1" data-sec="1">
+      <span class="nav-num">I</span>БРОСКИ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p1"></div></div>
+
+    <a class="nav-item" href="#sec-2" data-sec="2">
+      <span class="nav-num">II</span>УМЕНИЯ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p2"></div></div>
+
+    <a class="nav-item" href="#sec-3" data-sec="3">
+      <span class="nav-num">III</span>ЗДОРОВЬЕ И БРОНЯ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p3"></div></div>
+
+    <a class="nav-item" href="#sec-4" data-sec="4">
+      <span class="nav-num">IV</span>УРОВЕНЬ И РАЗВИТИЕ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p4"></div></div>
+
+    <a class="nav-item" href="#sec-5" data-sec="5">
+      <span class="nav-num">V</span>ОСОБЕННОСТИ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p5"></div></div>
+
+    <a class="nav-item" href="#sec-6" data-sec="6">
+      <span class="nav-num">VI</span>ИНВЕНТАРЬ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p6"></div></div>
+
+    <a class="nav-item" href="#sec-7" data-sec="7">
+      <span class="nav-num">VII</span>СРАЖЕНИЯ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p7"></div></div>
+
+    <a class="nav-item" href="#sec-8" data-sec="8">
+      <span class="nav-num">VIII</span>СОСТОЯНИЯ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p8"></div></div>
+
+    <a class="nav-item" href="#sec-9" data-sec="9">
+      <span class="nav-num">IX</span>ТРАВМЫ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p9"></div></div>
+
+    <a class="nav-item" href="#sec-10" data-sec="10">
+      <span class="nav-num">X</span>ОТДЫХ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p10"></div></div>
+
+    <a class="nav-item" href="#sec-11" data-sec="11">
+      <span class="nav-num">XI</span>ПРЕВОЗМОГАНИЕ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p11"></div></div>
+
+    <a class="nav-item" href="#sec-12" data-sec="12">
+      <span class="nav-num">XII</span>В РАЗРАБОТКЕ
+    </a>
+    <div class="progress-bar"><div class="progress-fill" id="p12"></div></div>
+  </nav>
+
+  <!-- ═══ CONTENT ═══ -->
+  <main id="main-content">
+
+    <div class="page-hero">
+      <span class="page-tag">◈ СПРАВОЧНИК ПРАВИЛ ◈</span>
+      <h1 class="page-title">Dead <span>Hand</span></h1>
+      <div class="page-edition">РЕДАКЦИЯ 2.0 · СИСТЕМА ПРАВИЛ · v1.03</div>
+    </div>
+
+    <!-- ══════════════════════════════════ I. БРОСКИ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-1">
+      <span class="sec-anchor" id="sec-1-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">🎲</span>
+        <span class="sec-num">I</span>
+        <h2 class="sec-title">Броски</h2>
+      </div>
+
+      <p class="rule-p">Основа системы — бросок <strong>д10</strong> плюс кость умения против сложности, заданной мастером. На высоких уровнях умения стандартная кость заменяется на <strong>д12</strong>.</p>
+
+      <div class="sub-section">
+        <div class="sub-title">Шкала сложностей</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Сложность</th><th>Значение</th><th>Пример ситуации</th></tr></thead>
+            <tbody>
+              <tr><td>Гарантировано</td><td>1+</td><td>Не требует броска</td></tr>
+              <tr><td>Лёгкое</td><td>3</td><td>Обычная задача без давления</td></tr>
+              <tr><td>Нормальное</td><td>6</td><td>Стандартное действие в напряжении</td></tr>
+              <tr><td>Среднее</td><td>9</td><td>Требует навыка и концентрации</td></tr>
+              <tr><td>Сложное</td><td>12</td><td>На грани возможностей персонажа</td></tr>
+              <tr><td>Невероятное</td><td>15</td><td>Требует мастерства и удачи</td></tr>
+              <tr><td>Профессиональное</td><td>18</td><td>Доступно единицам</td></tr>
+              <tr><td>Невозможное</td><td>20+</td><td>За пределами человеческого</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="formula">
+        <em>Бросок = 1д10 + кость умения ≥ сложность → успех</em>
+      </div>
+
+      <p class="rule-p"><strong>Преимущество</strong> — можно перебросить бросок. Результат второго броска окончателен вне зависимости от исхода.</p>
+      <p class="rule-p"><strong>Помеха</strong> — при успешном броске обязателен переброс. Результат второго броска окончателен.</p>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ II. УМЕНИЯ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-2">
+      <span class="sec-anchor" id="sec-2-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">⚡</span>
+        <span class="sec-num">II</span>
+        <h2 class="sec-title">Умения</h2>
+      </div>
+
+      <p class="rule-p">Каждое умение имеет уровень от <strong>0 до 5</strong> и соответствующую кость, которая добавляется к броску.</p>
+
+      <div class="sub-section">
+        <div class="sub-title">Список умений</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Умение</th><th>Кость</th><th>Применение</th></tr></thead>
+            <tbody>
+              <tr><td>Напор</td><td>д4–д12</td><td>Ближний бой, грубая сила, запугивание телом</td></tr>
+              <tr><td>Проворство</td><td>д4–д12</td><td>Дальний бой, мелкая моторика, уклонение, трюки</td></tr>
+              <tr><td>Крепость</td><td>д4–д12</td><td>Здоровье, выносливость, сопротивление боли и яду</td></tr>
+              <tr><td>Разум</td><td>д4–д12</td><td>Психика, концентрация, самоконтроль, восприятие</td></tr>
+              <tr><td>Техника</td><td>д4–д12</td><td>Создание, починка, взлом устройств и систем</td></tr>
+              <tr><td>Контакт</td><td>д4–д12</td><td>Речь, обман, убеждение, запугивание словом</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Уровни умений</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Уровень 0</th><th>Уровень 1</th><th>Уровень 2</th><th>Уровень 3</th><th>Уровень 4</th><th>Уровень 5</th></tr></thead>
+            <tbody>
+              <tr><td>Нет кости</td><td>д4</td><td>д6</td><td>д8</td><td>д10</td><td>д12*</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note-box">
+          <em>★ Уровень 5:</em> стандартная кость броска заменяется на д12 вместо д10.
+        </div>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ III. ЗДОРОВЬЕ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-3">
+      <span class="sec-anchor" id="sec-3-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">❤</span>
+        <span class="sec-num">III</span>
+        <h2 class="sec-title">Здоровье и броня</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Здоровье</div>
+        <p class="rule-p">Отражает физическое состояние персонажа. <strong>Начальное значение:</strong> 10 + уровень Крепости. При повышении уровня увеличивается на уровень Крепости + уровень персонажа.</p>
+        <ul class="rule-list">
+          <li><strong>При половине здоровья:</strong> бросок Крепости сложности 9, чтобы остаться в сознании. При провале — отключение на <em>1д4 хода</em>.</li>
+          <li><strong>При 0 здоровья:</strong> игрок выведен из строя, НПС — мёртв. Полное восстановление после продолжительного отдыха.</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Броня и Бронепробитие (Бр)</div>
+        <p class="rule-p">Броня — физическая защита от урона. <strong>Не восстанавливается отдыхом</strong> — требует починки. Урон всегда наносится сначала по броне, затем по здоровью (кроме токсинов, если не сказано иное).</p>
+        <p class="rule-p">Бронепробитие определяет, насколько сильно оружие или броня. Оружие с Бр ниже брони цели на 1 единицу и более — <strong>не наносит урона</strong>.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Уровень</th><th>Материал</th><th>Броня</th><th>Пример</th></tr></thead>
+            <tbody>
+              <tr><td>Бр0</td><td>Ткань и кожа</td><td>1–6</td><td>Гражданская одежда</td></tr>
+              <tr><td>Бр1</td><td>Пластик и хитин</td><td>7–15</td><td>Самодельная броня</td></tr>
+              <tr><td>Бр2</td><td>Металл и сталь</td><td>16–30</td><td>Довоенное снаряжение</td></tr>
+              <tr><td>Бр3</td><td>Военные технологии</td><td>31–50</td><td>Армейская броня</td></tr>
+              <tr><td>Бр4</td><td>Космические технологии</td><td>51–70</td><td>Корпоративная защита</td></tr>
+              <tr><td>Бр5</td><td>Передовые технологии</td><td>71–99</td><td>Экспериментальное</td></tr>
+              <tr><td>Бр6</td><td>Уникальные артефакты</td><td>100+</td><td>Легендарные предметы</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Лимит модификаций</div>
+        <p class="rule-p">Максимум имплантов и генетических модификаций, которые выдержит тело. Равен сумме максимумов костей Крепости и Разума. Каждая установленная модификация занимает указанное в описании количество лимита.</p>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ IV. УРОВЕНЬ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-4">
+      <span class="sec-anchor" id="sec-4-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">★</span>
+        <span class="sec-num">IV</span>
+        <h2 class="sec-title">Уровень и развитие</h2>
+      </div>
+
+      <p class="rule-p">Момент повышения уровня определяет мастер — как правило после важного сюжетного события. <strong>Начальный уровень персонажа — 1.</strong></p>
+
+      <div class="sub-title">При каждом повышении уровня:</div>
+      <ul class="rule-list" style="margin-top:14px;">
+        <li>+1 к выбранному умению</li>
+        <li>+ (уровень Крепости + уровень персонажа) к максимуму здоровья</li>
+        <li>Каждый чётный уровень — новая особенность или улучшение существующей</li>
+        <li>Расовые особенности улучшаются на усмотрение мастера</li>
+      </ul>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ V. ОСОБЕННОСТИ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-5">
+      <span class="sec-anchor" id="sec-5-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">◈</span>
+        <span class="sec-num">V</span>
+        <h2 class="sec-title">Особенности и владения</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Особенности</div>
+        <p class="rule-p">Каждый персонаж начинает с <strong>двумя особенностями</strong> — одной от предыстории (обсуждается с мастером) и одной от расы. Особенности дают преимущество на связанные броски, а также дополнительные владения и модификаторы.</p>
+        <div class="note-box">
+          <em>Пример:</em> «Преступник» — жизнь в криминальной среде. Преимущество на броски, связанные с незаконной деятельностью. Владение двумя видами стрелкового оружия на выбор.
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Владения — Оружие</div>
+        <ul class="rule-list">
+          <li><strong>Дальний бой:</strong> примитивное, пистолеты, винтовки, дробовики, пулемёты, метательное.</li>
+          <li><strong>Ближний бой:</strong> режущее, колющее, дробящее и иное.</li>
+        </ul>
+        <p class="rule-p">Тип определяется по названию или описанию оружия. При наличии владения — доступны особые возможности оружия помимо базовой атаки.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Владения — Технологии</div>
+        <p class="rule-p">Знания в конкретной области производства и техники. Имеет уровень 0–5. При наличии соответствующего владения — его уровень добавляется к броскам Техники для профильных задач.</p>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ VI. ИНВЕНТАРЬ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-6">
+      <span class="sec-anchor" id="sec-6-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">🎒</span>
+        <span class="sec-num">VI</span>
+        <h2 class="sec-title">Инвентарь</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Формат записи предметов</div>
+        <ul class="rule-list">
+          <li><strong>Оружие:</strong> Название &nbsp; Заряд/Макс &nbsp; Патроны(тип) &nbsp; [Бр | Урон] &nbsp; Дал: Х &nbsp; Особенность.</li>
+          <li><strong>Броня:</strong> Название &nbsp; [Бр | Текущее/Максимум] &nbsp; Особенность</li>
+          <li><strong>Прочее:</strong> Название (количество) — описание или особенность</li>
+        </ul>
+        <div class="note-box">
+          <em>Пример:</em> Пневматическая винтовка 2/5 [Бр2 │ 1д10Б] Дал: 25 — Винтовка: доп. 2д8 если цель дальше 20 клеток. Патроны (мат. металл). Стальная броня стажа [Бр2 │ 19/26] — Тяжёлое: при Напоре ниже 3 — передвижение −3 клетки.
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Состояния предметов</div>
+        <ul class="rule-list">
+          <li><strong>СЛОМАНО</strong> — невозможно использовать до починки.</li>
+          <li><strong>ПОВРЕЖДЕНО</strong> — −3 ко всем броскам при использовании.</li>
+        </ul>
+        <p class="rule-p">Причины: провал броска, использование без нужного владения, урон типа ЭМИ.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Валюта и цены</div>
+        <p class="rule-p">Денежная единица — <strong>Джеты</strong> (военные жетоны), обозначение <strong>$</strong>. Принимаются повсеместно.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Предмет</th><th>Цена</th><th>Предмет</th><th>Цена</th></tr></thead>
+            <tbody>
+              <tr><td>Еда (10 единиц)</td><td>$1</td><td>Бинт</td><td>$3</td></tr>
+              <tr><td>Вода (1л)</td><td>$1</td><td>Арбалетный болт</td><td>$1</td></tr>
+              <tr><td>Ночь в отеле</td><td>$4</td><td>Самогон (0.5л)</td><td>$5</td></tr>
+              <tr><td>Арбалет (Бр1)</td><td>$22</td><td>Базовый набор</td><td>$9</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Еда и материалы</div>
+        <p class="rule-p">Еда измеряется в единицах. Норма потребления указана в расовых особенностях и может меняться от модификаций тела. Отсутствие еды в течение дня даёт степень Истощения.</p>
+        <p class="rule-p">Материалы — ресурсы для крафта и торговли. В инвентаре записываются с приставкой <strong>«Мат.»</strong>. Подробности в системе крафта.</p>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ VII. СРАЖЕНИЯ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-7">
+      <span class="sec-anchor" id="sec-7-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">⚔</span>
+        <span class="sec-num">VII</span>
+        <h2 class="sec-title">Сражения</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Инициатива</div>
+        <p class="rule-p">В начале боя все участники бросают <strong>1д10 + кость Разума</strong>. Результаты команды суммируются и сравниваются с суммой результатов противников. Большая сумма ходит первой. При внезапном нападении нападающие всегда ходят первыми.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Раунд и ход</div>
+        <p class="rule-p">Один раунд — около <strong>5–6 секунд</strong>. В свой ход персонаж совершает <strong>1 действие</strong> и <strong>1 перемещение</strong>.</p>
+
+        <div class="sub-title" style="font-size:12px;margin-top:20px;">Действия:</div>
+        <ul class="rule-list" style="margin-top:10px;">
+          <li>Атака</li>
+          <li>Перезарядка</li>
+          <li>Использование предмета или способности</li>
+          <li><strong>Рывок</strong> — +1д4+1 клетки к перемещению в этот ход</li>
+          <li><strong>Отход</strong> — перемещение 1 клетка, атака по возможности не совершается</li>
+          <li><strong>Уклонение</strong> — сложность попадания по персонажу +1 до начала следующего хода</li>
+        </ul>
+        <p class="rule-p">Смена оружия и короткий разговор действия не требуют.</p>
+
+        <div class="sub-title" style="font-size:12px;margin-top:20px;">Перемещение:</div>
+        <p class="rule-p"><strong>6 клеток</strong> за ход. Можно совершить до или после действия, но не разделять на части.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Атака по возможности</div>
+        <p class="rule-p">Бесплатная атака ближним боем совершается когда противник:</p>
+        <ul class="rule-list">
+          <li>Покидает ближний бой</li>
+          <li>Использует дальнюю атаку в упор</li>
+          <li>Поднимается из состояния «Сбит с ног»</li>
+          <li>Перемещается в радиусе вашей атаки</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Укрытия</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Тип укрытия</th><th>Эффект</th></tr></thead>
+            <tbody>
+              <tr><td>Лёгкое</td><td>Сложность попадания по цели +1</td></tr>
+              <tr><td>Среднее</td><td>Сложность попадания по цели +2</td></tr>
+              <tr><td>Тяжёлое</td><td>Атаковать невозможно</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note-box">
+          <em>Стандартная сложность попадания — 6 (нормальное),</em> если оружие, укрытие или способности не изменяют это значение.
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Конец боя</div>
+        <p class="rule-p">Если персонаж не стабилизирован к концу боя — мастер определяет последствия: травма, потеря предмета или смерть.</p>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Типы урона</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Код</th><th>Тип</th><th>Источники</th></tr></thead>
+            <tbody>
+              <tr><td><span class="bdg bdg-r">Б</span></td><td>Баллистический</td><td>Пули, стрелы, болты</td></tr>
+              <tr><td><span class="bdg bdg-r">М</span></td><td>Механический</td><td>Оружие ближнего боя, удары</td></tr>
+              <tr><td><span class="bdg bdg-y">Т</span></td><td>Термический</td><td>Огонь, лазер, мороз, плазма</td></tr>
+              <tr><td><span class="bdg bdg-g">Я</span></td><td>Яды</td><td>Яд, радиация, кислота, токсины</td></tr>
+              <tr><td><span class="bdg bdg-b">Э</span></td><td>Электрический</td><td>Электричество, ЭМИ</td></tr>
+              <tr><td><span class="bdg" style="color:#9b59b6;border-color:rgba(155,89,182,.4);background:rgba(155,89,182,.08);">П</span></td><td>Психический</td><td>Псионические способности, ментальное воздействие</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="rule-list">
+          <li><strong>Иммунитет</strong> — урон равен 0, но эффекты атаки могут всё равно достигнуть цели.</li>
+          <li><strong>Уязвимость</strong> — урон равен максимально возможному значению на костях.</li>
+          <li><strong>Сопротивление</strong> — все кости урона считаются как 1.</li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ VIII. СОСТОЯНИЯ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-8">
+      <span class="sec-anchor" id="sec-8-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">⚠</span>
+        <span class="sec-num">VIII</span>
+        <h2 class="sec-title">Состояния</h2>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Кратковременные состояния</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Состояние</th><th>Эффект</th></tr></thead>
+            <tbody>
+              <tr><td>Сбит с ног</td><td>Персонаж лежит. Атаки по нему на 1 сложность ниже. Подняться — действие или всё перемещение. Подъём провоцирует атаку ближнего боя.</td></tr>
+              <tr><td>Оглушён</td><td>Следующее действие совершается с помехой.</td></tr>
+              <tr><td>Ступор</td><td>Пропуск хода.</td></tr>
+              <tr><td>Ослеплён</td><td>Все атаки на 2 сложности выше.</td></tr>
+              <tr><td>Горит</td><td>1д6Т урона в начале каждого хода. Снять — действие и бросок Проворства 9.</td></tr>
+              <tr><td>Паника</td><td>Персонаж бежит от ближайшей угрозы. Бросок Разума 9 в начале хода, чтобы действовать нормально.</td></tr>
+              <tr><td>Кровотечение</td><td>1д4М урона в начале хода. Снять — действие и перевязка.</td></tr>
+              <tr><td>Опутан</td><td>Скорость −2, все броски Проворства с помехой. Освобождение — Напор 9.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Истощение (степени 1–3)</div>
+        <p class="rule-p">Накапливается при отсутствии еды — 1 степень за каждый день без рациона. Снижается на 1 степень за продолжительный отдых с едой.</p>
+        <ul class="rule-list">
+          <li><strong>Степень 1.</strong> Все броски умений без кости характеристики.</li>
+          <li><strong>Степень 2.</strong> Скорость передвижения уменьшается вдвое.</li>
+          <li><strong>Степень 3.</strong> Все броски −3. В конце дня потеря сознания. Без еды — смерть.</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Психоз (степени 1–3)</div>
+        <p class="rule-p">Возникает при провале психики в стрессовых ситуациях. Степень 1 проходит после продолжительного отдыха. Степень 2 — после двух продолжительных отдыхов.</p>
+        <ul class="rule-list">
+          <li><strong>Степень 1.</strong> Броски Контакта и Разума с помехой.</li>
+          <li><strong>Степень 2.</strong> Все атаки и способности с помехой.</li>
+          <li><strong>Степень 3.</strong> Персонаж переходит под контроль мастера — нервный срыв. После окончания Психоз сбрасывается до 0.</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Заражение (степени 1–3)</div>
+        <p class="rule-p">Накапливается при контакте с токсинами, ядами или радиацией. Снимается лекарствами или тремя продолжительными отдыхами. Степень 3 — только после двух длинных отдыхов.</p>
+        <ul class="rule-list">
+          <li><strong>Степень 1.</strong> Периодический урон Я, не защищённый бронёй — частоту определяет мастер.</li>
+          <li><strong>Степень 2.</strong> Случайные состояния накладываются периодически.</li>
+          <li><strong>Степень 3.</strong> Мастер назначает травму, мутацию или постоянный эффект. Уязвимость ко всем типам урона.</li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ IX. ТРАВМЫ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-9">
+      <span class="sec-anchor" id="sec-9-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">🩸</span>
+        <span class="sec-num">IX</span>
+        <h2 class="sec-title">Травмы</h2>
+      </div>
+
+      <p class="rule-p">Травмы получаются при завершении боя с 0 здоровья, критическом провале броска Крепости, или по решению мастера в ходе событий. Запись: <strong>(текущее значение / дней до снятия)</strong>.</p>
+
+      <div class="sub-section">
+        <div class="sub-title">Физические травмы</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Травма</th><th>Эффект</th><th>Лечение</th></tr></thead>
+            <tbody>
+              <tr><td>Глубокая рана</td><td>Здоровье восстанавливается только до половины + уровень персонажа после отдыха.</td><td>1 день</td></tr>
+              <tr><td>Повреждение органов</td><td>Передвижение −2 клетки. В начале каждого боя 1д6 урона.</td><td>1 день</td></tr>
+              <tr><td>Сотрясение мозга</td><td>Броски Разума, Техники и Контакта с помехой.</td><td>1 день</td></tr>
+              <tr><td>Перелом</td><td>Инициатива вдвое. +1 степень сложности ко всем атакам.</td><td>5 дней</td></tr>
+              <tr><td>Разрыв сухожилия</td><td>Все броски Проворства и Напора с помехой. Скорость −2.</td><td>3 дня</td></tr>
+              <tr><td>Ожог II степени</td><td>Уязвимость к Т урону.</td><td>5 дней</td></tr>
+              <tr><td>Пробитое лёгкое</td><td>Максимум здоровья −5. Броски Крепости с помехой. Бег невозможен.</td><td>4 дня</td></tr>
+              <tr><td>Черепно-мозговая</td><td>Все броски −2. Случайный Психоз 1 раз в день по броску мастера.</td><td>7 дней</td></tr>
+              <tr><td>Вывих</td><td>Поражённая конечность — все броски с помехой. Снять — Медицина или бросок Крепости 12.</td><td>1 день</td></tr>
+              <tr><td>Потеря руки (1)</td><td>Все действия, требующие двух рук — с помехой.</td><td>Имплант или протез</td></tr>
+              <tr><td>Потеря руки (2)</td><td>Все действия с руками автоматически проваливаются (результат 1).</td><td>Имплант или протез</td></tr>
+              <tr><td>Потеря ноги (1)</td><td>Скорость вдвое. Броски баланса и перемещения с помехой.</td><td>Имплант или протез</td></tr>
+              <tr><td>Потеря ноги (2)</td><td>Постоянное состояние «Сбит с ног». Максимум 1 клетка в ход.</td><td>Имплант или протез</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Психические травмы</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Травма</th><th>Эффект</th><th>Лечение</th></tr></thead>
+            <tbody>
+              <tr><td>Посттравматика</td><td>Раз в сессию при триггере — Разум 9 или Психоз 1.</td><td>7 дней + отдых</td></tr>
+              <tr><td>Фобия</td><td>При контакте с объектом страха — Психоз 1 автоматически. Уязвимость к урону от существ, связанных с фобией.</td><td>Мастер решает</td></tr>
+              <tr><td>Диссоциация</td><td>Раз в день мастер может взять ход персонажа под контроль на 1 раунд.</td><td>5 дней</td></tr>
+              <tr><td>Паранойя</td><td>Броски Контакта в мирных ситуациях с помехой. −1 к инициативе.</td><td>Мастер решает</td></tr>
+              <tr><td>Амнезия</td><td>Персонаж не помнит часть предыстории или недавних событий — мастер определяет что.</td><td>Мастер решает</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Болезни</div>
+        <p class="rule-p">Болезни накапливаются от окружающей среды, контакта с заражёнными или провала бросков. Лечатся антибиотиками, специальными препаратами или продолжительным отдыхом.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Болезнь</th><th>Заражение</th><th>Эффект</th><th>Лечение</th></tr></thead>
+            <tbody>
+              <tr><td>Лихорадка пустоши</td><td>Заражённая вода, Крепость 9</td><td>Максимум здоровья −3. Все броски −1. Температура.</td><td>Антибиотики 2 дня</td></tr>
+              <tr><td>Химический некроз</td><td>Кислоты и токсины Бр0, Крепость 12</td><td>Поражённая область: Уязвимость к Я урону. Ежедневно 1д4Я.</td><td>Антитоксин + 3 дня</td></tr>
+              <tr><td>Радиационная болезнь</td><td>Радиационные зоны, Крепость 12</td><td>+1 Заражение ежедневно без лечения. Выпадение волос. Слабость.</td><td>Антирадин + отдых</td></tr>
+              <tr><td>Нейродеградация</td><td>Заражённые импланты, Разум 12</td><td>Броски Разума и Техники −2. Прогрессирует без лечения.</td><td>Набор Медика + 5 дней</td></tr>
+              <tr><td>Споровая инфекция</td><td>Токсичные грибки, Крепость 9</td><td>Случайные состояния раз в день. Бросок мастера.</td><td>3 продолжительных отдыха</td></tr>
+              <tr><td>Псионический ожог</td><td>Воздействие устройств «Страх», Разум 12</td><td>Постоянный фоновый шум. Броски Разума с помехой. Бессонница.</td><td>Пси-кристальная терапия</td></tr>
+              <tr><td>Синтетическая зависимость</td><td>3+ доз стимуляторов подряд</td><td>Без дозы раз в день — Истощение 1. С дозой — нормально.</td><td>7 дней детокса + Крепость</td></tr>
+              <tr><td>Имплант-отторжение</td><td>Некачественный имплант, Крепость 9</td><td>Имплант работает нестабильно. Раз в бой — случайный сбой.</td><td>Замена импланта</td></tr>
+              <tr><td>Когнитивный распад</td><td>Длительный Психоз 3</td><td>Все броски Разума −3. Личность постепенно меняется.</td><td>Мастер решает</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ X. ОТДЫХ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-10">
+      <span class="sec-anchor" id="sec-10-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">🌙</span>
+        <span class="sec-num">X</span>
+        <h2 class="sec-title">Отдых</h2>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Тип</th><th>Время</th><th>Эффект</th><th>Требования</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="bdg bdg-g">К</span> Короткий</td>
+              <td>30 минут</td>
+              <td>Перевязать раны, поесть, создать предмет.</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td><span class="bdg bdg-y">С</span> Средний</td>
+              <td>2 часа</td>
+              <td>Восстановить уровень персонажа + кость Крепости здоровья. Раз в день × уровень персонажа.</td>
+              <td>Безопасное место</td>
+            </tr>
+            <tr>
+              <td><span class="bdg bdg-b">П</span> Продолжительный</td>
+              <td>8 часов</td>
+              <td>Полное восстановление здоровья. Снижение состояний.</td>
+              <td>Безопасное место + еда + вода</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ XI. ПРЕВОЗМОГАНИЕ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-11">
+      <span class="sec-anchor" id="sec-11-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">💠</span>
+        <span class="sec-num">XI</span>
+        <h2 class="sec-title">Превозмогание</h2>
+      </div>
+
+      <p class="rule-p">Мастер выдаёт очки Превозмогания за выполнение квестов, яркий отыгрыш, крутые моменты и решения, которые удивляют. <strong>Максимум — 3 очка.</strong> Они индивидуальны для каждого персонажа.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Стоимость</th><th>Эффект</th></tr></thead>
+          <tbody>
+            <tr><td>1 очко</td><td>Преимущество на любой бросок — объявить до броска.</td></tr>
+            <tr><td>2 очка</td><td>Переброс любого уже совершённого броска.</td></tr>
+            <tr><td>3 очка</td><td>Автоматический успех спасброска от смерти, травмы или потери сознания.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="div-line">
+
+    <!-- ══════════════════════════════════ XII. В РАЗРАБОТКЕ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-12">
+      <span class="sec-anchor" id="sec-12-anchor"></span>
+      <div class="sec-header">
+        <span class="sec-icon">⚙</span>
+        <span class="sec-num">XII</span>
+        <h2 class="sec-title">Дополнения на этапе тестирования</h2>
+      </div>
+
+      <p class="rule-p">Следующие системы отсутствуют в текущей редакции:</p>
+
+      <div class="sub-section">
+        <div class="sub-title">Репутация и фракции</div>
+        <p class="rule-p">Шкала отношений (−3 до +3) с каждой фракцией. Влияет на доступные услуги, цены, реакцию НПС и доступ к локациям.</p>
+      </div>
+      <div class="sub-section">
+        <div class="sub-title">Транспорт и техника</div>
+        <p class="rule-p">Правила для транспортных средств — здоровье, броня, управление. Бой на транспорте. Поломки и починка в движении.</p>
+      </div>
+      <div class="sub-section">
+        <div class="sub-title">Стелс и скрытность</div>
+        <p class="rule-p">Правила для тихих операций — обнаружение, шум, тени, отвлечение. Разница между замеченным и обнаруженным. Провал стелса без немедленного боя.</p>
+      </div>
+      <div class="sub-section">
+        <div class="sub-title">Ментальное пространство (для псиоников)</div>
+        <p class="rule-p">Отдельная система для псионических столкновений — ментальные дуэли, проникновение в сознание, защита разума. Карта психического пространства.</p>
+      </div>
+      <div class="sub-section">
+        <div class="sub-title">Долгосрочные последствия</div>
+        <p class="rule-p">Система шрамов и хронических состояний, которые остаются после тяжёлых событий. Не только механика — но и нарративные последствия для отыгрыша.</p>
+      </div>
+      <div class="sub-section">
+        <div class="sub-title">Хакинг в реальном времени</div>
+        <p class="rule-p">Отдельная мини-система для хакера во время боя — действия в сети параллельно физическим событиям.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════ OUTRO ══════════════════════════════════ -->
+    <div class="outro">
+      <div class="outro-title">DeaD Ha<span style="color:#c8432a">n</span>D</div>
+      <div class="outro-sub">
+        СПАСИБО, ЧТО ИГРАЕТЕ И ПОЛЬЗУЕТЕСЬ СИСТЕМОЙ DeaD HanD<br>
+        АВТОР <span style="color:#c8432a;">I_LOVE_MOTH</span> ЖЕЛАЕТ ВАМ САМОГО ЛУЧШЕГО ИГРОВОГО ОПЫТА
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">▲</button>
+
+<footer>
+  <div class="ft-l">DeaD HanD System © 2024 · ПРАВИЛА v2.0</div>
+  <div class="ft-r"><div class="ft-dot"></div>ONLINE · v1.03</div>
+</footer>
+
+<script>
+// ═══ SCROLL SPY + PROGRESS ═══
+const sections = document.querySelectorAll('.rule-section');
+const navItems = document.querySelectorAll('.nav-item');
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+function onScroll() {
+  const scrollY = window.scrollY;
+
+  // show/hide scroll-top button
+  scrollTopBtn.classList.toggle('visible', scrollY > 400);
+
+  // find active section
+  let current = null;
+  sections.forEach(sec => {
+    const top = sec.offsetTop - 100;
+    const bottom = top + sec.offsetHeight;
+    if (scrollY >= top && scrollY < bottom) current = sec.id;
+  });
+
+  navItems.forEach(item => {
+    const target = item.getAttribute('href').replace('#','');
+    item.classList.toggle('active', target === current);
+  });
+
+  // reading progress per section
+  sections.forEach(sec => {
+    const num = sec.id.replace('sec-','');
+    const bar = document.getElementById('p' + num);
+    if (!bar) return;
+    const top = sec.offsetTop - 100;
+    const height = sec.offsetHeight;
+    const progress = Math.max(0, Math.min(1, (scrollY - top) / height));
+    bar.style.width = (progress * 100) + '%';
+  });
+}
+
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// ═══ SMOOTH NAV CLICK ═══
+navItems.forEach(item => {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href').replace('#','');
+    const target = document.getElementById(targetId);
+    if (target) {
+      const offset = target.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({top: offset, behavior:'smooth'});
+    }
+  });
+});
+
+// ═══ SECTION ANIMATION ON ENTER ═══
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, {threshold: 0.05});
+
+sections.forEach(sec => {
+  sec.style.animationPlayState = 'paused';
+  observer.observe(sec);
+});
+
+// ═══ TABLE ROW HIGHLIGHT ON CLICK ═══
+document.querySelectorAll('tbody tr').forEach(row => {
+  row.addEventListener('click', function() {
+    document.querySelectorAll('tbody tr.selected').forEach(r => r.classList.remove('selected'));
+    this.classList.add('selected');
+  });
+});
+
+// add selected style dynamically
+const style = document.createElement('style');
+style.textContent = 'tbody tr.selected{background:rgba(200,67,42,.1)!important;border-color:rgba(200,67,42,.3);}';
+document.head.appendChild(style);
+</script>
+</body>
+</html>
