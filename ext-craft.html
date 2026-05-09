@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeaD HanD — Крафт</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Oswald:wght@300;400;500;700&display=swap');
+
+@keyframes neonPulse{0%,100%{text-shadow:0 0 8px rgba(200,67,42,.6),0 0 20px rgba(200,67,42,.3)}50%{text-shadow:0 0 20px rgba(200,67,42,1),0 0 40px rgba(200,67,42,.6)}}
+@keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes scanH{0%{left:-100%}100%{left:200%}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:#0a0a0c;color:#d0cfc8;
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+  position:relative;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(200,67,42,.07) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(200,67,42,.018) 60px,rgba(200,67,42,.018) 61px),
+    repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(200,67,42,.012) 60px,rgba(200,67,42,.012) 61px);
+}
+
+/* HEADER */
+.hdr{
+  background:linear-gradient(135deg,#0d0d10 0%,#1a0a08 50%,#0d0d10 100%);
+  border-bottom:2px solid #c8432a;
+  padding:16px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:10;
+  box-shadow:0 4px 40px rgba(200,67,42,.15);
+}
+.logo{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:6px;color:#f0ede8;animation:neonPulse 3s ease-in-out infinite;line-height:1;}
+.logo span{color:#c8432a;}
+.logo-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:3px;margin-top:3px;}
+.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
+
+/* MAIN */
+main{flex:1;display:flex;flex-direction:column;align-items:center;padding:48px 24px 80px;position:relative;z-index:1;}
+
+/* BREADCRUMB */
+.breadcrumb{
+  width:100%;max-width:960px;margin-bottom:28px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:2px;
+  display:flex;align-items:center;gap:8px;
+  animation:fi .3s ease both;
+}
+.breadcrumb a{color:#5a5a6a;text-decoration:none;transition:color .15s;}
+.breadcrumb a:hover{color:#c8432a;}
+.breadcrumb-sep{color:#2e2e3e;}
+
+/* PAGE HERO */
+.page-hero{
+  width:100%;max-width:960px;margin-bottom:40px;
+  display:flex;align-items:center;gap:20px;
+  padding-bottom:24px;border-bottom:1px solid #2e2e3e;
+  animation:fi .4s ease both;
+}
+.page-hero-icon{font-size:36px;opacity:.7;}
+.page-hero-badge{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;padding:2px 7px;border:1px solid rgba(58,107,199,.4);border-radius:2px;color:#3a6bc7;background:rgba(58,107,199,.08);text-transform:uppercase;margin-bottom:8px;display:inline-block;}
+.page-hero-title{font-family:'Oswald',sans-serif;font-size:32px;font-weight:700;letter-spacing:4px;color:#f0ede8;text-transform:uppercase;margin-bottom:4px;}
+.page-hero-desc{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:2px;line-height:1.8;}
+
+/* CONTENT WRAP */
+.content{width:100%;max-width:960px;animation:fi .5s ease both;}
+
+/* SECTION */
+.sec{margin-bottom:36px;}
+.sec-hdr{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:1px solid #2e2e3e;
+}
+.sec-hdr-line{width:3px;height:16px;background:#3a6bc7;border-radius:1px;flex-shrink:0;}
+.sec-title{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
+
+/* DIVIDER */
+.div-line{border:none;border-top:1px solid #2e2e3e;margin:8px 0 36px;position:relative;}
+.div-line::after{content:'◆';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:#0a0a0c;padding:0 12px;color:#c8432a;font-size:11px;}
+
+/* RULES GRID */
+.rules-grid{display:grid;gap:8px;}
+.rule-card{
+  background:#1a1a22;border:1px solid #2e2e3e;border-radius:3px;
+  padding:14px 18px;display:flex;align-items:flex-start;gap:14px;
+  transition:border-color .2s,background .2s;
+}
+.rule-card:hover{background:#20202c;border-color:#3a3a50;}
+.rule-num{
+  font-family:'Share Tech Mono',monospace;font-size:13px;color:#3a6bc7;
+  min-width:22px;margin-top:2px;flex-shrink:0;
+}
+.rule-text{font-size:15px;line-height:1.55;color:#d0cfc8;}
+
+/* FORMULA BOX */
+.formula-box{
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;
+  padding:18px 22px;
+  font-family:'Share Tech Mono',monospace;font-size:14px;
+  color:#d0cfc8;text-align:center;letter-spacing:1px;
+  margin-bottom:10px;
+}
+.formula-box span{color:#3a6bc7;font-weight:600;}
+
+.highlight-note{
+  background:rgba(58,107,199,.08);
+  border:1px solid rgba(58,107,199,.25);
+  border-radius:3px;
+  padding:10px 16px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;color:#6a8fd0;letter-spacing:1px;line-height:1.8;
+  margin-top:8px;
+}
+
+/* TIER TABLE */
+.tier-table{
+  width:100%;border-collapse:collapse;
+  font-size:14px;
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;overflow:hidden;
+}
+.tier-table th{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:#5a5a6a;font-family:'Share Tech Mono',monospace;
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid #2e2e3e;
+  background:#0f0f14;
+}
+.tier-table td{
+  padding:11px 14px;vertical-align:top;
+  border-bottom:1px solid #1e1e28;
+  line-height:1.45;color:#d0cfc8;
+}
+.tier-table tr:last-child td{border-bottom:none;}
+.tier-table tbody tr:hover td{background:#1a1a22;}
+
+.die-badge{
+  display:inline-block;
+  font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:600;
+  padding:2px 8px;border-radius:3px;letter-spacing:1px;
+}
+.die-0{background:#1e1e1c;color:#8a8880;border:1px solid #2a2a28;}
+.die-1{background:rgba(58,107,199,.15);color:#5a8fd4;border:1px solid rgba(58,107,199,.3);}
+.die-2{background:rgba(46,125,50,.15);color:#4a9d50;border:1px solid rgba(46,125,50,.3);}
+.die-3{background:rgba(180,120,20,.15);color:#c4941a;border:1px solid rgba(180,120,20,.3);}
+.die-4{background:rgba(200,67,42,.15);color:#c8432a;border:1px solid rgba(200,67,42,.3);}
+.die-5{background:rgba(120,100,200,.15);color:#9a88dd;border:1px solid rgba(120,100,200,.3);}
+
+.tier-name{font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;color:#f0ede8;}
+
+/* DIFFICULTY GRID */
+.difficulty-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+}
+.diff-card{
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;
+  padding:14px 8px;text-align:center;
+  transition:border-color .2s,background .2s;
+}
+.diff-card:hover{background:#1a1a22;border-color:#3a3a50;}
+.diff-val{
+  font-family:'Share Tech Mono',monospace;font-size:18px;font-weight:600;
+  color:#f0ede8;display:block;margin-bottom:4px;
+}
+.diff-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:#5a5a6a;letter-spacing:1px;text-transform:uppercase;display:block;
+}
+
+/* INFO CARDS */
+.info-card{
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;
+  padding:16px 20px;margin-bottom:8px;
+  transition:border-color .2s,background .2s;
+}
+.info-card:hover{background:#1a1a22;border-color:#3a3a50;}
+.info-card h3{
+  font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;
+  letter-spacing:1px;color:#f0ede8;margin-bottom:8px;text-transform:uppercase;
+}
+.info-card p{
+  font-size:14px;color:#8a8a99;line-height:1.6;
+}
+.info-card p strong{color:#d0cfc8;}
+
+/* KITS GRID */
+.kits-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:8px;
+}
+.kit-card{
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;
+  padding:12px 14px;
+  transition:border-color .2s,background .2s;
+  position:relative;overflow:hidden;
+}
+.kit-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:#3a6bc7;opacity:0;transition:opacity .2s;}
+.kit-card:hover{background:#1a1a22;border-color:#3a3a50;}
+.kit-card:hover::before{opacity:1;}
+.kit-name{
+  font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:1px;color:#f0ede8;margin-bottom:3px;text-transform:uppercase;
+}
+.kit-use{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:#5a5a6a;letter-spacing:1px;line-height:1.5;
+}
+
+/* TECH TABLE */
+.tech-table{
+  width:100%;border-collapse:collapse;font-size:14px;
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;overflow:hidden;
+}
+.tech-table th{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:#5a5a6a;font-family:'Share Tech Mono',monospace;
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid #2e2e3e;background:#0f0f14;
+}
+.tech-table td{
+  padding:9px 14px;
+  border-bottom:1px solid #1e1e28;
+  vertical-align:middle;color:#d0cfc8;
+}
+.tech-table tr:last-child td{border-bottom:none;}
+.tech-table tbody tr:hover td{background:#1a1a22;}
+.tech-cat{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:#5a5a6a;font-family:'Share Tech Mono',monospace;
+  padding:8px 14px 5px!important;
+  background:#0f0f14!important;
+  border-bottom:1px solid #2e2e3e!important;
+}
+
+/* FOOTER */
+footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10;}
+.ft-l{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-r{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-dot{width:6px;height:6px;border-radius:50%;background:#c8432a;animation:pulse 2s ease infinite;}
+
+@media(max-width:760px){
+  .hdr{padding:14px 20px;}
+  main{padding:32px 16px 60px;}
+  .difficulty-grid{grid-template-columns:repeat(3,1fr);}
+  .kits-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:480px){
+  .difficulty-grid{grid-template-columns:repeat(2,1fr);}
+  .kits-grid{grid-template-columns:1fr;}
+  .page-hero{flex-direction:column;align-items:flex-start;gap:12px;}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div>
+    <div class="logo">DeaD <span>H</span>an<span>D</span></div>
+    <div class="logo-sub">СИСТЕМА ПРАВИЛ — РАСШИРЕНИЯ</div>
+  </div>
+  <div class="hdr-ver">v1.03</div>
+</header>
+
+<main>
+
+  <div class="breadcrumb">
+    <a href="index.html">◈ ГЛАВНАЯ</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>КРАФТ</span>
+  </div>
+
+  <div class="page-hero">
+    <span class="page-hero-icon">🔧</span>
+    <div>
+      <div class="page-hero-badge">РАСШИРЕНИЕ</div>
+      <div class="page-hero-title">Система Создания</div>
+      <div class="page-hero-desc">DeaD HanD · Руководство по крафту</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ОБЯЗАТЕЛЬНЫЕ УСЛОВИЯ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Обязательные условия для крафта</span>
+      </div>
+      <div class="rules-grid">
+        <div class="rule-card">
+          <div class="rule-num">01</div>
+          <div class="rule-text">У вас должен быть рецепт предмета, а также все материалы и наборы, указанные в нём.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">02</div>
+          <div class="rule-text">Вы тратите время и материалы, затем бросаете кость техники.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-num">03</div>
+          <div class="rule-text">Результат броска определяет, удалось ли создать предмет — см. таблицу уровней технологий ниже.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- БРОСОК НА СОЗДАНИЕ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Бросок на создание</span>
+      </div>
+      <div class="formula-box">
+        Бросок = сумма всех костей уровня <span>соответствующей технологии</span>
+      </div>
+      <div class="highlight-note">За каждый уровень владения технологией вы добавляете одну кость того же типа к броску. Например, Инженер (Бр2) в кулинарии бросает д6+д6.</div>
+    </div>
+
+    <!-- УРОВНИ ТЕХНОЛОГИЙ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Уровни технологий</span>
+      </div>
+      <table class="tier-table">
+        <thead>
+          <tr>
+            <th>Уровень</th>
+            <th>Кость</th>
+            <th>Звание</th>
+            <th>Особые правила</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="die-badge die-0">Бр0</span></td>
+            <td>—</td>
+            <td class="tier-name">Мусор</td>
+            <td>Только одноразовые вещи. Все предметы получают тег <em>Импровизированный</em>.</td>
+          </tr>
+          <tr>
+            <td><span class="die-badge die-1">Бр1</span></td>
+            <td><span class="die-badge die-1">д4</span></td>
+            <td class="tier-name">Любитель</td>
+            <td>Стандартное качество. Никаких бонусов.</td>
+          </tr>
+          <tr>
+            <td><span class="die-badge die-2">Бр2</span></td>
+            <td><span class="die-badge die-2">д6</span></td>
+            <td class="tier-name">Инженер</td>
+            <td>При провале броска — тратите только <strong>половину материалов</strong> из рецепта (работает только если материалов больше одного).</td>
+          </tr>
+          <tr>
+            <td><span class="die-badge die-3">Бр3</span></td>
+            <td><span class="die-badge die-3">д8</span></td>
+            <td class="tier-name">Мастер</td>
+            <td>Готовый предмет получает <strong>1 случайное улучшение</strong>.</td>
+          </tr>
+          <tr>
+            <td><span class="die-badge die-4">Бр4</span></td>
+            <td><span class="die-badge die-4">д10</span></td>
+            <td class="tier-name">Архитектор</td>
+            <td>Сами <strong>выбираете улучшение</strong> для созданного предмета.</td>
+          </tr>
+          <tr>
+            <td><span class="die-badge die-5">Бр5</span></td>
+            <td><span class="die-badge die-5">д12</span></td>
+            <td class="tier-name">Творец</td>
+            <td>При результате <strong>&gt;30</strong> — предмет становится АРТЕФАКТОМ (Бр6). При любом провале материалы <strong>не тратятся</strong>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- СЛОЖНОСТЬ БРОСКОВ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Таблица сложности</span>
+      </div>
+      <div class="difficulty-grid">
+        <div class="diff-card">
+          <span class="diff-val">&gt;5</span>
+          <span class="diff-label">Уровень 1</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">&gt;10</span>
+          <span class="diff-label">Уровень 2</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">&gt;15</span>
+          <span class="diff-label">Уровень 3</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">&gt;20</span>
+          <span class="diff-label">Уровень 4</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">&gt;25</span>
+          <span class="diff-label">Уровень 5</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="div-line">
+
+    <!-- ИЗУЧЕНИЕ РЕЦЕПТОВ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Изучение рецептов</span>
+      </div>
+      <div class="info-card">
+        <h3>Как изучить новый рецепт</h3>
+        <p>Заявите мастеру, что хотите изучить рецепт. Бросьте д10 и умножьте результат на уровень технологии, необходимый для изучения — это количество <strong>часов</strong>, которое уйдёт на обучение.</p>
+      </div>
+      <div class="info-card">
+        <h3>Как ускорить изучение</h3>
+        <p>Время изучения можно сократить вдвое, если у вас есть <strong>готовый рецепт</strong> на руках. Ещё вдвое — если у вас есть <strong>пример самого предмета</strong>. Оба бонуса суммируются.</p>
+      </div>
+    </div>
+
+    <!-- РЕМОНТ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Ремонт</span>
+      </div>
+      <div class="info-card">
+        <h3>Условия ремонта</h3>
+        <p>Для починки предмета или брони нужен уровень технологии, равный уровню самого предмета. Помимо этого, понадобится примерно <strong>⅓ материалов</strong> из оригинального рецепта.</p>
+      </div>
+    </div>
+
+    <hr class="div-line">
+
+    <!-- НАБОРЫ ИНСТРУМЕНТОВ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Наборы инструментов</span>
+      </div>
+      <div class="kits-grid">
+        <div class="kit-card">
+          <div class="kit-name">Базовый набор</div>
+          <div class="kit-use">Простые рецепты</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Механика</div>
+          <div class="kit-use">Двигатели, станки, механизмы</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Бронника</div>
+          <div class="kit-use">Броня — создание и ремонт</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Оружейника</div>
+          <div class="kit-use">Оружие и боеприпасы</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Химика</div>
+          <div class="kit-use">Яды, кислоты, стимуляторы</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Медика</div>
+          <div class="kit-use">Лечение, операции</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Фермера</div>
+          <div class="kit-use">Еда, растения, вода</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Электрика</div>
+          <div class="kit-use">Генераторы, кабели, питание</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Нетраннера</div>
+          <div class="kit-use">Взлом, терминалы, скрипты</div>
+        </div>
+        <div class="kit-card">
+          <div class="kit-name">Набор Псионика</div>
+          <div class="kit-use">Псионика и взаимодействие</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ТАБЛИЦА ТЕХНОЛОГИЙ -->
+    <div class="sec">
+      <div class="sec-hdr">
+        <div class="sec-hdr-line"></div>
+        <span class="sec-title">Таблица технологий</span>
+      </div>
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th>Технология</th>
+            <th>Нужный набор</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="tech-cat" colspan="2">Выживание и быт</td></tr>
+          <tr><td>Строительство</td><td>Базовый набор</td></tr>
+          <tr><td>Кулинария</td><td>Базовый набор</td></tr>
+          <tr><td>Охота</td><td>Набор Оружейника + Базовый</td></tr>
+          <tr><td>Собирательство</td><td>Набор Фермера</td></tr>
+          <tr><td>Фермерство</td><td>Набор Фермера</td></tr>
+          <tr><td>Животноводство</td><td>Набор Фермера</td></tr>
+          <tr><td class="tech-cat" colspan="2">Медицина и химия</td></tr>
+          <tr><td>Медицина</td><td>Набор Медика</td></tr>
+          <tr><td>Химия</td><td>Набор Химика</td></tr>
+          <tr><td class="tech-cat" colspan="2">Вооружение и броня</td></tr>
+          <tr><td>Производство стрелкового оружия</td><td>Набор Оружейника</td></tr>
+          <tr><td>Производство холодного оружия</td><td>Набор Оружейника</td></tr>
+          <tr><td>Производство брони</td><td>Набор Бронника</td></tr>
+          <tr><td>Производство боеприпасов</td><td>Набор Оружейника + Базовый</td></tr>
+          <tr><td class="tech-cat" colspan="2">Техника и технологии</td></tr>
+          <tr><td>Автомеханика</td><td>Набор Механика</td></tr>
+          <tr><td>Электроника</td><td>Набор Электрика</td></tr>
+          <tr><td>Кибернетика</td><td>Набор Электрика + Медика</td></tr>
+          <tr><td>Биомодификации</td><td>Набор Медика</td></tr>
+          <tr><td>Нетраннинг</td><td>Набор Нетраннера</td></tr>
+          <tr><td class="tech-cat" colspan="2">Псионика</td></tr>
+          <tr><td>Псионика</td><td>Набор Псионика</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /content -->
+
+</main>
+
+<footer>
+  <div class="ft-l">DeaD HanD System © 2025</div>
+  <div class="ft-r"><div class="ft-dot"></div>ONLINE · v1.03</div>
+</footer>
+
+</body>
+</html>
