@@ -93,20 +93,46 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 2
 }
 .card-img{
   background:#0d0d10;border-right:1px solid #2e2e3e;
-  display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;
   min-height:220px;
 }
-.card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.card-img img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  display:none;
+}
+.card-img img.loaded{display:block;}
 .card-img-placeholder{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:10px;width:100%;height:100%;min-height:220px;
+  position:relative;z-index:1;
+  transition:opacity .3s;
 }
+.card-img.has-img .card-img-placeholder{display:none;}
 .card-img-icon{font-size:48px;opacity:.15;}
 .card-img-hint{font-family:'Share Tech Mono',monospace;font-size:9px;color:#2e2e3e;letter-spacing:2px;text-align:center;line-height:1.8;}
+
+/* Кнопка загрузки изображения */
+.card-img-upload{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  z-index:3;opacity:0;transition:opacity .2s;
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;
+  background:rgba(10,10,12,.85);border:1px solid #c8432a;color:#c8432a;
+  padding:4px 10px;border-radius:2px;cursor:pointer;white-space:nowrap;
+}
+.card-img:hover .card-img-upload{opacity:1;}
+.card-img-upload:hover{background:rgba(200,67,42,.2);}
+
 .card-img-border{
-  position:absolute;inset:0;pointer-events:none;
+  position:absolute;inset:0;pointer-events:none;z-index:2;
   background:linear-gradient(135deg,rgba(200,67,42,.06) 0%,transparent 60%);
+}
+/* Градиент поверх картинки чтобы не резало */
+.card-img.has-img .card-img-border{
+  background:
+    linear-gradient(to right, transparent 60%, #111116 100%),
+    linear-gradient(135deg,rgba(200,67,42,.08) 0%,transparent 50%);
 }
 
 .card-header{padding:24px 28px;display:flex;flex-direction:column;justify-content:space-between;}
@@ -257,11 +283,14 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       <!-- ── ШАПКА: изображение + основная инфо ── -->
       <div class="card-top">
         <div class="card-img">
-          <img src="img/shturmovnik.png" alt="Штурмовик"> 
+          <img id="img-shturmovnik" src="img/shturmovnik.png" alt="Штурмовик"
+               onload="imgLoaded(this,'shturmovnik')" onerror="imgError(this)">
           <div class="card-img-placeholder">
             <span class="card-img-icon">⚔</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
+          <button class="card-img-upload" onclick="triggerUpload('shturmovnik')">↑ ЗАГРУЗИТЬ ФОТО</button>
+          <input type="file" id="upl-shturmovnik" accept="image/*" style="display:none" onchange="handleImgUpload(event,'shturmovnik')">
           <div class="card-img-border"></div>
         </div>
 
@@ -474,11 +503,13 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
       <div class="card-top">
         <div class="card-img">
-          <!-- <img src="img/strelok.jpg" alt="Стрелок"> -->
+          <img id="img-strelok" src="" alt="Стрелок" style="display:none">
           <div class="card-img-placeholder">
             <span class="card-img-icon">🎯</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
+          <button class="card-img-upload" onclick="triggerUpload('strelok')">↑ ЗАГРУЗИТЬ ФОТО</button>
+          <input type="file" id="upl-strelok" accept="image/*" style="display:none" onchange="handleImgUpload(event,'strelok')">
           <div class="card-img-border"></div>
         </div>
 
@@ -727,10 +758,13 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     <div class="class-card" id="card-technik">
       <div class="card-top">
         <div class="card-img">
+          <img id="img-technik" src="" alt="Техник" style="display:none">
           <div class="card-img-placeholder">
             <span class="card-img-icon">🔧</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
+          <button class="card-img-upload" onclick="triggerUpload('technik')">↑ ЗАГРУЗИТЬ ФОТО</button>
+          <input type="file" id="upl-technik" accept="image/*" style="display:none" onchange="handleImgUpload(event,'technik')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
@@ -950,10 +984,13 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     <div class="class-card" id="card-psionik">
       <div class="card-top">
         <div class="card-img">
+          <img id="img-psionik" src="" alt="Псионик" style="display:none">
           <div class="card-img-placeholder">
             <span class="card-img-icon">◈</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
+          <button class="card-img-upload" onclick="triggerUpload('psionik')">↑ ЗАГРУЗИТЬ ФОТО</button>
+          <input type="file" id="upl-psionik" accept="image/*" style="display:none" onchange="handleImgUpload(event,'psionik')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
@@ -1526,20 +1563,73 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 </footer>
 
 <script>
+// ── ПЕРЕКЛЮЧЕНИЕ КЛАССОВ ──
 function showClass(id, btn) {
-  // Скрыть все карточки
   document.querySelectorAll('.class-card').forEach(c => c.classList.remove('visible'));
-  // Снять активность со всех кнопок
   document.querySelectorAll('.sel-btn').forEach(b => b.classList.remove('active'));
-  // Показать нужную
   const card = document.getElementById('card-' + id);
   if (card) {
     card.classList.add('visible');
-    // Небольшой скролл к карточке
     card.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   if (btn) btn.classList.add('active');
 }
+
+// ── ИЗОБРАЖЕНИЯ ──
+// Запускает file picker для конкретной карточки
+function triggerUpload(classId) {
+  document.getElementById('upl-' + classId).click();
+}
+
+// Обрабатывает выбранный файл — конвертит в base64 и вставляет
+function handleImgUpload(event, classId) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = document.getElementById('img-' + classId);
+    const wrap = img.closest('.card-img');
+    img.src = e.target.result;
+    img.classList.add('loaded');
+    img.style.display = 'block';
+    wrap.classList.add('has-img');
+    // Сохраняем в localStorage чтобы не пропадало при перезагрузке
+    try { localStorage.setItem('dh_class_img_' + classId, e.target.result); } catch(e) {}
+  };
+  reader.readAsDataURL(file);
+  event.target.value = '';
+}
+
+// Картинка загрузилась по src (если файл лежит рядом)
+function imgLoaded(img, classId) {
+  const wrap = img.closest('.card-img');
+  img.classList.add('loaded');
+  wrap.classList.add('has-img');
+}
+
+// Картинка не найдена по src — прячем img, показываем placeholder
+function imgError(img) {
+  img.style.display = 'none';
+}
+
+// При загрузке страницы — восстанавливаем сохранённые изображения
+window.addEventListener('DOMContentLoaded', function() {
+  const classes = ['shturmovnik','strelok','technik','psionik'];
+  classes.forEach(function(id) {
+    const saved = localStorage.getItem('dh_class_img_' + id);
+    if (saved) {
+      const img = document.getElementById('img-' + id);
+      if (img) {
+        const wrap = img.closest('.card-img');
+        img.src = saved;
+        img.classList.add('loaded');
+        img.style.display = 'block';
+        wrap.classList.add('has-img');
+      }
+    }
+  });
+});
 </script>
 </body>
 </html>
+ 
