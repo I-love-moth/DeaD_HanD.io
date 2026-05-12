@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeaD HanD — Расы мира</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Oswald:wght@300;400;500;700&display=swap');
+
+@keyframes neonPulse{0%,100%{text-shadow:0 0 8px rgba(200,67,42,.6),0 0 20px rgba(200,67,42,.3)}50%{text-shadow:0 0 20px rgba(200,67,42,1),0 0 40px rgba(200,67,42,.6)}}
+@keyframes fi{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes scanH{0%{left:-100%}100%{left:200%}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes glowBeat{0%,100%{box-shadow:0 0 8px rgba(200,67,42,.2)}50%{box-shadow:0 0 22px rgba(200,67,42,.5)}}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:#0a0a0c;
+  color:#d0cfc8;
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:'';
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(200,67,42,.06) 0%,transparent 55%),
+    repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(200,67,42,.014) 60px,rgba(200,67,42,.014) 61px),
+    repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(200,67,42,.009) 60px,rgba(200,67,42,.009) 61px);
+}
+
+/* ── HEADER ── */
+.hdr{
+  background:linear-gradient(135deg,#0d0d10 0%,#1a0a08 50%,#0d0d10 100%);
+  border-bottom:2px solid #c8432a;
+  padding:16px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 4px 40px rgba(200,67,42,.15);
+}
+.logo{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;letter-spacing:6px;color:#f0ede8;animation:neonPulse 3s ease-in-out infinite;line-height:1;}
+.logo span{color:#c8432a;}
+.logo-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:3px;margin-top:3px;}
+.hdr-right{display:flex;align-items:center;gap:12px;}
+.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
+.back-btn{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;letter-spacing:2px;
+  border:1px solid rgba(200,67,42,.4);border-radius:2px;padding:5px 12px;
+  text-decoration:none;transition:all .18s;
+}
+.back-btn:hover{background:rgba(200,67,42,.1);border-color:#c8432a;}
+
+/* ── LAYOUT ── */
+main{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  min-height:calc(100vh - 62px);
+  position:relative;z-index:1;
+}
+
+/* ── NAV SIDEBAR ── */
+.nav-sidebar{
+  background:#0d0d10;
+  border-right:1px solid #2e2e3e;
+  padding:24px 0;
+  position:sticky;
+  top:62px;
+  height:calc(100vh - 62px);
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:#2e2e3e transparent;
+}
+.nav-section-title{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;
+  letter-spacing:3px;text-transform:uppercase;
+  padding:0 20px 8px;margin-bottom:4px;
+  border-bottom:1px solid #1e1e28;
+}
+.nav-section-title:not(:first-child){margin-top:20px;}
+.nav-link{
+  display:block;padding:9px 20px;
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:1.5px;color:#5a5a6a;text-decoration:none;
+  transition:all .14s;position:relative;
+  border-left:2px solid transparent;
+}
+.nav-link::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:0;
+  background:rgba(200,67,42,.08);transition:width .14s;
+}
+.nav-link:hover{color:#c8432a;border-left-color:rgba(200,67,42,.4);}
+.nav-link:hover::before{width:100%;}
+.nav-link.active{color:#c8432a;border-left-color:#c8432a;background:rgba(200,67,42,.06);}
+.nav-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;display:block;margin-top:2px;letter-spacing:1px;}
+
+/* ── CONTENT ── */
+.content{padding:40px 48px 80px;}
+
+/* ── PAGE TITLE ── */
+.page-hero{margin-bottom:48px;animation:fi .5s ease both;}
+.page-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;letter-spacing:4px;text-transform:uppercase;display:block;margin-bottom:12px;}
+.page-title{font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;letter-spacing:3px;color:#f0ede8;line-height:1;margin-bottom:10px;}
+.page-title span{color:#c8432a;}
+.page-desc{font-family:'Share Tech Mono',monospace;font-size:11px;color:#5a5a6a;letter-spacing:1.5px;line-height:2;max-width:560px;}
+
+/* ── CHAPTER DIVIDER ── */
+.chapter{margin-bottom:20px;margin-top:48px;}
+.chapter:first-of-type{margin-top:0;}
+.chapter-hdr{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:28px;
+  padding-bottom:12px;
+  border-bottom:1px solid #2e2e3e;
+}
+.chapter-num{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;
+  border:1px solid rgba(200,67,42,.3);border-radius:2px;padding:3px 8px;letter-spacing:2px;
+}
+.chapter-name{
+  font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;
+  letter-spacing:4px;color:#f0ede8;text-transform:uppercase;
+}
+.chapter-desc{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;margin-left:auto;}
+
+/* ── RACE CARD ── */
+.race-card{
+  background:#111116;
+  border:1px solid #2e2e3e;
+  border-radius:3px;
+  margin-bottom:24px;
+  overflow:hidden;
+  transition:border-color .2s;
+  animation:fi .4s ease both;
+}
+.race-card:hover{border-color:#3a3a50;}
+
+.race-header{
+  display:grid;
+  grid-template-columns:4px 1fr auto;
+  background:linear-gradient(135deg,#161620 0%,#111116 100%);
+  position:relative;overflow:hidden;
+}
+.race-header::after{
+  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(200,67,42,.04),transparent);
+  pointer-events:none;
+}
+.race-card:hover .race-header::after{animation:scanH .6s ease;}
+
+.race-accent-bar{background:#c8432a;flex-shrink:0;}
+.race-header-content{padding:20px 24px 18px;}
+.race-icon{font-size:28px;margin-bottom:8px;display:block;filter:drop-shadow(0 0 8px rgba(200,67,42,.3));}
+.race-name{
+  font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;
+  letter-spacing:3px;color:#f0ede8;text-transform:uppercase;
+  margin-bottom:4px;
+}
+.race-subtitle{font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;letter-spacing:2px;}
+.race-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.race-tag{
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  padding:2px 8px;border:1px solid #2e2e3e;border-radius:2px;color:#5a5a6a;
+  text-transform:uppercase;
+}
+.race-tag.highlight{border-color:rgba(200,67,42,.3);color:#c8432a;background:rgba(200,67,42,.06);}
+
+.race-stats{
+  padding:18px 24px;
+  display:flex;align-items:center;gap:8px;
+  border-right:1px solid #1e1e28;
+  flex-shrink:0;min-width:140px;justify-content:center;flex-direction:column;
+}
+.stat-item{text-align:center;padding:6px 12px;background:#0d0d10;border:1px solid #1e1e28;border-radius:2px;width:100%;}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:8px;color:#3a3a50;letter-spacing:2px;text-transform:uppercase;}
+.stat-value{font-family:'Share Tech Mono',monospace;font-size:13px;color:#f0ede8;font-weight:700;margin-top:2px;}
+
+/* ── RACE BODY ── */
+.race-body{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #1e1e28;}
+
+.race-section{padding:20px 24px;border-right:1px solid #1e1e28;}
+.race-section:last-child{border-right:none;}
+.race-section.full{grid-column:1/-1;border-right:none;}
+.race-section.thirds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;grid-column:1/-1;}
+
+.rs-title{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.rs-title::after{content:'';flex:1;height:1px;background:rgba(200,67,42,.2);}
+
+.rs-text{
+  font-family:'Rajdhani',sans-serif;font-size:14px;color:#8a8a99;
+  line-height:1.75;
+}
+
+/* ── APPEARANCE BLOCK ── */
+.appearance-block{
+  background:#0d0d10;
+  border:1px solid #1e1e28;
+  border-radius:2px;
+  padding:12px 14px;
+  margin-top:8px;
+}
+.appearance-item{
+  display:flex;gap:8px;align-items:flex-start;
+  padding:5px 0;
+  border-bottom:1px solid #161620;
+  font-size:13px;color:#8a8a99;
+}
+.appearance-item:last-child{border-bottom:none;padding-bottom:0;}
+.appearance-dot{color:#c8432a;flex-shrink:0;margin-top:2px;font-size:10px;}
+
+/* ── TRAIT BLOCK ── */
+.trait-block{
+  background:linear-gradient(135deg,rgba(200,67,42,.06) 0%,transparent 100%);
+  border:1px solid rgba(200,67,42,.2);
+  border-radius:2px;
+  padding:14px 16px;
+  margin-top:8px;
+  position:relative;
+  overflow:hidden;
+}
+.trait-block::before{
+  content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+  background:linear-gradient(180deg,#c8432a,rgba(200,67,42,.3));
+}
+.trait-name{
+  font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:2px;color:#f0ede8;text-transform:uppercase;margin-bottom:5px;
+}
+.trait-desc{font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.7;}
+.trait-mech{
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:#c8432a;
+  margin-top:6px;padding-top:6px;border-top:1px solid rgba(200,67,42,.15);
+}
+
+.trait-block.secondary{
+  background:linear-gradient(135deg,rgba(58,107,199,.06) 0%,transparent 100%);
+  border-color:rgba(58,107,199,.2);
+  margin-top:8px;
+}
+.trait-block.secondary::before{background:linear-gradient(180deg,#3a6bc7,rgba(58,107,199,.3));}
+.trait-block.secondary .trait-name{color:#d0d8f0;}
+.trait-block.secondary .trait-mech{color:#5585e0;border-top-color:rgba(58,107,199,.15);}
+
+/* ── RATION BAR ── */
+.ration-display{
+  display:flex;align-items:center;gap:10px;margin-top:10px;
+  background:#0d0d10;border:1px solid #1e1e28;border-radius:2px;padding:8px 12px;
+}
+.ration-icon{font-size:16px;}
+.ration-info{flex:1;}
+.ration-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ration-values{font-family:'Share Tech Mono',monospace;font-size:13px;color:#f0ede8;margin-top:2px;}
+.ration-values span{color:#c8432a;}
+
+/* ── SUBRACE ── */
+.subrace-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.subrace-item{
+  background:#0d0d10;border:1px solid #1e1e28;border-radius:2px;padding:12px;
+}
+.subrace-name{
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:2px;color:#f0ede8;text-transform:uppercase;margin-bottom:5px;
+}
+.subrace-desc{font-family:'Rajdhani',sans-serif;font-size:12px;color:#5a5a6a;line-height:1.6;}
+
+/* ── NEW BADGE ── */
+.new-badge{
+  font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;
+  padding:2px 7px;border-radius:2px;background:rgba(212,160,23,.15);
+  border:1px solid rgba(212,160,23,.35);color:#d4a017;text-transform:uppercase;
+  margin-left:8px;vertical-align:middle;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:#0d0d10;border-top:1px solid #2e2e3e;
+  padding:14px 40px;display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:10;
+}
+.ft-l{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-r{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
+.ft-dot{width:6px;height:6px;border-radius:50%;background:#c8432a;animation:pulse 2s ease infinite;}
+
+/* ── SCROLL HINT ── */
+.scroll-fade{
+  position:fixed;bottom:0;left:240px;right:0;height:60px;
+  background:linear-gradient(transparent,rgba(10,10,12,.9));
+  pointer-events:none;z-index:50;
+}
+
+@media(max-width:900px){
+  main{grid-template-columns:1fr;}
+  .nav-sidebar{display:none;}
+  .scroll-fade{left:0;}
+  .race-body{grid-template-columns:1fr;}
+  .race-section{border-right:none;border-bottom:1px solid #1e1e28;}
+  .race-section.thirds{grid-template-columns:1fr;}
+  .subrace-grid{grid-template-columns:1fr;}
+  .content{padding:24px 20px 60px;}
+}
+@media(max-width:600px){
+  .hdr{padding:12px 16px;}
+  .chapter-name{font-size:15px;}
+  .race-header{grid-template-columns:3px 1fr;}
+  .race-stats{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div>
+    <div class="logo">DeaD <span>H</span>an<span>D</span></div>
+    <div class="logo-sub">РАСЫ МИРА — СПРАВОЧНИК</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-ver">v1.03</div>
+    <a href="index.html" class="back-btn">← НАЗАД</a>
+  </div>
+</header>
+
+<main>
+
+<!-- SIDEBAR NAV -->
+<nav class="nav-sidebar">
+  <div class="nav-section-title">MY-L230012</div>
+  <a href="#chistye" class="nav-link">Чистые <span class="nav-sub">HOMO SAPIENS PRIME</span></a>
+  <a href="#musorshiki" class="nav-link">Мусорщики <span class="nav-sub">WASTELAND BORN</span></a>
+  <a href="#zhuki" class="nav-link">Жуки <span class="nav-sub">CHITIN-BORNE</span></a>
+  <a href="#more" class="nav-link">Народы моря <span class="nav-sub">SEA-KIN</span></a>
+
+  <div class="nav-section-title">ГАЛАКТИКА</div>
+  <a href="#vakuumniki" class="nav-link">Вакуумники <span class="nav-sub">VOID WORKERS</span></a>
+  <a href="#arkhivnye" class="nav-link">Архивные <span class="nav-sub">CORPUS ELITE</span></a>
+  <a href="#ashra" class="nav-link">Ашра <span class="nav-sub">NOMAD KEEPERS</span></a>
+  <a href="#otreshonnye" class="nav-link">Отрешённые <span class="nav-sub">MARTIAN ASCETICS</span></a>
+
+  <div class="nav-section-title">НОВЫЕ РАСЫ</div>
+  <a href="#kalku" class="nav-link">Калку <span class="nav-sub">DEEP VOID</span></a>
+  <a href="#serdse" class="nav-link">Сердцевинники <span class="nav-sub">CORE BORN</span></a>
+  <a href="#tkan" class="nav-link">Тканевые <span class="nav-sub">SYNTH-FLESH</span></a>
+  <a href="#driftery" class="nav-link">Дрифтеры <span class="nav-sub">NULL-G WANDERERS</span></a>
+  <a href="#ekho" class="nav-link">Эхо <span class="nav-sub">PSI-ECHO</span></a>
+</nav>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <div class="page-hero">
+    <span class="page-tag">◈ Кодекс MY-L230012 ◈</span>
+    <h1 class="page-title">Расы <span>мира</span></h1>
+    <p class="page-desc">
+      Классификация разумных существ по реестру КМУ.<br>
+      Каждая раса — это не только биология.<br>
+      Это определённый ответ на один вопрос:<br>
+      что ты есть и чем ты стал.
+    </p>
+  </div>
+
+  <!-- ══════════════════════════════ -->
+  <!-- CHAPTER 1 — MY-L230012        -->
+  <!-- ══════════════════════════════ -->
+  <div class="chapter">
+    <div class="chapter-hdr">
+      <span class="chapter-num">01</span>
+      <span class="chapter-name">Расы MY-L230012</span>
+      <span class="chapter-desc">ПЛАНЕТАРНЫЕ · 4 РАСЫ</span>
+    </div>
+
+    <!-- ЧИСТЫЕ -->
+    <div class="race-card" id="chistye">
+      <div class="race-header">
+        <div class="race-accent-bar"></div>
+        <div class="race-header-content">
+          <span class="race-icon">◈</span>
+          <div class="race-name">Чистые</div>
+          <div class="race-subtitle">HOMO SAPIENS PRIME · ПОТОМКИ ВЫЖИВШИХ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Элита</span>
+            <span class="race-tag">Планетарные</span>
+            <span class="race-tag">Долгожители</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">10 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.0 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Потомки тех, кто пережил катастрофу в укреплённых бункерах и сохранил большую часть знаний старого мира. Они выстроили новую цивилизацию на обломках прежней — и не упускают случая напомнить остальным, кто именно её выстроил.
+            <br><br>
+            Чистые считают себя «правильными людьми» — не из жестокости, а из искренней убеждённости. Они хранят архивы, управляют институтами, заседают в советах. Пустошь их пугает — но знания делают их незаменимыми даже там.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Светлая, ухоженная кожа без видимых повреждений</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Острый, оценивающий взгляд — привычка всё анализировать</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Хорошо пошитая одежда даже в экспедиционных условиях</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Правильные черты лица; физически слабее большинства рас</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Двойная предыстория</div>
+            <div class="trait-desc">Жизнь среди архивов и людей, которые что-то значили — формирует быстро и плотно. Чистые берут 2 особенности от предыстории вместо 1.</div>
+            <div class="trait-mech">▸ +1 особенность от предыстории при создании персонажа</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Хранитель знаний</div>
+            <div class="trait-desc">Доступ к архивам и привычка их использовать. Раз в день можно задать мастеру один вопрос о мире, локации или существе — и получить правдивый ответ, если информация могла существовать в старых записях.</div>
+            <div class="trait-mech">▸ 1/день: вопрос к мастеру о лоре/локации — ответ если это «архивные данные»</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- МУСОРЩИКИ -->
+    <div class="race-card" id="musorshiki">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#7a5a3a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">⬡</span>
+          <div class="race-name">Мусорщики</div>
+          <div class="race-subtitle">WASTELAND BORN · ДЕТИ РУИН</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Выживальщики</span>
+            <span class="race-tag">Пустошь</span>
+            <span class="race-tag">Адаптанты</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">9 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.0 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Те, кто не прятался — или прятался, но не там, где нужно. Люди свалок, руин и заброшенных промышленных зон. Их жизнь — постоянный поиск: ресурсов, еды, союзников, места где можно переночевать без риска не проснуться.
+            <br><br>
+            Мусорщиков не уважают, но без них не выживают. Они знают, где что лежит, умеют собрать оружие из трёх сломанных вещей, и понимают, когда пора бежать — ещё до того, как что-то случилось.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Тёмная кожа, часто покрытая слоем пыли и въевшейся грязи</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Множество шрамов — каждый со своей историей</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Слоистая, разнородная одежда — функция важнее вида</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Цепкий взгляд — сканируют окружение постоянно</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Мусорщик</div>
+            <div class="trait-desc">Когда у тебя никогда не было нормальных инструментов, учишься обходиться тем что есть. При попытке создать что-либо из низкокачественных материалов или мусора сложность создания снижается на 1 категорию.</div>
+            <div class="trait-mech">▸ −1 категория сложности при крафте из мусора/низкокачественного</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Живучесть пустошей</div>
+            <div class="trait-desc">Первый раз за сессию, когда персонаж должен умереть или получить тяжёлую травму — вместо этого получает тяжёлое состояние. Потому что мусорщики умирают медленно и упрямо.</div>
+            <div class="trait-mech">▸ 1/сессия: смерть или тяжёлая травма заменяется тяжёлым состоянием</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЖУКИ -->
+    <div class="race-card" id="zhuki">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#3a6a3a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">◆</span>
+          <div class="race-name">Жуки</div>
+          <div class="race-subtitle">CHITIN-BORNE · ДЕТИ БУНКЕРОВ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Мутанты</span>
+            <span class="race-tag">Подземные</span>
+            <span class="race-tag">Изгои</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">13 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">0.5 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Люди что укрылись в бункерах поплатились иначе. Не смертью — изменением. Поколения под землёй, в темноте, в тесноте, с воздухом через фильтры — и тела адаптировались. Кожа затвердела, глаза расширились, слух обострился.
+            <br><br>
+            Когда Жуки вышли на поверхность, их встретили холодно. Не потому что они опасны — потому что они напоминают о том, во что превращается человек когда перестаёт притворяться что контролирует своё тело.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Низкорослые, компактные — подземная среда оптимизировала форму</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Непропорционально большие глаза — часто тёмные, без видимых белков</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Оливковая кожа или полноценный хитиновый покров — у кого как</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Часто лысые; у некоторых подвидов — усики или дополнительные суставы</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Тёмная жизнь</div>
+            <div class="trait-desc">Поколения без солнечного света сделали темноту домом, а не угрозой. Нет штрафов при слабом освещении; видят в полной темноте на расстоянии до 6 метров.</div>
+            <div class="trait-mech">▸ Нет штрафов при слабом свете · Тёмное зрение 6м</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Хитиновый удар / Паук</div>
+            <div class="trait-desc">Выбери одно при создании персонажа. <b>Хитиновая кожа</b> — сопротивление первому урону по здоровью в каждом бою. <b>Паук</b> — атаки по цели, которая тебя не видит или не замечает, совершаются на 1 сложность ниже.</div>
+            <div class="trait-mech">▸ Хитин: сопротивление первому урону в бою ИЛИ Паук: −1 сл. атак из скрытности</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- НАРОДЫ МОРЯ -->
+    <div class="race-card" id="more">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#1a5a7a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">≋</span>
+          <div class="race-name">Народы моря</div>
+          <div class="race-subtitle">SEA-KIN · ПРИБРЕЖНЫЕ ГИБРИДЫ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Гибриды</span>
+            <span class="race-tag">Прибрежные</span>
+            <span class="race-tag">Подвиды</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">9 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">2.0 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Когда-то давно — работа в море требовала тел, которые море не убивало. Корпорации решили вопрос просто: скрестили людей с тем, что там уже жило. Народы моря — результат этого решения, который пережил и саму корпорацию, и её заказчиков.
+            <br><br>
+            Сейчас они — основная сила прибрежных районов. Торгуют, рыбачат, перевозят. В пустыни заходят редко — потребность в воде делает длинные маршруты по суше почти смертельными без подготовки.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Подвиды</div>
+          <div class="subrace-grid">
+            <div class="subrace-item">
+              <div class="subrace-name">🐟 Рыбы</div>
+              <div class="subrace-desc">Светлая чешуя, уродливая по меркам поверхности красота. Плавники, перепонки. Созданы для глубины.</div>
+            </div>
+            <div class="subrace-item">
+              <div class="subrace-name">🦞 Моллюски</div>
+              <div class="subrace-desc">Толстый панцирь, мощные клешнеподобные руки. Природная броня и сила — за счёт скорости.</div>
+            </div>
+            <div class="subrace-item">
+              <div class="subrace-name">🐙 Осьминоги</div>
+              <div class="subrace-desc">Самые человечные внешне. Тёмно-зеленоватая кожа, борода из щупалец. Непредсказуемы в хорошем смысле.</div>
+            </div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Дыхание глубины / Панцирь / Гибкий разум</div>
+            <div class="trait-desc">Выбери по подвиду. <b>Рыба:</b> задерживать дыхание под водой до 1 часа без последствий. <b>Моллюск:</b> Бр без одежды всегда равна 2, +1 уровень к «удар в лицо». <b>Осьминог:</b> один раз за бой игнорировать эффект любого состояния.</div>
+            <div class="trait-mech">▸ Рыба: 1ч под водой ИЛИ Моллюск: Бр2 без брони ИЛИ Осьминог: 1/бой игнор состояния</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Морская память</div>
+            <div class="trait-desc">Народы моря никогда не теряются на воде и редко — у побережья. Преимущество на все броски навигации, ориентирования и понимания течений. На суше дальше 50 км от побережья — это преимущество не работает.</div>
+            <div class="trait-mech">▸ Преимущество: навигация и ориентирование у воды</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chapter 1 -->
+
+  <!-- ══════════════════════════════ -->
+  <!-- CHAPTER 2 — ГАЛАКТИКА         -->
+  <!-- ══════════════════════════════ -->
+  <div class="chapter">
+    <div class="chapter-hdr">
+      <span class="chapter-num">02</span>
+      <span class="chapter-name">Расы Галактики</span>
+      <span class="chapter-desc">МЕЖПЛАНЕТНЫЕ · 4 РАСЫ</span>
+    </div>
+
+    <!-- ВАКУУМНИКИ -->
+    <div class="race-card" id="vakuumniki">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#4a4a7a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">⬠</span>
+          <div class="race-name">Вакуумники</div>
+          <div class="race-subtitle">VOID WORKERS · РАБОЧИЕ ПУСТОТЫ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Рабочий класс</span>
+            <span class="race-tag">Межпланетные</span>
+            <span class="race-tag">Выносливые</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">9 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.25 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Рабочие, шахтёры, строители — все кто родился не в богатой семье и вырос в условиях где ошибка стоит не денег, а воздуха. Поколения в невесомости, в вакуумных шлюзах, в скафандрах — и тела адаптировались: плотнее, устойчивее, с изменённой грудной клеткой под давление.
+            <br><br>
+            Вакуумники составляют большинство работяг Союза. КМУ предпочитает не замечать как они живут — пока они продолжают работать.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Мускулистые, широкие в кости — тяжёлый труд с детства</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Высокий рост, плотная кожа с характерным синеватым оттенком у долго живущих в вакууме</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Необычная форма грудной клетки — шире и глубже нормы</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Рабочие мозоли, технические татуировки — идентификация цеха или шахты</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Плотная структура</div>
+            <div class="trait-desc">Первый эффект «Сбит с ног» в каждом бою игнорируется. Тело помнит невесомость — равновесие держится там, где другие падают.</div>
+            <div class="trait-mech">▸ 1/бой: игнорировать первое «Сбит с ног»</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Аварийная психика / Сломанный метаболизм</div>
+            <div class="trait-desc">Выбери одно. <b>Аварийная психика</b> — при провале броска на потерю сознания, теряешь его только на следующий ход, не сразу. <b>Сломанный метаболизм</b> — первая степень истощения наступает после двух дней без еды, а не одного.</div>
+            <div class="trait-mech">▸ Психика: задержка потери сознания на 1 ход ИЛИ Метаболизм: истощение через 2 дня без еды</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- АРХИВНЫЕ -->
+    <div class="race-card" id="arkhivnye">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#6a5a2a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">✦</span>
+          <div class="race-name">Архивные</div>
+          <div class="race-subtitle">CORPUS ELITE · КОРПОРАТИВНАЯ КРОВЬ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Элита</span>
+            <span class="race-tag">Корпоративные</span>
+            <span class="race-tag">Долгожители</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">7 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.5 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Корпоранты, богачи и управленцы — люди, которые никогда в жизни не поднимали ничего тяжелее портфеля с документами. Их жизнь — переговоры, контракты, власть через информацию. Живут до 200–300 лет при хорошем медицинском обслуживании.
+            <br><br>
+            Как они оказываются в опасных ситуациях — загадка. Но оказываются. И выживают — потому что информация это тоже оружие, просто не все умеют им пользоваться.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Низкие, утончённые — тела без физической нагрузки поколениями</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Идеальная кожа, безупречные волосы — медицинский уход с рождения</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Поставленный голос, выверенные жесты — всё обучено</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Тонкие черты лица; выглядят моложе реального возраста</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Звёздный разум</div>
+            <div class="trait-desc">Один раз в день можно перебросить проверку, связанную с Техникой или попыткой понять что-либо. Результат второго броска окончателен.</div>
+            <div class="trait-mech">▸ 1/день: переброс Техники или интеллектуальной проверки</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Пограничный разум / Корпоративная прошивка</div>
+            <div class="trait-desc">Выбери одно. <b>Пограничный разум</b> — один раз в день игнорировать эффект состояния. <b>Корпоративная прошивка</b> — 1/день преимущество на создание или ремонт; дополнительно 1 владение технологией 2 уровня.</div>
+            <div class="trait-mech">▸ Разум: 1/день игнор состояния ИЛИ Прошивка: 1/день преим. крафта + влад. технол. 2 ур.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- АШРА -->
+    <div class="race-card" id="ashra">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#5a3a1a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">◉</span>
+          <div class="race-name">Ашра</div>
+          <div class="race-subtitle">NOMAD KEEPERS · ХРАНИТЕЛИ ПАМЯТИ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Кочевники</span>
+            <span class="race-tag">Бесplanетные</span>
+            <span class="race-tag">Псионика</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">8 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">0.75 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            У Ашра нет планеты — её уничтожили. Детали теряются в версиях: одни говорят — война, другие — эксперимент КМУ вышедший из-под контроля, третьи — они сами. Ашра не объясняют. Ашра помнят.
+            <br><br>
+            Они кочуют флотилиями по межпланетным коридорам, торгуют воспоминаниями и историями, хранят устную летопись каждого мира который видели. У них непропорционально высокий процент псиоников — связь между потерей дома и открытием ментального — тема которую Ашра тоже не объясняют.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Тёмная кожа с тёплым медным или золотистым подтоном</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Глаза с вертикальным зрачком — мутация или признак псионического потенциала</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Традиционные татуировки-карты — каждый мир где был, отмечен на теле</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Слоистые одежды из разных культур — коллекция встреченных мест</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Память племени</div>
+            <div class="trait-desc">Ашра хранят не только свои воспоминания. При встрече с любым существом или местом, которое другой Ашра мог видеть раньше, можно сделать бросок Разума (сл. 9) чтобы получить фрагмент чужой памяти об этом — информацию, ощущение, предупреждение.</div>
+            <div class="trait-mech">▸ Разум 9: получить чужую память о месте/существе если Ашра там бывали</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Пси-предрасположенность</div>
+            <div class="trait-desc">Ашра начинают с 1 дополнительной пси-способностью если выбирают класс Псионика. Если не выбирают — раз в день могут почувствовать эмоциональный фон места или существа (не мысли — только эмоции) без броска.</div>
+            <div class="trait-mech">▸ Псионик: +1 стартовая способность ИЛИ 1/день: эмоциональный фон без броска</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ОТРЕШЁННЫЕ -->
+    <div class="race-card" id="otreshonnye">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#3a3a5a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">⊙</span>
+          <div class="race-name">Отрешённые</div>
+          <div class="race-subtitle">MARTIAN ASCETICS · ФИЛОСОФЫ МАРСА</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Колонисты</span>
+            <span class="race-tag">Марс</span>
+            <span class="race-tag">Мыслители</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">8 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.0 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Люди первой волны марсианской колонизации — ~130 лет в изоляции, в куполах, где каждый ресурс считался, а торопиться было некуда кроме как думать. Марс сделал их медленными внешне и стремительными внутри. Их культура — наблюдение, философия и очень долгое молчание перед ответом.
+            <br><br>
+            Отрешённых часто принимают за холодных или высокомерных. Они просто не видят смысла говорить раньше, чем есть что сказать. На большинстве планет это производит странное впечатление.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Высокие и тонкие — низкая марсианская гравитация вытянула тела</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Бледная кожа с пепельным оттенком; редкая пигментация</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Большие, спокойные глаза — привычка к долгому наблюдению</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Минималистичная одежда; практически никаких украшений</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Наблюдатель</div>
+            <div class="trait-desc">Отрешённые замечают то, что другие пропускают. Преимущество на все броски Разума связанные с наблюдением, анализом ситуации и выявлением ложи. Нельзя быть застигнутым врасплох если не находишься без сознания.</div>
+            <div class="trait-mech">▸ Преимущество: Разум (наблюдение/анализ/ложь) · Нельзя быть застигнутым врасплох</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Марсианская экономия</div>
+            <div class="trait-desc">Жизнь где каждый вздох считается учит не тратить лишнего. Раз в день Отрешённый может объявить «экономию» перед действием — если бросок успешен, расходуемый ресурс (патроны, заряд, зелья) не тратится.</div>
+            <div class="trait-mech">▸ 1/день: при успехе броска — расходник не тратится</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /chapter 2 -->
+
+  <!-- ══════════════════════════════ -->
+  <!-- CHAPTER 3 — НОВЫЕ РАСЫ        -->
+  <!-- ══════════════════════════════ -->
+  <div class="chapter">
+    <div class="chapter-hdr">
+      <span class="chapter-num">03</span>
+      <span class="chapter-name">Новые расы <span class="new-badge">РАСШИРЕНИЕ</span></span>
+      <span class="chapter-desc">ДАЛЬНИЙ КОСМОС · 5 РАС</span>
+    </div>
+
+    <!-- КАЛКУ -->
+    <div class="race-card" id="kalku">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#1a3a6a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">⬟</span>
+          <div class="race-name">Калку</div>
+          <div class="race-subtitle">DEEP VOID · ДЕТИ ГЛУБОКОГО ВАКУУМА</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Новая раса</span>
+            <span class="race-tag">Дальний космос</span>
+            <span class="race-tag">Мутанты</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">6 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">0.5 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Экипажи дальних зондов которые улетели — и вернулись. Не все, и не теми же. Поколения в настоящей пустоте, без планет, без звёзд достаточно близко чтобы согреть — и тела изменились так, как не изменялись ни у кого другого. Калку стали веществом которое живёт там, где обычная биология сдаётся.
+            <br><br>
+            Они почти не говорят о том что видели в дальнем космосе. Не из секретности — просто нет слов. Язык создан для мест с гравитацией.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Очень тёмная кожа с синим или фиолетовым флюоресцентным подсвечиванием в темноте</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Глаза без радужки — сплошной тёмный зрачок, адаптированный к полному отсутствию света</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Плоские черты лица; почти нет волос</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Движения замедленные и точные — привычка к среде где нет опоры</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Пустотная адаптация</div>
+            <div class="trait-desc">Калку выдерживают открытый вакуум до 3 минут без скафандра без немедленного ущерба для здоровья — тело перераспределяет ресурсы. Кроме того, в условиях невесомости все броски Проворства совершаются с преимуществом.</div>
+            <div class="trait-mech">▸ Вакуум без скафандра 3 мин. без урона · Преимущество: Проворство в невесомости</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Холодный сигнал</div>
+            <div class="trait-desc">Организм Калку излучает минимум тепла и электромагнитного шума. Тепловые и электронные сенсоры обнаруживают их на 1 сложность выше обычного. В бою это означает, что атаки с тепловым прицелом по Калку совершаются с помехой.</div>
+            <div class="trait-mech">▸ Тепловые/ЭМ сенсоры: +1 сл. обнаружения · Атаки с тепловым прицелом с помехой</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- СЕРДЦЕВИННИКИ -->
+    <div class="race-card" id="serdse">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#6a1a1a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">⬡</span>
+          <div class="race-name">Сердцевинники</div>
+          <div class="race-subtitle">CORE BORN · ДЕТИ ПЛАНЕТАРНЫХ ЯДЕР</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Новая раса</span>
+            <span class="race-tag">Горнодобыча</span>
+            <span class="race-tag">Термоустойчивые</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">11 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.75 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Программа глубинной добычи корпорации Celestica создала их как инструмент: люди которые могут работать в условиях экстремального давления и температуры. Программу закрыли — Сердцевинники остались.
+            <br><br>
+            Они живут в горных и пещерных системах, в шахтных городах под поверхностью планет. Сильнее почти всех, медленнее большинства — и с репутацией людей которые не останавливаются. Корпорации до сих пор пытаются их рекрутировать. Большинство Сердцевинников отказывают — один раз.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Массивное телосложение — широкие кости, плотные мышцы</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Кожа тёмно-красная или серая — насыщена минеральными отложениями</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Волосы редкие или отсутствуют; часто есть характерные трещины в коже у суставов</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Глаза мутно-оранжевые — как остывающий металл</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Ядерная порода</div>
+            <div class="trait-desc">Термическое оружие (огонь, плазма, лазер) наносит Сердцевинникам на 2 единицы меньше урона с каждой кости — тело привычно к теплу. Кроме того, сопротивление экстремальным температурам окружающей среды — от раскалённых поверхностей до пламени.</div>
+            <div class="trait-mech">▸ −2 к каждой кости Т-урона · Сопротивление экстремальным температурам среды</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Не останавливается</div>
+            <div class="trait-desc">При получении травмы в бою — Сердцевинник может сделать бросок Крепости (сл. 9) чтобы продолжать действовать в этом ходу как будто травмы нет. Эффекты травмы применяются в начале следующего хода.</div>
+            <div class="trait-mech">▸ Крепость 9: получив травму — игнорировать её эффект до конца текущего хода</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ТКАНЕВЫЕ -->
+    <div class="race-card" id="tkan">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#2a5a3a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">✧</span>
+          <div class="race-name">Тканевые</div>
+          <div class="race-subtitle">SYNTH-FLESH · БИОЛОГИЧЕСКАЯ АРХИТЕКТУРА</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Новая раса</span>
+            <span class="race-tag">Synthetic Sin</span>
+            <span class="race-tag">Биомоды</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">10 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.5 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Проект Synthetic Sin — попытка создать идеального носителя для биомодификаций. Тело которое не отторгает, не ломается, принимает всё. Получилась раса которая принимает слишком хорошо — Тканевые продолжают меняться даже без намеренных модификаций. Их биология пластична как ни у кого другого.
+            <br><br>
+            Этика их происхождения — открытый вопрос внутри Тканевых. Некоторые считают себя венцом биоинженерии. Другие — жертвами эксперимента который никто не спрашивал разрешения проводить.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Телосложение варьируется — базовой нормы нет, каждый выглядит иначе</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Кожа полупрозрачная у некоторых — сосуды и структуры видны изнутри</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Глаза меняют цвет в зависимости от физического состояния</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Шрамы зарастают быстро — часто не успеваешь запомнить откуда</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Принимающее тело</div>
+            <div class="trait-desc">Лимит модификаций у Тканевых увеличен на 3. Бросок на отторжение импланта совершается с преимуществом. Тело не просто принимает — оно адаптируется быстрее.</div>
+            <div class="trait-mech">▸ Лимит модификаций +3 · Преимущество: броски против отторжения импланта</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Быстрая ткань</div>
+            <div class="trait-desc">Один раз за продолжительный отдых Тканевой может свернуть одну физическую травму на 1 день быстрее обычного — тело перераспределяет ресурсы на заживление. Не работает на травмы требующие импланта или протеза.</div>
+            <div class="trait-mech">▸ 1/продолж. отдых: −1 день к длительности одной физической травмы</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ДРИФТЕРЫ -->
+    <div class="race-card" id="driftery">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#3a2a6a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">∿</span>
+          <div class="race-name">Дрифтеры</div>
+          <div class="race-subtitle">NULL-G WANDERERS · РОЖДЁННЫЕ В ДРЕЙФЕ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Новая раса</span>
+            <span class="race-tag">Корабельные</span>
+            <span class="race-tag">Безпланетные</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">8 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.0 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Они родились на кораблях — и никогда не жили нигде ещё. Не беженцы, не эвакуированные — просто поколения людей которые выбрали (или вынуждены были выбрать) жизнь в межпланетных коридорах вместо планеты.
+            <br><br>
+            Дрифтеры — лучшие пилоты и навигаторы в известном пространстве. Они знают межзвёздные пути как другие знают улицы родного города. На планете теряются физически и психологически — гравитация давит, горизонт мешает, небо сверху вместо везде.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Лёгкое телосложение — невесомость не строит мышцы, зато гибкость максимальна</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Длинные пальцы, широкая периферийная чувствительность — для работы с панелями управления</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Кожа бледная с сероватым оттенком — мало настоящего солнечного света</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Нет характерного акцента — смешение всех встреченных культур</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Корабельный инстинкт</div>
+            <div class="trait-desc">На любом корабле или станции Дрифтер ориентируется мгновенно — без карты, без указателей. Преимущество на все броски связанные с пилотированием, навигацией и управлением техническими системами корабля. Чужой корабль становится понятным за час изучения.</div>
+            <div class="trait-mech">▸ Преимущество: пилотирование, навигация, корабельные системы</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Жизнь в узких коридорах</div>
+            <div class="trait-desc">Дрифтеры не получают штраф к Проворству в стеснённых пространствах — узкие коридоры, трубы, технические отсеки — их родная среда. В таких условиях атаки по Дрифтеру совершаются на 1 сложность выше из-за привычного маневрирования.</div>
+            <div class="trait-mech">▸ Нет штрафов в узких пространствах · Атаки по тебе в тесноте +1 сл.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЭХО -->
+    <div class="race-card" id="ekho">
+      <div class="race-header">
+        <div class="race-accent-bar" style="background:#4a1a6a;"></div>
+        <div class="race-header-content">
+          <span class="race-icon">◌</span>
+          <div class="race-name">Эхо</div>
+          <div class="race-subtitle">PSI-ECHO · ОСКОЛКИ БЕЗДНЫ</div>
+          <div class="race-tags">
+            <span class="race-tag highlight">Новая раса</span>
+            <span class="race-tag">Псионические</span>
+            <span class="race-tag">Редкие</span>
+          </div>
+        </div>
+        <div class="race-stats">
+          <div class="stat-item"><div class="stat-label">Еда/день</div><div class="stat-value">7 ед.</div></div>
+          <div class="stat-item"><div class="stat-label">Вода/день</div><div class="stat-value">1.25 л</div></div>
+        </div>
+      </div>
+      <div class="race-body">
+        <div class="race-section">
+          <div class="rs-title">Лор</div>
+          <div class="rs-text">
+            Что происходит с сознанием которое застряло в Бездне — а потом нашло дорогу обратно в тело? Не то же самое тело. Другое. Эхо — это люди, или то, что от них осталось после контакта с Бездной в момент рождения, критической травмы или псионического ритуала.
+            <br><br>
+            Официально КМУ их не признаёт — слишком неудобный вопрос о природе сознания. Неофициально — охотится на них как на данные. Эхо редки, разрознены, и почти всегда несут что-то чужое внутри — не враждебное, но и не своё.
+          </div>
+        </div>
+        <div class="race-section">
+          <div class="rs-title">Внешний вид</div>
+          <div class="appearance-block">
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Внешность может быть любой — Эхо не биологическая категория</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Глаза часто асимметричны по цвету — один глаз остался, второй сменился</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Периодические кратковременные провалы присутствия — смотрят сквозь, не видя</div>
+            <div class="appearance-item"><span class="appearance-dot">▸</span>Температура тела чуть ниже нормы; иногда касание вызывает статические разряды</div>
+          </div>
+        </div>
+        <div class="race-section full">
+          <div class="rs-title">Расовые особенности</div>
+          <div class="trait-block">
+            <div class="trait-name">Отпечаток Бездны</div>
+            <div class="trait-desc">Эхо несут в себе фрагмент Бездны — и это чувствуется. Псионические атаки против Эхо требуют дополнительного броска со стороны атакующего (Разум, сл. 9) — иначе цель не нащупывается. При Психозе 3 Эхо не переходит под контроль мастера — вместо этого игрок описывает что «чужое» внутри делает с персонажем.</div>
+            <div class="trait-mech">▸ Псионика против Эхо: доп. Разум 9 · Психоз 3: не переход к мастеру — особый эффект</div>
+          </div>
+          <div class="trait-block secondary">
+            <div class="trait-name">Двойной голос</div>
+            <div class="trait-desc">Эхо могут говорить с существами Бездны напрямую, без ритуала — раз в день, задав один вопрос. Ответ приходит как образ или ощущение, не слова. Ответ правдивый, но Бездна не знает времён — информация может быть о прошлом, настоящем или возможном будущем без уточнения что именно.
