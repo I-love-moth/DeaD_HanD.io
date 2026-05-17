@@ -121,8 +121,8 @@
   radial-gradient(ellipse at 80% 60%,rgba(0,100,255,.06) 0%,transparent 40%),
   repeating-linear-gradient(30deg,transparent,transparent 40px,rgba(150,0,255,.02) 40px,rgba(150,0,255,.02) 41px),
   repeating-linear-gradient(-30deg,transparent,transparent 40px,rgba(0,150,255,.02) 40px,rgba(0,150,255,.02) 41px);}
-[data-theme="magic"] .logo::before{content:'◈ ';color:#c44ff;}
-[data-theme="magic"] .logo::after{content:' ◈';color:#c44ff;}
+[data-theme="magic"] .logo::before{content:'◈ ';color:#c44f;}
+[data-theme="magic"] .logo::after{content:' ◈';color:#c44f;}
 [data-theme="magic"] .btn{clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);letter-spacing:2px;}
 
 /* ── CAT ── */
@@ -556,6 +556,9 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
 @media(max-width:1050px){.app-body{grid-template-columns:240px 1fr 255px;}}
 @media(max-width:820px){.app-body{grid-template-columns:1fr;}.sidebar,.right-col{border:none;border-bottom:1px solid var(--border);}}
 
+.hdr-back{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;text-decoration:none;transition:all .18s;}
+.hdr-back:hover{border-color:#c8432a;color:#c8432a;}
+
 </style>
 </head>
 <body>
@@ -565,6 +568,9 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
     <div class="logo-sub">СИСТЕМА ПРАВИЛ v1.03</div>
   </div>
   <div class="hdr-acts">
+      <div class="hdr-right">
+    <a class="hdr-back" href="index.html">← ГЛАВНАЯ</a>
+  </div>
     <span class="save-info" id="saveInfo">● не сохранено</span>
     <button class="btn blue" onclick="openModal('cloudModal')">☁ ОБЛАКО</button>
     <button class="btn" onclick="newChar()">⊕ НОВЫЙ</button>
