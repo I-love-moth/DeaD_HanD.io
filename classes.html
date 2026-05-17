@@ -265,6 +265,8 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       <button class="sel-btn" onclick="showClass('strelok', this)">🎯 Стрелок</button>
       <button class="sel-btn" onclick="showClass('technik', this)">🔧 Техник</button>
       <button class="sel-btn" onclick="showClass('psionik', this)">◈ Псионик</button>
+      <button class="sel-btn" onclick="showClass('shaman', this)">☠ Шаман</button>
+      <button class="sel-btn" onclick="showClass('ten', this)">👁 Тень</button>
       <button class="sel-btn empty" disabled>+ Добавить класс</button>
       <button class="sel-btn empty" disabled>+ Добавить класс</button>
     </div>
@@ -1346,6 +1348,581 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
 
     <!-- ══════════════════════════════════════════════════
+    <!-- ══════════════════════════════════════════════════
+         КЛАСС: ШАМАН
+    ══════════════════════════════════════════════════ -->
+    <div class="class-card" id="card-shaman">
+      <div class="card-top">
+        <div class="card-img">
+          <img id="img-shaman" src="" alt="Шаман" style="display:none">
+          <div class="card-img-placeholder">
+            <span class="card-img-icon">☠</span>
+            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
+          </div>
+          <button class="card-img-upload" onclick="triggerUpload('shaman')">↑ ЗАГРУЗИТЬ ФОТО</button>
+          <input type="file" id="upl-shaman" accept="image/*" style="display:none" onchange="handleImgUpload(event,'shaman')">
+          <div class="card-img-border"></div>
+        </div>
+        <div class="card-header">
+          <div>
+            <div class="card-badge">◈ КЛАСС</div>
+            <div class="card-name">Шаман</div>
+            <div class="card-slogan">«Знает то чего не должен знать. Платит за это каждый раз.»</div>
+            <div class="card-desc">
+              Шаман — человек который однажды увидел Бездну и не закрыл глаза. Повелитель ужаса
+              превращает этот контакт в оружие — бьёт напрямую через страх и боль. Прерыватель теней
+              идёт глубже — учится вытаскивать оттуда существ, и чем дальше тем страшнее то что он достаёт.
+            </div>
+          </div>
+          <div class="card-meta-row">
+            <div class="card-meta-item">
+              <span class="card-meta-label">Ключевые умения</span>
+              <span class="card-meta-val">Разум, Крепость</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="card-meta-label">Ресурс</span>
+              <span class="card-meta-val">Сила бездны = уровень + макс. кости Разума</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="card-meta-label">Уровни</span>
+              <span class="card-meta-val">1 — 7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-levels">
+        <div class="levels-header">
+          <span class="levels-title">◆ Прокачка</span>
+          <span class="levels-sub">7 УРОВНЕЙ</span>
+        </div>
+
+        <!-- УР.1 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">1</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ОСНОВА</div>
+            <div class="level-title">Первый контакт</div>
+            <div class="level-text">
+              Шаман увидел Бездну. Или она сама нашла его — неважно. Дверь открыта. Закрыть её уже нельзя.<br><br>
+              Получает <b>все четыре стартовые способности.</b><br><br>
+              Пассивная механика <b>На грани:</b> при Психозе 3 сложность всех бросков шамана снижается на 1 категорию. Безумие делает его острее.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.2 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">2</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ПУТЬ — ВЫБОР</div>
+            <div class="level-title">Цена</div>
+            <div class="level-text">
+              Новая пассивная <b>Сделка:</b> раз за бой шаман может добровольно взять Психоз 1 чтобы перебросить любой провальный бросок. Бездна помогает — но берёт своё.
+            </div>
+            <div class="path-split">
+              <div class="path-block path-a">
+                <div class="path-label">◈ ПУТЬ А</div>
+                <div class="path-name">Повелитель ужаса</div>
+                <div class="path-text">
+                  Прямой урон и страх через Бездну. Она — оружие.<br><br>
+                  <b>Волна страха:</b> все враги в конусе 4 клетки проходят Разум против Силы бездны. Провал — Паника 1д4 хода. Психоз +1 за каждого задетого.<br><br>
+                  <b>Искажение восприятия:</b> один враг в радиусе 8 клеток видит шамана как союзника на 1д4 хода. Бросок Разума против Силы бездны. При атаке шаманом — эффект снимается немедленно. Психоз +1.
+                </div>
+              </div>
+              <div class="path-block path-b">
+                <div class="path-label">◈ ПУТЬ Б</div>
+                <div class="path-name">Прерыватель теней</div>
+                <div class="path-text">
+                  Призыватель. Существа из Бездны под его контролем — и с каждым уровнем они становятся сильнее.<br><br>
+                  <b>Призыв тени (ур.2):</b> базовое существо. HP и урон(Т) = кость Разума. Перемещение 6 клеток. Держится 4 хода.<br><br>
+                  <b>Якорь тени:</b> призванное существо не уничтожается при 0 HP — рассеивается и восстанавливается со следующего хода с половиной HP. Снимается если шаман получает урон.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.3 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">3</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ВЫБОР СПОСОБНОСТИ + ПОРОГ</div>
+            <div class="level-title">Глубже</div>
+            <div class="level-text">
+              <b>+1 к максимуму Разума (макс 3).</b><br><br>
+              Игрок выбирает одну способность: <b>Взгляд бездны / Голос мёртвых / Метка.</b><br><br>
+              <b style="color:var(--blue2)">Прерыватель:</b> существо эволюционирует в <b>Тень с когтями</b> — +1д4 к урону, атака накладывает Кровотечение при превышении сложности на 2+.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.4 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">4</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
+            <div class="level-title">Привычка</div>
+            <div class="level-text">
+              <b>+1 к максимуму Крепости (макс 3).</b><br><br>
+              Психоз снижается на <b>2</b> за продолжительный отдых вместо 1. Существа Бездны держатся <b>6 ходов</b> вместо 4.<br><br>
+              <b style="color:var(--blue2)">Прерыватель:</b> существо эволюционирует в <b>Ночного охотника</b> — HP удваиваются, получает Невидимость (враги не атакуют пока оно не ударило в этом ходу), перемещение 8 клеток.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.5 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">5</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ВЫБОР СПОСОБНОСТИ</div>
+            <div class="level-title">Мастерство</div>
+            <div class="level-text">
+              Игрок выбирает одну способность из доступных пути:<br><br>
+              <b>Поглощение страха</b> — раз за бой при получении урона от существа с Психозом: урон вдвое, Психоз +1, +1д4 к следующей атаке.<br><br>
+              <b>Стая</b> (Повелитель) — два существа вместо одного, каждое по половине кости Разума.<br><br>
+              <b>Двойной якорь</b> (Прерыватель) — два призванных существа одновременно. Второе — уровнем ниже текущего.<br><br>
+              <b style="color:var(--blue2)">Прерыватель:</b> основное существо эволюционирует в <b>Кошмар</b> — урон 2× кость Разума(Т), при атаке враг проходит Разум или получает Паника на 1 ход, перемещение 8 клеток.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.6 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">6</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ВЫБОР СПОСОБНОСТИ + ПОРОГ</div>
+            <div class="level-title">Контроль</div>
+            <div class="level-text">
+              <b>+1 к максимуму Разума (макс 5).</b><br><br>
+              Игрок выбирает одну способность:<br><br>
+              <b>Вой</b> — все враги в радиусе 4 клеток: Разум против Силы бездны, провал — Паника 1д4 хода. Психоз +1 за каждого.<br><br>
+              <b>Тело бездны</b> (Повелитель) — при Психозе 2–3: сопротивление к урону Б и М.<br><br>
+              <b>Призыв без цены</b> (Прерыватель) — раз за бой призыв не добавляет Психоз.<br><br>
+              <b style="color:var(--blue2)">Прерыватель:</b> существо эволюционирует в <b>Бездонного</b> — HP = кость Разума×3, Поглощение (лечит 1д6 при убийстве), атака поражает всех в радиусе 1 клетки, перемещение 10 клеток.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.7 -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(200,67,42,.08);">
+            <span class="ln-num" style="font-size:26px;">7</span>
+            <span class="ln-label">ПИК</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
+            <div class="level-title">Слияние</div>
+            <div class="level-text">Шаман перестал говорить с Бездной. Он стал голосом через который она говорит сама.</div>
+            <div class="path-split">
+              <div class="path-block path-a">
+                <div class="path-label">◈ ПОВЕЛИТЕЛЬ УЖАСА</div>
+                <div class="path-name">Открытая дверь</div>
+                <div class="path-text">
+                  Пассивно — <b>Господство страха:</b> пока хотя бы один враг в Панике в радиусе 8 клеток — все броски шамана с преимуществом.<br><br>
+                  Раз за сессию — <b>Открытая дверь:</b> Психоз немедленно достигает 3. Все враги в радиусе 6 клеток: Разум против Силы бездны — провал: максимальный урон кости Разума (Т) и Паника. После — шаман теряет сознание на 1д4 хода, Психоз сбрасывается до 0.
+                </div>
+              </div>
+              <div class="path-block path-b">
+                <div class="path-label">◈ ПРЕРЫВАТЕЛЬ ТЕНЕЙ</div>
+                <div class="path-name">Воплощение</div>
+                <div class="path-text">
+                  Существо достигает финальной формы <b>Воплощение:</b> HP = кость Разума×4, урон = 3× кость Разума, действует дважды за ход, держится 8 ходов. При смерти — взрыв кости Разума (Т) в радиусе 3 клеток.<br><br>
+                  Раз за сессию — <b>Прорыв:</b> шаман призывает Воплощение немедленно без броска и без Психоза. Оно действует сразу — до хода шамана.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- СПОСОБНОСТИ ШАМАНА -->
+      <div class="card-levels">
+        <div class="levels-header" style="background:rgba(200,67,42,.06);">
+          <span class="levels-title" style="color:#c8432a;">☠ Способности шамана</span>
+          <span class="levels-sub">ПСИХОЗ +1 ЗА КАЖДУЮ ЦЕЛЬ</span>
+        </div>
+
+        <!-- СТАРТОВЫЕ -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(200,67,42,.05);">
+            <span class="ln-num" style="color:#c8432a;font-size:13px;">СТАРТ</span>
+            <span class="ln-label">УР. 1</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#c8432a;">СТАРТОВЫЕ — ДОСТУПНЫ ВСЕМ С 1 УРОВНЯ</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Зверь</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Противник проходит Разум против Силы бездны. Провал — урон кости Разума (Т) и Сбит с ног. Успех — шаман получает урон кости Разума.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Клеймо бездны</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Цель получает 1д4(Т). Все атаки по ней и по шаману — на 1 сложность ниже до следующего хода шамана.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Пиявка</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Разум против Силы бездны. Провал — 1д6(Т) и лечение себе на половину. Успех — лечит противника на 1д6. Нельзя на союзников.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Призыв кошмара</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Разум против Силы бездны. Провал — Психоз 1. Успех — существо под контролем шамана. HP и урон(Т) = кость Разума. Держится 4 хода.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ВЫБОРНЫЕ УР.3 -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(200,67,42,.05);">
+            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.3</span>
+            <span class="ln-label">ВЫБОР</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 3, ВЫБЕРИ ОДНУ</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Взгляд бездны</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Цель смотрящая на шамана: Разум против Силы бездны — провал: Паника 1д4 хода и -1 к броскам. Не требует действия при контакте глазами.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">БЕЗ ПСИХОЗА</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Голос мёртвых</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Касание тела погибшего — последние образы и эмоции. Мастер описывает фрагменты: что видело, кто был рядом, что чувствовало. В бою — действие.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Метка</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Знак Бездны на цели. Существа под контролем шамана атакуют помеченную цель в приоритете с +1д4 к урону по ней.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ВЫБОРНЫЕ УР.5 -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(200,67,42,.05);">
+            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.5</span>
+            <span class="ln-label">ВЫБОР</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 5, ВЫБЕРИ ОДНУ</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Поглощение страха</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Раз за бой при получении урона от существа с Психозом или страхом — урон вдвое, Психоз +1, +1д4 к следующей атаке.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1 · ПОВЕЛИТЕЛЬ</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Стая</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Два существа вместо одного при призыве. Каждое — половина кости Разума по HP и урону. Ходят после шамана в его порядке.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПРЕРЫВАТЕЛЬ</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Двойной якорь</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Два призванных существа одновременно. Второе существо — уровнем ниже текущего максимума. Оба защищены Якорем тени.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ВЫБОРНЫЕ УР.6 -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(200,67,42,.05);">
+            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.6</span>
+            <span class="ln-label">ВЫБОР</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 6, ВЫБЕРИ ОДНУ</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1 ЗА ЦЕЛЬ</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Вой</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Все враги в радиусе 4 клеток: Разум против Силы бездны — провал: Паника 1д4 хода. Психоз +1 за каждого задетого.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПАССИВНО · ПОВЕЛИТЕЛЬ</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Тело бездны</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Пока Психоз 2 или 3 — сопротивление к урону Б и М. Бездна просачивается наружу и делает шамана менее физическим.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">1/БОЙ · ПРЕРЫВАТЕЛЬ</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Призыв без цены</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Раз за бой призыв существа Бездны не добавляет Психоз. Бездна сама хочет прийти.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ПРОГРЕССИЯ ПРЕРЫВАТЕЛЯ -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(58,107,199,.06);">
+            <span class="ln-num" style="color:#5585e0;font-size:11px;">РОСТ</span>
+            <span class="ln-label">ПРИЗЫВ</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#5585e0;">ПРЕРЫВАТЕЛЬ ТЕНЕЙ — ПРОГРЕССИЯ ПРИЗЫВА</div>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px;">
+              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 2</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Тень</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">HP и урон(Т) = кость Разума. 6 клеток. Базовая форма.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 3</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">С когтями</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">+1д4 урона. Кровотечение при попадании +2 к сложности.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 4</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Охотник</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">HP×2. Невидимость до первой атаки. 8 клеток.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 5</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Кошмар</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">Урон 2× кость. Паника при атаке. 8 клеток.</div>
+              </div>
+              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
+                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 6</div>
+                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Бездонный</div>
+                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">HP×3. Поглощение. Атака по области. 10 клеток.</div>
+              </div>
+            </div>
+            <div style="background:#0a0a20;border:1px solid #2a2a5a;border-radius:2px;padding:12px;margin-top:8px;text-align:center;">
+              <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;margin-bottom:6px;">УР. 7 — ФИНАЛЬНАЯ ФОРМА</div>
+              <div style="font-family:'Oswald',sans-serif;font-size:16px;color:#f0ede8;font-weight:700;margin-bottom:6px;">Воплощение</div>
+              <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">HP = кость Разума×4 · Урон = 3× кость Разума · Действует дважды за ход · Держится 8 ходов · При смерти — взрыв кости Разума (Т) в радиусе 3 клеток</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /способности шамана -->
+    </div><!-- /card-shaman -->
+
+
+    <!-- ══════════════════════════════════════════════════
+         КЛАСС: ТЕНЬ
+    ══════════════════════════════════════════════════ -->
+    <div class="class-card" id="card-ten">
+      <div class="card-top">
+        <div class="card-img">
+          <img id="img-ten" src="" alt="Тень" style="display:none">
+          <div class="card-img-placeholder">
+            <span class="card-img-icon">👁</span>
+            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
+          </div>
+          <button class="card-img-upload" onclick="triggerUpload('ten')">↑ ЗАГРУЗИТЬ ФОТО</button>
+          <input type="file" id="upl-ten" accept="image/*" style="display:none" onchange="handleImgUpload(event,'ten')">
+          <div class="card-img-border"></div>
+        </div>
+        <div class="card-header">
+          <div>
+            <div class="card-badge">◈ КЛАСС</div>
+            <div class="card-name">Тень</div>
+            <div class="card-slogan">«Тебя не видят пока ты сам не захочешь. А когда захочешь — уже поздно.»</div>
+            <div class="card-desc">
+              Тень — человек который научился существовать в промежутках. Призрак использует
+              псионику не как оружие — как инструмент исчезновения из чужого восприятия.
+              Убийца не прячется от разума — прячется от глаз. Зато когда находит цель —
+              заканчивает дело одним точным движением.
+            </div>
+          </div>
+          <div class="card-meta-row">
+            <div class="card-meta-item">
+              <span class="card-meta-label">Ключевые умения</span>
+              <span class="card-meta-val">Проворство, Контакт</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="card-meta-label">Владения</span>
+              <span class="card-meta-val">Колющее, Пистолеты, Метательное</span>
+            </div>
+            <div class="card-meta-item">
+              <span class="card-meta-label">Уровни</span>
+              <span class="card-meta-val">1 — 7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-levels">
+        <div class="levels-header">
+          <span class="levels-title">◆ Прокачка</span>
+          <span class="levels-sub">7 УРОВНЕЙ</span>
+        </div>
+
+        <!-- УР.1 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">1</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ОСНОВА</div>
+            <div class="level-title">Незаметность</div>
+            <div class="level-text">
+              Механика <b>Состояние Тень:</b> входит в скрытый режим как действие если враги не смотрят прямо или есть укрытие в радиусе 2 клеток. Пока в Тени — враги не могут атаковать напрямую пока не обнаружат. Обнаружение — Разум врага против Проворства тени.<br><br>
+              <b>Атака из Тени:</b> первая атака из состояния Тень в каждом бою — с преимуществом и +кость Проворства к урону. После атаки — состояние Тень снимается.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.2 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">2</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ПУТЬ — ВЫБОР</div>
+            <div class="level-title">Путь</div>
+            <div class="level-text">Незаметность — инструмент. Вопрос в том для чего именно.</div>
+            <div class="path-split">
+              <div class="path-block path-a">
+                <div class="path-label">◈ ПУТЬ А</div>
+                <div class="path-name">Призрак</div>
+                <div class="path-text">
+                  Псионическая скрытность. Его не замечают на уровне восприятия — глубже любой маскировки.<br><br>
+                  Получает <b>Пси-очки</b> (макс = уровень + 3). Восстанавливаются полностью после продолжительного отдыха, на 2 — после среднего.<br><br>
+                  <b>Туман восприятия (2 пси):</b> одно существо в радиусе 6 клеток перестаёт воспринимать призрака как угрозу на 1д4 хода. При атаке призраком — эффект снимается.<br><br>
+                  <b>Эхо (1 пси):</b> ложный звук или образ в точке радиусе 10 клеток. Существа в радиусе 3 клеток — Разум 9 или идут проверить.<br><br>
+                  <b>Возврат в тень:</b> после успешной атаки — возвращается в Тень бесплатно раз за бой. Дополнительно — 2 пси каждый раз.
+                </div>
+              </div>
+              <div class="path-block path-b">
+                <div class="path-label">◈ ПУТЬ Б</div>
+                <div class="path-name">Убийца</div>
+                <div class="path-text">
+                  Прячется ровно до момента удара. Один удар — одно решение.<br><br>
+                  <b>Уязвимая точка:</b> если убийца не атаковал цель в прошлый ход — следующая атака по ней наносит дополнительно <b>1д8</b> того же типа урона.<br><br>
+                  <b>Финишер:</b> раз за бой — если цель ниже половины HP — атака с преимуществом. При попадании — урон максимальный без броска костей.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.3 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">3</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
+            <div class="level-title">Острее</div>
+            <div class="level-text">
+              <b>+1 к максимуму Проворства (макс 3).</b><br><br>
+              Пассивная <b>Читать обстановку:</b> в начале каждой сцены вне боя — один вопрос мастеру о присутствующих или охране. Честный краткий ответ. Внимание — не магия.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.4 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">4</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
+            <div class="level-title">Отточено</div>
+            <div class="level-text">Путь пройден достаточно далеко чтобы стать привычкой.</div>
+            <div class="path-split">
+              <div class="path-block path-a">
+                <div class="path-label">◈ ПРИЗРАК</div>
+                <div class="path-name">Глубокий туман</div>
+                <div class="path-text">
+                  <b>Туман восприятия</b> работает на <b>двух существ</b> одновременно за ту же стоимость.<br><br>
+                  Раз за сессию — <b>Слепое пятно (4 пси):</b> все существа в радиусе 4 клеток перестают замечать призрака на 1 раунд. Атаки по нему автоматически промахиваются.
+                </div>
+              </div>
+              <div class="path-block path-b">
+                <div class="path-label">◈ УБИЙЦА</div>
+                <div class="path-name">Методичность</div>
+                <div class="path-text">
+                  Бонус <b>Уязвимой точки</b> вырастает до <b>2д8.</b><br><br>
+                  Уязвимая точка теперь работает даже если атаковал цель в прошлый ход — при условии что убийца <b>не двигался</b> в этот ход.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.5 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">5</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
+            <div class="level-title">Контроль</div>
+            <div class="level-text">
+              <b>+1 к максимуму Проворства (макс 4).</b><br><br>
+              <b>Приоритет выхода:</b> раз за бой — при получении урона как реакция — перемещение на 3 клетки. Если выводит из зоны поражения — урон не применяется.
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.6 -->
+        <div class="level-row">
+          <div class="level-num"><span class="ln-num">6</span><span class="ln-label">УР.</span></div>
+          <div class="level-content">
+            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
+            <div class="level-title">Невидимость</div>
+            <div class="level-text">
+              <b>+1 к максимуму Контакта (макс 5).</b><br><br>
+              Пассивная <b>Второй слой:</b> пока в состоянии Тень — все броски врагов на обнаружение с помехой.
+            </div>
+            <div class="path-split" style="margin-top:12px;">
+              <div class="path-block path-a">
+                <div class="path-label">◈ ПРИЗРАК</div>
+                <div class="path-name">Чужие глаза</div>
+                <div class="path-text">
+                  Пси-очки восстанавливаются на <b>3</b> после среднего отдыха вместо 2.<br><br>
+                  Новая способность <b>Чужие глаза (3 пси):</b> смотрит глазами одного существа в радиусе 15 клеток на 1д4 хода. Существо ничего не замечает. Призрак видит всё что видит оно — включая закрытые комнаты.
+                </div>
+              </div>
+              <div class="path-block path-b">
+                <div class="path-label">◈ УБИЙЦА</div>
+                <div class="path-name">Двойной финишер</div>
+                <div class="path-text">
+                  <b>Финишер</b> теперь доступен <b>дважды за бой.</b><br><br>
+                  Если Финишер убивает цель — убийца немедленно входит в состояние Тень без действия.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- УР.7 -->
+        <div class="level-row">
+          <div class="level-num" style="background:rgba(200,67,42,.08);">
+            <span class="ln-num" style="font-size:26px;">7</span>
+            <span class="ln-label">ПИК</span>
+          </div>
+          <div class="level-content">
+            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
+            <div class="level-title">Не существует</div>
+            <div class="level-text">Тень прошла достаточно чтобы понять: она давно перестала быть человеком которого можно поймать.</div>
+            <div class="path-split">
+              <div class="path-block path-a">
+                <div class="path-label">◈ ПРИЗРАК</div>
+                <div class="path-name">Стёртый</div>
+                <div class="path-text">
+                  Может войти в состояние Тень в любой момент своего хода — даже после атаки, даже под прямым взглядом. Раз за бой без пси. Дополнительно — 3 пси.<br><br>
+                  Раз за сессию — <b>Небытие (6 пси):</b> полное исчезновение из восприятия всех в радиусе на 1 раунд. Не скрытность — буквальное отсутствие в чужом сознании. Атаки автоматически промахиваются. После — появляется в любой видимой точке в радиусе 8 клеток.
+                </div>
+              </div>
+              <div class="path-block path-b">
+                <div class="path-label">◈ УБИЙЦА</div>
+                <div class="path-name">Приговор</div>
+                <div class="path-text">
+                  Убийца выбирает цель в начале боя — <b>Приговорённая.</b> Все атаки по ней с преимуществом и +1д6 к урону пассивно. Уязвимая точка по Приговорённой работает всегда — без условий.<br><br>
+                  Раз за сессию — <b>Исполнение:</b> если цель не знает о присутствии убийцы — атака попадает автоматически, урон утроен, броня игнорируется. Если знает — преимущество, урон удвоен.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /card-ten -->
+
+
          ШАБЛОН ПУСТОЙ КАРТОЧКИ КЛАССА
          Скопируй весь этот блок, замени:
            - id="card-НАЗВАНИЕ_КЛАССА"
@@ -1632,4 +2209,3 @@ window.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
- 
