@@ -291,8 +291,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <span class="card-img-icon">⚔</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('shturmovnik')">↑ ЗАГРУЗИТЬ ФОТО</button>
-          <input type="file" id="upl-shturmovnik" accept="image/*" style="display:none" onchange="handleImgUpload(event,'shturmovnik')">
           <div class="card-img-border"></div>
         </div>
 
@@ -313,12 +311,12 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
               <span class="card-meta-val">Напор, Крепость</span>
             </div>
             <div class="card-meta-item">
-              <span class="card-meta-label">Владения</span>
-              <span class="card-meta-val">Дробящее, Режущее, Дробовики, Пулемёты</span>
+              <span class="card-meta-label">Стартовые Владения</span>
+              <span class="card-meta-val">Дробящее, Дробовики, Пулемёты</span>
             </div>
             <div class="card-meta-item">
-              <span class="card-meta-label">Уровни</span>
-              <span class="card-meta-val">1 — 7</span>
+              <span class="card-meta-label">Пути</span>
+              <span class="card-meta-val">Стена | Давление</span>
             </div>
           </div>
         </div>
@@ -341,7 +339,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <div class="level-type">ОСНОВА</div>
             <div class="level-title">Броня из мяса</div>
             <div class="level-text">
-              Штурмовик с первого дня привыкает принимать удары — и не падать.<br><br>
               Когда штурмовик получает урон снижающий его до <b>половины здоровья или ниже</b> — он немедленно совершает <b>бесплатную атаку ближним боем</b> по ближайшей цели в радиусе. Одноразово за бой.<br><br>
               Кроме того — при падении до половины здоровья штурмовик <b>автоматически проходит</b> бросок Крепости на сохранение сознания без броска.
             </div>
@@ -357,24 +354,24 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
           <div class="level-content">
             <div class="level-type">ПУТЬ — ВЫБОР</div>
             <div class="level-title">Путь</div>
-            <div class="level-text">Здесь штурмовик понимает как именно он давит. Выбери одно направление — оно останется с тобой до конца.</div>
+            <div class="level-text"></div>
             <div class="path-split">
               <div class="path-block path-a">
                 <div class="path-label">◈ ПУТЬ А</div>
                 <div class="path-name">Путь Стены</div>
                 <div class="path-text">
-                  Ближний бой, дробящее и иное оружие. Ты входишь в толпу и остаёшься там пока все не лягут.<br><br>
+                  Ближний бой и дробящее оружие. Ты стоищь впереди как несокрушимая стена.<br><br>
                   Атаки дробящим оружием при попадании накладывают <b>Оглушён</b> на 1 ход если бросок атаки превысил сложность на 3 и более.<br><br>
-                  Один раз за бой — <b>Прорыв:</b> переместиться сквозь клетки занятые врагами без атаки по возможности. Все кого прошёл насквозь получают урон равный кости Напора.
+                  1/бой — <b>Прорыв:</b> переместиться сквозь клетки занятые врагами без атаки по возможности. Все кого прошёл насквозь получают урон равный кости Напора.
                 </div>
               </div>
               <div class="path-block path-b">
                 <div class="path-label">◈ ПУТЬ Б</div>
                 <div class="path-name">Путь Давления</div>
                 <div class="path-text">
-                  Среднее расстояние, дробовики и пулемёты. Ты не даёшь врагу поднять голову.<br><br>
-                  При атаке в упор (до 3 клеток) дробовиком или пулемётом <b>сложность попадания снижается на 1 сложность</b><br><br>
-                  Один раз за бой — <b>Шквал:</b> в этот ход атаки дальним оружием не провоцируют атаку по возможности даже в ближнем бою.
+                  Среднее расстояние, дробовики и пулемёты. Ты не даёшь врагу даже подумаь поднять голову.<br><br>
+                  Для броска на попадание с дальним оружием вы можете использовать <b>Напор</b> вместо проворства<br><br>
+                  2/бой<b>Шквал:</b> в этот ход атаки дальним оружием не провоцируют атаку по возможности даже в ближнем бою.
                 </div>
               </div>
             </div>
@@ -391,9 +388,8 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
             <div class="level-title">Крепче</div>
             <div class="level-text">
-              Тело адаптируется. Штурмовик перестаёт замечать то что раньше его останавливало.<br><br>
               <b>+1 к максимуму Крепости и Напора (макс 3).</b><br><br>
-              Штурмовик игнорирует требования брони или оружия связаные с напором до 4 уровня.
+              Штурмовик игнорирует требования брони или оружия связаные с напором до 4 уровня напона.
             </div>
           </div>
         </div>
@@ -407,22 +403,22 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
           <div class="level-content">
             <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
             <div class="level-title">Отточено</div>
-            <div class="level-text">Путь выбран. Теперь он становится острее.</div>
+            <div class="level-text"></div>
             <div class="path-split">
               <div class="path-block path-a">
                 <div class="path-label">◈ ПУТЬ СТЕНЫ</div>
                 <div class="path-name">Удержание</div>
                 <div class="path-text">
                   Эффект <b>Оглушения</b> от дробящего теперь срабатывает при превышении сложности на <b>2, а не 3.</b><br><br>
-                  Новая механика <b>Удержание:</b> враг которого штурмовик атаковал в ближнем бою уменшает свое перемещение на 2 до следующего хода.
+                  <b>Удержание:</b> враг которого штурмовик атаковал в ближнем бою уменшает свое перемещение на 2 до следующего хода.
                 </div>
               </div>
               <div class="path-block path-b">
                 <div class="path-label">◈ ПУТЬ ДАВЛЕНИЯ</div>
                 <div class="path-name">Сектор огня</div>
                 <div class="path-text">
-                  <b>Шквал</b> теперь доступен <b>дважды за бой.</b><br><br>
-                  Новая механика <b>Сектор огня:</b> если враг пытается войти в ближний бой с штурмовиком через открытое пространство без укрытия — штурмовик совершает бесплатную атаку дальним оружием до того как враг достигнет его.
+                  При атаке в упор (до 3 клеток) дробовиком или пулемётом <b>сложность попадания снижается на 1 сложность</b></b><br><br>
+                  Новая механика <b>Сектор огня:</b> если враг пытается войти в ближний бой с штурмовиком через открытое пространство без укрытия — штурмовик совершает бесплатную атаку дальним оружием без атаки по возможности от врага.
                 </div>
               </div>
             </div>
@@ -439,10 +435,9 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
             <div class="level-title">Не сдаётся</div>
             <div class="level-text">
-              Штурмовик перестаёт падать тогда когда положено.<br><br>
               <b>+1 к максимуму Крепости и Напора (макс 4).</b><br><br>
-              Когда штурмовик должен получить травму — он проходит бросок Крепости сложности 9. При успехе <b>травма заменяется состоянием Кровотечение.</b> Один раз за бой.
-            </div>
+              1/день: Когда штурмовик должен получить травму — он проходит бросок Крепости сложности 9. При успехе <b>травма заменяется состоянием Кровотечение.</b>
+            </div>  
           </div>
         </div>
 
@@ -455,8 +450,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
           <div class="level-content">
             <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
             <div class="level-title">Под огнём</div>
-            <div class="level-text">
-              Давление больше не замедляет. Оно разгоняет.<br><br>
+            <div class="level-text">   
               <b>+1 к максимуму Напора (макс 5).</b><br><br>
               Пока штурмовик находится под воздействием <b>хотя бы одного негативного состояния</b> — его перемещение увеличивается на 2 клетки и броски атаки совершаются с <b>преимуществом.</b> Как только все состояния сняты — бонус исчезает.
             </div>
@@ -479,7 +473,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
                 <div class="path-name">Живая Стена</div>
                 <div class="path-text">
                   Пока штурмовик находится в сознании — он считается тяжелым укрытием для союзника стоящего за ним.<br><br>
-                  Один раз за бой — <b>Выдержу всё:</b> при достижении 0 здоровья штурмовик не падает, а вместо этого восстанавливает здоровье до половины от максимума в конце раунда.
+                  1/бой — <b>Выдержу всё:</b> при достижении 0 здоровья штурмовик не падает, а вместо этого восстанавливает здоровье до половины от максимума.
                 </div>
               </div>
               <div class="path-block path-b">
@@ -487,7 +481,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
                 <div class="path-name">Живой Огонь</div>
                 <div class="path-text">
                   Все враги в <b>секторе обстрела</b> (радиус 5 клеток) имеют уменьшенную сложность попадания по ним на одну сложность. <br><br>
-                  Один раз за бой — <b>Подавление:</b> один раунд враги входящие в сектор обсстрела получают провоцыворующую атаку по возможности от штурмовика.
+                  1/бой — <b>Подавление:</b> один раунд враги входящие в сектор обсстрела получают провоцыворующую атаку по возможности от штурмовика.
                 </div>
               </div>
             </div>
@@ -505,13 +499,12 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
       <div class="card-top">
         <div class="card-img">
-          <img id="img-strelok" src="" alt="Стрелок" style="display:none">
+          <img id="img-strelok" src="img/strelok.png" alt="Стрелок"
+               onload="imgLoaded(this,'strelok')" onerror="imgError(this)">
           <div class="card-img-placeholder">
             <span class="card-img-icon">🎯</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('strelok')">↑ ЗАГРУЗИТЬ ФОТО</button>
-          <input type="file" id="upl-strelok" accept="image/*" style="display:none" onchange="handleImgUpload(event,'strelok')">
           <div class="card-img-border"></div>
         </div>
 
@@ -760,13 +753,12 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     <div class="class-card" id="card-technik">
       <div class="card-top">
         <div class="card-img">
-          <img id="img-technik" src="" alt="Техник" style="display:none">
+                   <img id="img-technik" src="img/technik.png" alt="Техник"
+               onload="imgLoaded(this,'technik')" onerror="imgError(this)">
           <div class="card-img-placeholder">
             <span class="card-img-icon">🔧</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('technik')">↑ ЗАГРУЗИТЬ ФОТО</button>
-          <input type="file" id="upl-technik" accept="image/*" style="display:none" onchange="handleImgUpload(event,'technik')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
@@ -986,13 +978,12 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     <div class="class-card" id="card-psionik">
       <div class="card-top">
         <div class="card-img">
-          <img id="img-psionik" src="" alt="Псионик" style="display:none">
+            <img id="img-psionik" src="img/psionik.png" alt="Псионик"
+               onload="imgLoaded(this,'psionik')" onerror="imgError(this)">
           <div class="card-img-placeholder">
             <span class="card-img-icon">◈</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('psionik')">↑ ЗАГРУЗИТЬ ФОТО</button>
-          <input type="file" id="upl-psionik" accept="image/*" style="display:none" onchange="handleImgUpload(event,'psionik')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
@@ -1921,16 +1912,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
       </div>
     </div><!-- /card-ten -->
-
-
-         ШАБЛОН ПУСТОЙ КАРТОЧКИ КЛАССА
-         Скопируй весь этот блок, замени:
-           - id="card-НАЗВАНИЕ_КЛАССА"
-           - data-id="НАЗВАНИЕ_КЛАССА" в кнопке селектора
-           - Текст внутри на данные нового класса
-         Не забудь добавить кнопку в .selector-grid выше:
-           <button class="sel-btn" onclick="showClass('НАЗВАНИЕ_КЛАССА', this)">⚡ Название</button>
-    ══════════════════════════════════════════════════ -->
     <div class="class-card" id="card-template">
 
       <div class="card-top">
