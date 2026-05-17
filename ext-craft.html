@@ -255,6 +255,19 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
   .kits-grid{grid-template-columns:1fr;}
   .page-hero{flex-direction:column;align-items:flex-start;gap:12px;}
 }
+
+.hdr-right{display:flex;align-items:center;gap:12px;}
+.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
+.hdr-back{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;text-decoration:none;transition:all .18s;}
+.hdr-back:hover{border-color:#c8432a;color:#c8432a;}
+.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
+.back-btn{
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:#c8432a;letter-spacing:2px;
+  border:1px solid rgba(200,67,42,.4);border-radius:2px;padding:5px 12px;
+  text-decoration:none;transition:all .18s;
+}
+.back-btn:hover{background:rgba(200,67,42,.1);border-color:#c8432a;}
+
 </style>
 </head>
 <body>
@@ -264,7 +277,10 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     <div class="logo">DeaD <span>H</span>an<span>D</span></div>
     <div class="logo-sub">СИСТЕМА ПРАВИЛ — РАСШИРЕНИЯ</div>
   </div>
-  <div class="hdr-ver">v1.03</div>
+  <div class="hdr-right">
+    <div class="hdr-ver">v1.03</div>
+    <a href="index.html" class="back-btn">← ГЛАВНАЯ</a>
+  </div>
 </header>
 
 <main>
