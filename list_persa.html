@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DeaD HanD — Лист Персонажа v1.03</title>
+<title>DeaD HanD — Лист Персонажа</title>
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Oswald:wght@300;400;500;700&family=Orbitron:wght@400;700&family=Cinzel:wght@400;700&family=VT323&family=Permanent+Marker&family=Caveat:wght@600&family=Exo+2:wght@400;700&display=swap');
@@ -565,7 +565,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
 <header class="app-header">
   <div>
     <div class="logo">DeaD <span>H</span>an<span>D</span></div>
-    <div class="logo-sub">СИСТЕМА ПРАВИЛ v1.03</div>
+    <div class="logo-sub">СИСТЕМА ПРАВИЛ</div>
   </div>
   <div class="hdr-acts">
       <div class="hdr-right">
@@ -1411,7 +1411,7 @@ function buildDCMsg(label,result,sides,crit,fail,det){
       title:`${emoji} ${gn()} — ${label}`,
       description:desc,
       color:tc,
-      footer:{text:`DeaD HanD v1.03 • ${currentTheme}`},
+      footer:{text:`DeaD HanD • ${currentTheme}`},
       timestamp:new Date().toISOString()
     }]
   });
@@ -1424,7 +1424,7 @@ async function testWH(){
   }
   el.textContent='Проверяю...';el.className='ds';
   try{
-    const body=JSON.stringify({username:'DeaD HanD 🎲',embeds:[{title:`✅ DeaD HanD подключён!`,description:`Персонаж: **${gn()}**\nТема: **${currentTheme}**`,color:THEME_COLORS[currentTheme]||0xC8432A,footer:{text:'DeaD HanD v1.03'}}]});
+    const body=JSON.stringify({username:'DeaD HanD 🎲',embeds:[{title:`✅ DeaD HanD подключён!`,description:`Персонаж: **${gn()}**\nТема: **${currentTheme}**`,color:THEME_COLORS[currentTheme]||0xC8432A,footer:{text:'DeaD HanD'}}]});
     const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});
     if(r.ok||r.status===204){el.textContent='✓ Подключено';el.className='ds ok';toast('✓ Discord подключён');}
     else{el.textContent=`✗ Ошибка ${r.status}`;el.className='ds err';}
