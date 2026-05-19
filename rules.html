@@ -241,6 +241,36 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
   .page-title{font-size:28px;}
   .hdr-ver{display:none;}
 }
+
+/* SECTION */
+.sec{margin-bottom:36px;}
+.sec-hdr{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:1px solid #2e2e3e;
+}
+.sec-hdr-line{width:3px;height:16px;background:#c8432a;;border-radius:1px;flex-shrink:0;}
+.sec-title{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
+
+/* DIFFICULTY GRID */
+.difficulty-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+}
+.diff-card{
+  background:#111116;border:1px solid #2e2e3e;border-radius:3px;
+  padding:14px 8px;text-align:center;
+  transition:border-color .2s,background .2s;
+}
+.diff-card:hover{background:#1a1a22;border-color:#3a3a50;}
+.diff-val{
+  font-family:'Share Tech Mono',monospace;font-size:18px;font-weight:600;
+  color:#f0ede8;display:block;margin-bottom:4px;
+}
+.diff-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:#5a5a6a;letter-spacing:1px;text-transform:uppercase;display:block;
+}
+
 </style>
 </head>
 <body>
@@ -519,6 +549,58 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
           <li><strong>Дальний бой:</strong> автоматы | пистолеты | винтовки | дробовики | пулемёты | метательное</li>
           <li><strong>Ближний бой:</strong> режущее | колющее | дробящее | другое</li>
         </ul>
+
+      <div class="sec">
+      <div class="sec-hdr">
+         <ul class="rule-list">
+          <li><strong>Ближний бой</strong></li>
+          <div>,fkfkfk</div>
+        </ul>
+      </div>
+      <div class="difficulty-grid">
+        <div class="diff-card">
+          <span class="diff-val">Режущее</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">Колющее  </span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">Дробящее</span>
+        </div>
+                <div class="diff-card">
+          <span class="diff-val">Дробовик</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">Другое</span>
+        </div>
+      </div>
+    </div>
+
+          <div class="sec">
+      <div class="sec-hdr">
+         <ul class="rule-list">
+          <li><strong>Дальний бой</strong></li>
+          <div>,fkfkfk</div>
+        </ul>
+      </div>
+      <div class="difficulty-grid">
+        <div class="diff-card">
+          <span class="diff-val">Автомат</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">Пистолет</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">Винтовка</span>
+        </div>
+         <div class="diff-card">
+          <span class="diff-val">Пулемёт</span>
+        </div>
+        <div class="diff-card">
+          <span class="diff-val">Метательное</span>
+      </div>
+    </div>
+
         <p class="rule-p">Тип определяется по названию или описанию оружия. При наличии владения — доступны особые возможности оружия помимо базовой атаки.</p>
       </div>
 
@@ -911,15 +993,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         <p class="rule-p">Отдельная мини-система для хакера во время боя — действия в сети параллельно физическим событиям.</p>
       </div>
     </section>
-
-    <!-- ══════════════════════════════════ OUTRO ══════════════════════════════════ -->
-    <div class="outro">
-      <div class="outro-title">DeaD Ha<span style="color:#c8432a">n</span>D</div>
-      <div class="outro-sub">
-        СПАСИБО, ЧТО ИГРАЕТЕ И ПОЛЬЗУЕТЕСЬ СИСТЕМОЙ DeaD HanD<br>
-        АВТОРИ <span style="color:#c8432a;">I_LOVE_MOTH и BOHDANA586</span> ЖЕЛАЮТ ВАМ САМОГО ЛУЧШЕГО ИГРОВОГО ОПЫТА
-      </div>
-    </div>
 
   </main>
 </div>
