@@ -271,6 +271,233 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
   color:#5a5a6a;letter-spacing:1px;text-transform:uppercase;display:block;
 }
 
+/* ═══ WEAPONS OWNERSHIP ═══ */
+.weapon-split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+.weapon-col{background:#0d0d10;border:1px solid #2e2e3e;border-radius:3px;overflow:hidden;}
+.weapon-col-hdr{
+  padding:10px 16px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #2e2e3e;
+}
+.weapon-col-hdr.melee{background:linear-gradient(90deg,rgba(200,67,42,.12) 0%,transparent 100%);border-bottom-color:rgba(200,67,42,.3);}
+.weapon-col-hdr.ranged{background:linear-gradient(90deg,rgba(58,107,199,.12) 0%,transparent 100%);border-bottom-color:rgba(58,107,199,.3);}
+.weapon-col-hdr-icon{font-size:16px;}
+.weapon-col-hdr-title{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;}
+.weapon-col-hdr.melee .weapon-col-hdr-title{color:#c8432a;}
+.weapon-col-hdr.ranged .weapon-col-hdr-title{color:#5585e0;}
+.weapon-col-desc{font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:1px;padding:8px 16px;border-bottom:1px solid #1e1e28;}
+.weapon-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid #1a1a24;
+  transition:background .12s;
+}
+.weapon-row:last-child{border-bottom:none;}
+.weapon-row:hover{background:rgba(255,255,255,.02);}
+.weapon-row-name{
+  font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:1px;color:#f0ede8;padding:10px 16px;
+  border-right:1px solid #1a1a24;
+}
+.weapon-row-desc{
+  font-family:'Rajdhani',sans-serif;font-size:12px;color:#8a8a99;
+  padding:10px 14px;line-height:1.5;
+}
+@media(max-width:680px){.weapon-split{grid-template-columns:1fr;}}
+
+/* ═══ LEVEL PROGRESSION ═══ */
+.level-progression{margin-top:16px;}
+.level-creation{
+  background:linear-gradient(135deg,rgba(200,67,42,.08) 0%,rgba(200,67,42,.03) 100%);
+  border:1px solid rgba(200,67,42,.3);border-radius:3px;
+  padding:20px 24px;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.level-creation::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,#c8432a,rgba(200,67,42,.3),transparent);
+}
+.level-creation-title{
+  font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;
+  letter-spacing:3px;color:#f0ede8;text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.level-creation-title span{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;
+  border:1px solid rgba(200,67,42,.4);border-radius:2px;padding:2px 8px;letter-spacing:2px;
+}
+.level-creation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.creation-step{
+  background:#0d0d10;border:1px solid #2e2e3e;border-radius:2px;padding:14px;
+  display:flex;flex-direction:column;gap:5px;
+}
+.creation-step-num{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;
+}
+.creation-step-name{
+  font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:1px;color:#f0ede8;text-transform:uppercase;
+}
+.creation-step-desc{font-family:'Rajdhani',sans-serif;font-size:12px;color:#8a8a99;line-height:1.55;}
+
+.lvl-table-wrap{overflow-x:auto;}
+.lvl-table{width:100%;border-collapse:collapse;font-size:13px;}
+.lvl-table thead tr{background:#0d0d10;border-bottom:2px solid #c8432a;}
+.lvl-table th{
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:#c8432a;
+  text-transform:uppercase;padding:10px 12px;text-align:left;font-weight:400;white-space:nowrap;
+}
+.lvl-table td{padding:10px 12px;border-bottom:1px solid #1a1a24;vertical-align:top;color:#b0afaa;}
+.lvl-table tr:last-child td{border-bottom:none;}
+.lvl-table tbody tr:hover td{background:rgba(200,67,42,.04);}
+.lvl-table td:first-child{
+  font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;
+  color:#c8432a;text-align:center;width:56px;
+}
+.lvl-tag{
+  display:inline-block;font-family:'Share Tech Mono',monospace;font-size:8px;
+  letter-spacing:1.5px;padding:2px 6px;border-radius:2px;
+  border:1px solid;text-transform:uppercase;margin:2px 2px 2px 0;white-space:nowrap;
+}
+.lvl-tag-class{color:#c8432a;border-color:rgba(200,67,42,.4);background:rgba(200,67,42,.08);}
+.lvl-tag-race{color:#d4a017;border-color:rgba(212,160,23,.4);background:rgba(212,160,23,.08);}
+.lvl-tag-trait{color:#5585e0;border-color:rgba(58,107,199,.4);background:rgba(58,107,199,.08);}
+.lvl-tag-hp{color:#4caf50;border-color:rgba(76,175,80,.4);background:rgba(76,175,80,.08);}
+.lvl-row-special td{background:rgba(200,67,42,.05);}
+.lvl-row-special td:first-child{color:#ff7655;}
+
+/* ═══ IMPLANT LIMIT VISUAL ═══ */
+.implant-visual{margin-top:16px;}
+.implant-formula{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:20px;background:#0d0d10;border:1px solid #2e2e3e;border-radius:3px;
+  margin-bottom:16px;flex-wrap:wrap;
+}
+.implant-formula-item{text-align:center;}
+.implant-formula-val{
+  font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;color:#f0ede8;
+  display:block;margin-bottom:4px;
+}
+.implant-formula-lbl{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:2px;
+}
+.implant-formula-op{
+  font-family:'Oswald',sans-serif;font-size:24px;color:#c8432a;margin-top:-8px;
+}
+.implant-formula-eq{
+  font-family:'Oswald',sans-serif;font-size:24px;color:#2e2e3e;margin-top:-8px;
+}
+.implant-formula-result{
+  text-align:center;
+  background:rgba(200,67,42,.1);border:1px solid rgba(200,67,42,.3);
+  border-radius:3px;padding:12px 20px;
+}
+.implant-formula-result .implant-formula-val{color:#c8432a;font-size:32px;}
+.implant-slots{
+  display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:12px;
+}
+.implant-slot{
+  height:28px;border:1px solid #2e2e3e;border-radius:2px;
+  background:#111116;
+  transition:all .15s;position:relative;
+}
+.implant-slot.used{background:rgba(200,67,42,.25);border-color:rgba(200,67,42,.5);}
+.implant-slot.used::after{
+  content:'';position:absolute;inset:3px;border-radius:1px;
+  background:rgba(200,67,42,.4);
+}
+.implant-slot-label{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:2px;
+  text-align:center;margin-bottom:8px;
+}
+.implant-legend{
+  display:flex;gap:16px;align-items:center;
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:1px;
+}
+.implant-legend-dot{
+  width:14px;height:14px;border-radius:1px;border:1px solid;flex-shrink:0;
+}
+.implant-legend-dot.free{background:#111116;border-color:#2e2e3e;}
+.implant-legend-dot.used{background:rgba(200,67,42,.25);border-color:rgba(200,67,42,.5);}
+.implant-example{
+  margin-top:12px;background:#0d0d10;border:1px solid #2e2e3e;border-radius:3px;
+  padding:12px 16px;
+}
+.implant-example-title{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:2px;
+  margin-bottom:8px;
+}
+.implant-example-row{
+  display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;
+}
+.implant-example-name{font-family:'Rajdhani',sans-serif;font-size:13px;color:#d0cfc8;font-weight:600;min-width:180px;}
+.implant-slot-mini{
+  display:flex;gap:3px;
+}
+.ismi{width:10px;height:10px;border-radius:1px;border:1px solid rgba(200,67,42,.4);background:rgba(200,67,42,.25);}
+
+/* ═══ INVENTORY REDESIGN ═══ */
+.inv-example{
+  background:#0d0d10;border:1px solid #2e2e3e;border-radius:3px;
+  overflow:hidden;margin-top:12px;
+}
+.inv-ex-hdr{
+  background:#131318;border-bottom:1px solid #2e2e3e;
+  display:grid;grid-template-columns:30px 1fr 110px 90px 80px;
+  gap:0;
+}
+.inv-ex-hdr-cell{
+  font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;
+  color:#3a3a50;text-transform:uppercase;padding:8px 12px;
+  border-right:1px solid #1a1a24;
+}
+.inv-ex-hdr-cell:last-child{border-right:none;}
+.inv-ex-row{
+  display:grid;grid-template-columns:30px 1fr 110px 90px 80px;
+  border-bottom:1px solid #1a1a24;
+  transition:background .12s;
+}
+.inv-ex-row:last-child{border-bottom:none;}
+.inv-ex-row:hover{background:rgba(255,255,255,.02);}
+.inv-ex-cell{padding:10px 12px;border-right:1px solid #1a1a24;display:flex;align-items:center;}
+.inv-ex-cell:last-child{border-right:none;}
+.inv-ex-type{font-size:14px;justify-content:center;}
+.inv-ex-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#f0ede8;}
+.inv-ex-name-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;margin-top:2px;}
+.inv-ex-stat{
+  font-family:'Share Tech Mono',monospace;font-size:11px;color:#8a8a99;
+  flex-direction:column;align-items:flex-start;gap:2px;
+}
+.inv-ex-stat-accent{color:#c8432a;font-weight:700;}
+.inv-ex-badge{
+  font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:1px;
+  padding:2px 7px;border-radius:2px;border:1px solid;
+}
+.inv-ex-badge.weapon{color:#c8432a;border-color:rgba(200,67,42,.4);background:rgba(200,67,42,.08);}
+.inv-ex-badge.armor{color:#5585e0;border-color:rgba(85,133,224,.4);background:rgba(85,133,224,.08);}
+.inv-ex-badge.item{color:#8a8a99;border-color:#2e2e3e;background:#131318;}
+.inv-ex-st-ok{font-family:'Share Tech Mono',monospace;font-size:9px;color:#4caf50;border:1px solid rgba(76,175,80,.3);background:rgba(76,175,80,.08);padding:2px 7px;border-radius:2px;}
+.inv-ex-st-dmg{font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;border:1px solid rgba(212,160,23,.3);background:rgba(212,160,23,.08);padding:2px 7px;border-radius:2px;}
+.inv-ex-special{
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;
+  grid-column:2/-1;padding:6px 12px 10px;border-top:1px solid #1a1a24;
+  line-height:1.7;
+}
+.inv-ex-special em{color:#d4a017;font-style:normal;}
+.inv-format-block{
+  background:#0d0d10;border:1px solid #2e2e3e;border-radius:3px;
+  padding:14px 16px;margin-bottom:10px;
+}
+.inv-format-row{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:8px;
+  padding-bottom:8px;border-bottom:1px solid #1a1a24;
+}
+.inv-format-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.inv-format-type{
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:#c8432a;min-width:60px;flex-shrink:0;
+}
+.inv-format-text{font-family:'Share Tech Mono',monospace;font-size:11px;color:#8a8a99;line-height:1.6;}
+.inv-format-text strong{color:#d0cfc8;}
+
 </style>
 </head>
 <body>
@@ -498,7 +725,65 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
       <div class="sub-section">
         <div class="sub-title">Лимит модификаций</div>
-        <p class="rule-p">Максимум имплантов и генетических модификаций, которые выдержит тело. Равен сумме максимумов костей Крепости и Разума. Каждая установленная модификация занимает указанное в описании количество лимита.</p>
+        <p class="rule-p">Максимум имплантов и генетических модификаций, которые выдержит тело. Равен сумме <strong>максимумов костей Крепости и Разума</strong>. Каждая установленная модификация занимает указанное в описании количество ячеек лимита.</p>
+
+        <div class="implant-visual">
+          <!-- Формула -->
+          <div class="implant-formula">
+            <div class="implant-formula-item">
+              <span class="implant-formula-val">д12</span>
+              <span class="implant-formula-lbl">КРЕПОСТЬ макс.</span>
+            </div>
+            <div class="implant-formula-op">+</div>
+            <div class="implant-formula-item">
+              <span class="implant-formula-val">д12</span>
+              <span class="implant-formula-lbl">РАЗУМ макс.</span>
+            </div>
+            <div class="implant-formula-eq">=</div>
+            <div class="implant-formula-result">
+              <span class="implant-formula-val">24</span>
+              <span class="implant-formula-lbl">ЛИМИТ</span>
+            </div>
+          </div>
+
+          <!-- Слоты (пример: 10 из 24 занято) -->
+          <div class="implant-slot-label">ПРИМЕР · ЛИМИТ 14 · ЗАНЯТО 7</div>
+          <div class="implant-slots" id="implantSlots">
+          </div>
+          <div class="implant-legend">
+            <div class="implant-legend-dot free"></div><span>Свободно</span>
+            <div class="implant-legend-dot used"></div><span>Занято</span>
+          </div>
+
+          <!-- Примеры -->
+          <div class="implant-example">
+            <div class="implant-example-title">ПРИМЕРЫ ЗАТРАТ ЛИМИТА</div>
+            <div class="implant-example-row">
+              <span class="implant-example-name">Подкожный карман</span>
+              <div class="implant-slot-mini"><div class="ismi"></div></div>
+              <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a">1 ячейка</span>
+            </div>
+            <div class="implant-example-row">
+              <span class="implant-example-name">Нейроускоритель</span>
+              <div class="implant-slot-mini"><div class="ismi"></div><div class="ismi"></div></div>
+              <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a">2 ячейки</span>
+            </div>
+            <div class="implant-example-row">
+              <span class="implant-example-name">Рука-протез усиленная</span>
+              <div class="implant-slot-mini"><div class="ismi"></div><div class="ismi"></div><div class="ismi"></div></div>
+              <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a">3 ячейки</span>
+            </div>
+            <div class="implant-example-row">
+              <span class="implant-example-name">Паразитический симбионт</span>
+              <div class="implant-slot-mini"><div class="ismi"></div><div class="ismi"></div><div class="ismi"></div><div class="ismi"></div><div class="ismi"></div></div>
+              <span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a">5 ячеек</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box" style="margin-top:12px;">
+          <em>Важно:</em> при понижении Крепости или Разума лимит может уменьшиться ниже уже установленных модификаций. В этом случае тело начинает отторгать импланты — мастер определяет последствия.
+        </div>
       </div>
     </section>
 
@@ -513,15 +798,102 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         <h2 class="sec-title">Уровень и развитие</h2>
       </div>
 
-      <p class="rule-p">Момент повышения уровня определяет мастер — как правило после важного сюжетного события. <strong>Начальный уровень персонажа — 1.</strong></p>
+      <p class="rule-p">Момент повышения уровня определяет мастер — как правило после важного сюжетного события. Максимальный уровень — <strong>7</strong>.</p>
 
-      <div class="sub-title">При каждом повышении уровня:</div>
-      <ul class="rule-list" style="margin-top:14px;">
-        <li>+1 к выбранному умению</li>
-        <li>+ (уровень Крепости + уровень персонажа) к максимуму здоровья</li>
-        <li>Каждый чётный уровень — новая особенность или улучшение существующей</li>
-        <li>Расовые особенности улучшаются на усмотрение мастера</li>
-      </ul>
+      <!-- Создание персонажа -->
+      <div class="level-creation">
+        <div class="level-creation-title">
+          Создание персонажа <span>УРОВЕНЬ 1</span>
+        </div>
+        <div class="level-creation-grid">
+          <div class="creation-step">
+            <div class="creation-step-num">ШАГ 01</div>
+            <div class="creation-step-name">Класс</div>
+            <div class="creation-step-desc">Выберите один из доступных классов. Класс определяет стиль игры, стартовые владения и путь развития.</div>
+          </div>
+          <div class="creation-step">
+            <div class="creation-step-num">ШАГ 02</div>
+            <div class="creation-step-name">Раса</div>
+            <div class="creation-step-desc">Выберите расу персонажа. Раса даёт пассивную особенность и норму потребления ресурсов.</div>
+          </div>
+          <div class="creation-step">
+            <div class="creation-step-num">ШАГ 03</div>
+            <div class="creation-step-name">Черта</div>
+            <div class="creation-step-desc">Выберите одну черту из доступных — или придумайте свою совместно с мастером. Черта отражает предысторию.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Таблица уровней -->
+      <div class="lvl-table-wrap">
+        <table class="lvl-table">
+          <thead>
+            <tr>
+              <th style="text-align:center">УР.</th>
+              <th>Что получаете</th>
+              <th>Класс</th>
+              <th>Раса</th>
+              <th>Черта</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Старт — класс, раса, черта. Здоровье: <strong>10 + Крепость</strong></td>
+              <td><span class="lvl-tag lvl-tag-class">Стартовые владения</span></td>
+              <td><span class="lvl-tag lvl-tag-race">Особенность I</span></td>
+              <td><span class="lvl-tag lvl-tag-trait">Черта × 1</span></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Повышение уровня. <span class="lvl-tag lvl-tag-hp">+HP</span></td>
+              <td><span class="lvl-tag lvl-tag-class">Новые владения</span></td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+            <tr class="lvl-row-special">
+              <td>3</td>
+              <td>Повышение уровня. <span class="lvl-tag lvl-tag-hp">+HP</span></td>
+              <td><span class="lvl-tag lvl-tag-class">Новые владения</span></td>
+              <td><span class="lvl-tag lvl-tag-race">Особенность II</span></td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Повышение уровня. <span class="lvl-tag lvl-tag-hp">+HP</span></td>
+              <td><span class="lvl-tag lvl-tag-class">Новые владения</span></td>
+              <td>—</td>
+              <td><span class="lvl-tag lvl-tag-trait">Черта — улучшение или новая</span></td>
+            </tr>
+            <tr class="lvl-row-special">
+              <td>5</td>
+              <td>Повышение уровня. <span class="lvl-tag lvl-tag-hp">+HP</span></td>
+              <td><span class="lvl-tag lvl-tag-class">Новые владения</span></td>
+              <td><span class="lvl-tag lvl-tag-race">Особенность III</span></td>
+              <td>—</td>
+            </tr>
+            <tr class="lvl-row-special">
+              <td>6</td>
+              <td>Повышение уровня. <span class="lvl-tag lvl-tag-hp">+HP</span></td>
+              <td><span class="lvl-tag lvl-tag-class">Новые владения</span></td>
+              <td>—</td>
+              <td><span class="lvl-tag lvl-tag-trait">Черта — улучшение или новая</span></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Вершина класса — финальная способность пути. <span class="lvl-tag lvl-tag-hp">+HP</span></td>
+              <td><span class="lvl-tag lvl-tag-class">Пиковые владения</span></td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box" style="margin-top:16px;">
+        <em>HP за уровень:</em> при каждом повышении максимум здоровья увеличивается на <strong>уровень Крепости + уровень персонажа</strong>.
+        Расовые особенности улучшаются на уровнях 3, 5 — конкретный эффект улучшения описан на странице расы.
+      </div>
     </section>
 
     <hr class="div-line">
@@ -535,78 +907,97 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         <h2 class="sec-title">Особенности и владения</h2>
       </div>
 
+      <p class="rule-p">Особенности отражают уникальный опыт персонажа — кем он был, через что прошёл, что умеет делать лучше других. Они дают <strong>преимущество</strong> на связанные броски, дополнительные владения и специальные модификаторы.</p>
+
       <div class="sub-section">
-        <div class="sub-title">Особенности</div>
-        <p class="rule-p">Каждый персонаж начинает с <strong>двумя особенностями</strong> — одной от предыстории (обсуждается с мастером) и одной от расы. Особенности дают преимущество на связанные броски, а также дополнительные владения и модификаторы.</p>
+        <div class="sub-title">Черты</div>
+        <p class="rule-p">Черта — особенность связанная с предысторией. Подбирается совместно с мастером при создании персонажа. Описывает не просто бонус, а жизненный опыт из которого этот бонус вырастает.</p>
         <div class="note-box">
-          <em>Пример:</em> «Преступник» — жизнь в криминальной среде. Преимущество на броски, связанные с незаконной деятельностью. Владение двумя видами стрелкового оружия на выбор.
+          <em>Пример:</em> «Преступник» — жизнь в криминальной среде. Преимущество на броски связанные с незаконной деятельностью — слежка, взлом, торговля на чёрном рынке, чтение людей у которых есть что скрывать. Владение двумя видами оружия на выбор.
+        </div>
+        <div class="note-box" style="margin-top:8px;">
+          <em>Пример:</em> «Военный медик» — годы полевой медицины под огнём. Преимущество на броски стабилизации и медицины. Владение набором медика. В напряжённых ситуациях лечение занимает на 1 действие меньше.
         </div>
       </div>
 
       <div class="sub-section">
-        <div class="sub-title">Владения — Оружие</div>
-        <ul class="rule-list">
-          <li><strong>Дальний бой:</strong> автоматы | пистолеты | винтовки | дробовики | пулемёты | метательное</li>
-          <li><strong>Ближний бой:</strong> режущее | колющее | дробящее | другое</li>
-        </ul>
+        <div class="sub-title">Расовые особенности</div>
+        <p class="rule-p">Каждая раса имеет уникальную особенность определяемую происхождением. Улучшается на <strong>уровнях 3 и 5</strong> автоматически. Конкретные эффекты и улучшения — на странице расы.</p>
+      </div>
+    </section>
 
-      <div class="sec">
-      <div class="sec-hdr">
-         <ul class="rule-list">
-          <li><strong>Ближний бой</strong></li>
-          <div>,fkfkfk</div>
-        </ul>
-      </div>
-      <div class="difficulty-grid">
-        <div class="diff-card">
-          <span class="diff-val">Режущее</span>
-        </div>
-        <div class="diff-card">
-          <span class="diff-val">Колющее  </span>
-        </div>
-        <div class="diff-card">
-          <span class="diff-val">Дробящее</span>
-        </div>
-                <div class="diff-card">
-          <span class="diff-val">Дробовик</span>
-        </div>
-        <div class="diff-card">
-          <span class="diff-val">Другое</span>
-        </div>
-      </div>
-    </div>
+    <!-- ══════════════════════════════════ V-б. ВЛАДЕНИЯ ══════════════════════════════════ -->
+    <section class="rule-section" id="sec-5b">
+        <div class="sub-title">Владения</div>
 
-          <div class="sec">
-      <div class="sec-hdr">
-         <ul class="rule-list">
-          <li><strong>Дальний бой</strong></li>
-          <div>,fkfkfk</div>
-        </ul>
-      </div>
-      <div class="difficulty-grid">
-        <div class="diff-card">
-          <span class="diff-val">Автомат</span>
-        </div>
-        <div class="diff-card">
-          <span class="diff-val">Пистолет</span>
-        </div>
-        <div class="diff-card">
-          <span class="diff-val">Винтовка</span>
-        </div>
-         <div class="diff-card">
-          <span class="diff-val">Пулемёт</span>
-        </div>
-        <div class="diff-card">
-          <span class="diff-val">Метательное</span>
-      </div>
-    </div>
+      <p class="rule-p">Владение — знание как правильно использовать тип оружия или инструмент. При наличии владения открываются <strong>особые возможности</strong> оружия помимо базовой атаки. Без владения — только базовый удар без дополнительных эффектов.</p>
 
-        <p class="rule-p">Тип определяется по названию или описанию оружия. При наличии владения — доступны особые возможности оружия помимо базовой атаки.</p>
+      <!-- Двухколоночная таблица владений -->
+      <div class="weapon-split">
+
+        <!-- БЛИЖНИЙ БОЙ -->
+        <div class="weapon-col">
+          <div class="weapon-col-hdr melee">
+            <span class="weapon-col-hdr-icon"></span>
+            <span class="weapon-col-hdr-title">Ближний бой</span>
+          </div>
+          <div class="weapon-col-desc">Оружие для контактного боя. Тип определяется по конструкции и принципу нанесения урона.</div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Режущее</div>
+            <div class="weapon-row-desc">Мечи, ножи, топоры, серпы. Наносят рваные раны — накладывают Кровотечение при критических попаданиях.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Колющее</div>
+            <div class="weapon-row-desc">Копья, рапиры, штыки, заточки. Эффективны против незащищённых зон — игнорируют 1 Бр при ударе в упор.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Дробящее</div>
+            <div class="weapon-row-desc">Дубины, кулаки, кувалды. Оглушают при сильных попаданиях. Эффективны против брони Бр0–Бр1.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Иное</div>
+            <div class="weapon-row-desc">Цепи, хлысты, экзотика. Нестандартная дальность или эффекты — определяет мастер.</div>
+          </div>
+        </div>
+
+        <!-- ДАЛЬНИЙ БОЙ -->
+        <div class="weapon-col">
+          <div class="weapon-col-hdr ranged">
+            <span class="weapon-col-hdr-icon"></span>
+            <span class="weapon-col-hdr-title">Дальний бой</span>
+          </div>
+          <div class="weapon-col-desc">Оружие для боя на дистанции. Открывает особые режимы стрельбы и тактические возможности.</div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Автоматы</div>
+            <div class="weapon-row-desc">Скорострельное оружие. Имеют высокую скорострельность и большой запас патронов.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Пистолеты</div>
+            <div class="weapon-row-desc">Компактные, скорострельные. Не провоцируют атаку по возможности в ближнем бою.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Дробовики</div>
+            <div class="weapon-row-desc">Мощный урон в ближней зоне — конус поражения, несколько целей. Слабее на дальних дистанциях.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Винтовки</div>
+            <div class="weapon-row-desc">Точность и дальность. Дополнительный урон по целям на расстоянии более 20 клеток.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Пулемёты</div>
+            <div class="weapon-row-desc">Подавляющий огонь, несколько целей в зоне. Атаки накладывают состояние Паника при провале Разума.</div>
+          </div>
+          <div class="weapon-row">
+            <div class="weapon-row-name">Метательное</div>
+            <div class="weapon-row-desc">Гранаты, ножи, звёздочки. Атаки по области или зональные эффекты. Нельзя перезарядить в бою.</div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="sub-section">
+      <div class="sub-section" style="margin-top:20px;">
         <div class="sub-title">Владения — Технологии</div>
-        <p class="rule-p">Знания в конкретной области производства и техники. Имеет уровень 0–5. При наличии соответствующего владения — его уровень добавляется к броскам Техники для профильных задач.</p>
+        <p class="rule-p">Специализированные знания в конкретной области производства и техники. Имеет уровень 0–5. При наличии соответствующего владения — его уровень добавляется к броскам <strong>Техники</strong> для профильных задач. Например: «Производство оружия 3» даёт +д8 к броску при крафте оружия.</p>
       </div>
     </section>
 
