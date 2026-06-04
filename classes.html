@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DeaD HanD — Классы</title>
+<title>DeaD HanD — Особенности</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Oswald:wght@300;400;500;700&display=swap');
 
 @keyframes neonPulse{0%,100%{text-shadow:0 0 8px rgba(200,67,42,.6),0 0 20px rgba(200,67,42,.3)}50%{text-shadow:0 0 20px rgba(200,67,42,1),0 0 40px rgba(200,67,42,.6)}}
 @keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes scanH{0%{left:-100%}100%{left:200%}}
 @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
 @keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+@keyframes traitIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
@@ -42,7 +41,6 @@ body::before{
 .logo span{color:#c8432a;}
 .logo-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:3px;margin-top:3px;}
 .hdr-right{display:flex;align-items:center;gap:12px;}
-.hdr-ver{font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;}
 .hdr-back{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:2px;border:1px solid #2e2e3e;border-radius:2px;padding:4px 10px;text-decoration:none;transition:all .18s;}
 .hdr-back:hover{border-color:#c8432a;color:#c8432a;}
 
@@ -56,7 +54,7 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 2
 .hero-title span{color:#c8432a;}
 .hero-desc{font-family:'Share Tech Mono',monospace;font-size:11px;color:#5a5a6a;letter-spacing:2px;line-height:1.9;max-width:480px;margin:0 auto;}
 
-/* ── CLASS SELECTOR ── */
+/* ── SELECTOR ── */
 .selector-wrap{width:100%;max-width:960px;margin-bottom:40px;animation:fi .4s ease both;}
 .selector-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a5a6a;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;display:block;}
 .selector-grid{display:flex;flex-wrap:wrap;gap:8px;}
@@ -76,16 +74,16 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 2
 .sel-btn.empty:hover{background:#111116;border-color:#2e2e3e;color:#2e2e3e;}
 .sel-btn.empty::before{display:none;}
 
-/* ── CLASS CARD ── */
+/* ── CARD ── */
 .card-area{width:100%;max-width:960px;}
-.class-card{
+.trait-card{
   background:#111116;border:1px solid #2e2e3e;border-radius:3px;
   overflow:hidden;animation:cardIn .4s ease both;
   display:none;
 }
-.class-card.visible{display:block;}
+.trait-card.visible{display:block;}
 
-/* Card — top image + header */
+/* Card top: image + header */
 .card-top{
   display:grid;grid-template-columns:220px 1fr;
   border-bottom:1px solid #2e2e3e;
@@ -107,28 +105,24 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 2
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:10px;width:100%;height:100%;min-height:220px;
   position:relative;z-index:1;
-  transition:opacity .3s;
 }
 .card-img.has-img .card-img-placeholder{display:none;}
 .card-img-icon{font-size:48px;opacity:.15;}
 .card-img-hint{font-family:'Share Tech Mono',monospace;font-size:9px;color:#2e2e3e;letter-spacing:2px;text-align:center;line-height:1.8;}
-
-/* Кнопка загрузки изображения */
 .card-img-upload{
   position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
   z-index:3;opacity:0;transition:opacity .2s;
   font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;
   background:rgba(10,10,12,.85);border:1px solid #c8432a;color:#c8432a;
   padding:4px 10px;border-radius:2px;cursor:pointer;white-space:nowrap;
+  /* FIX: убран display:none, теперь появляется через opacity при наведении */
 }
 .card-img:hover .card-img-upload{opacity:1;}
 .card-img-upload:hover{background:rgba(200,67,42,.2);}
-
 .card-img-border{
   position:absolute;inset:0;pointer-events:none;z-index:2;
   background:linear-gradient(135deg,rgba(200,67,42,.06) 0%,transparent 60%);
 }
-/* Градиент поверх картинки чтобы не резало */
 .card-img.has-img .card-img-border{
   background:
     linear-gradient(to right, transparent 60%, #111116 100%),
@@ -145,76 +139,92 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:40px 2
 .card-meta-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;text-transform:uppercase;}
 .card-meta-val{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:#d0cfc8;}
 
-/* Card — description block */
-.card-lore{
-  padding:20px 28px;border-bottom:1px solid #1e1e2a;
-  background:rgba(200,67,42,.025);
-}
-.card-lore-text{font-family:'Rajdhani',sans-serif;font-size:15px;color:#8a8a99;line-height:1.7;}
-
-/* Card — levels */
-.card-levels{padding:0;}
-.levels-header{
+/* ── ОСОБЕННОСТИ — блок-заголовок ── */
+.traits-block{padding:0;}
+.traits-header{
   padding:14px 28px;border-bottom:1px solid #1e1e2a;
   display:flex;align-items:center;gap:12px;
   background:#0d0d10;
 }
-.levels-title{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
-.levels-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;margin-left:auto;}
+.traits-title{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:3px;color:#f0ede8;text-transform:uppercase;}
+.traits-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;margin-left:auto;}
 
-.level-row{
-  display:grid;grid-template-columns:72px 1fr;
-  border-bottom:1px solid #1a1a24;
-  transition:background .15s;
+/* ── СЕТКА КАРТОЧЕК ОСОБЕННОСТЕЙ ── */
+.traits-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;
+  padding:20px 24px;
 }
-.level-row:last-child{border-bottom:none;}
-.level-row:hover{background:rgba(200,67,42,.03);}
 
-.level-num{
-  background:#0d0d10;border-right:1px solid #1a1a24;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:16px 8px;gap:4px;
+/* ── КАРТОЧКА ОСОБЕННОСТИ ── */
+.feat-box{
+  background:#0d0d10;
+  border:1px solid #1e1e2a;
+  border-radius:3px;
+  overflow:hidden;
+  transition:border-color .2s, box-shadow .2s;
+  animation:traitIn .35s ease both;
   position:relative;
 }
-.level-num::after{
-  content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);
-  width:3px;height:0;background:#c8432a;
-  transition:height .2s;border-radius:2px 0 0 2px;
-}
-.level-row:hover .level-num::after{height:60%;}
-.ln-num{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:#c8432a;line-height:1;}
-.ln-label{font-family:'Share Tech Mono',monospace;font-size:8px;color:#3a3a50;letter-spacing:1px;text-transform:uppercase;}
-
-.level-content{padding:16px 24px;}
-.level-type{font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
-.level-title{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;letter-spacing:1.5px;color:#f0ede8;margin-bottom:8px;text-transform:uppercase;}
-.level-text{font-family:'Rajdhani',sans-serif;font-size:14px;color:#8a8a99;line-height:1.65;}
-.level-text b{color:#d0cfc8;font-weight:600;}
-
-/* Path blocks inside levels */
-.path-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px;}
-.path-block{
-  background:#0d0d10;border:1px solid #1e1e2a;border-radius:2px;
-  padding:14px;position:relative;overflow:hidden;
-}
-.path-block::before{
+.feat-box::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,#c8432a,#e05a3a);
+  opacity:0;transition:opacity .2s;
 }
-.path-block.path-a::before{background:linear-gradient(90deg,#c8432a,transparent);}
-.path-block.path-b::before{background:linear-gradient(90deg,#3a6bc7,transparent);}
-.path-label{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-.path-block.path-a .path-label{color:#c8432a;}
-.path-block.path-b .path-label{color:#3a6bc7;}
-.path-name{font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;color:#f0ede8;margin-bottom:6px;text-transform:uppercase;}
-.path-text{font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;}
-.path-text b{color:#d0cfc8;}
+.feat-box:hover{border-color:#2e2e3e;box-shadow:0 0 20px rgba(200,67,42,.08);}
+.feat-box:hover::before{opacity:1;}
 
-/* Skill tag */
-.skill-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
-.stag{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 8px;border-radius:1px;letter-spacing:1px;border:1px solid rgba(200,67,42,.3);color:#c8432a;background:rgba(200,67,42,.07);}
-.stag.blue{border-color:rgba(58,107,199,.3);color:#5585e0;background:rgba(58,107,199,.07);}
+.feat-box-head{
+  padding:14px 16px 10px;
+  border-bottom:1px solid #1a1a24;
+  background:#111116;
+}
+.feat-box-tag{
+  font-family:'Share Tech Mono',monospace;font-size:8px;color:#c8432a;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;display:block;
+}
+.feat-box-name{
+  font-family:'Oswald',sans-serif;font-size:17px;font-weight:700;
+  letter-spacing:1.5px;color:#f0ede8;text-transform:uppercase;line-height:1.2;
+  margin-bottom:4px;
+}
+.feat-box-type{
+  font-family:'Share Tech Mono',monospace;font-size:8px;color:#3a3a50;
+  letter-spacing:2px;text-transform:uppercase;
+}
 
-/* ── EMPTY CARD TEMPLATE ── */
+.feat-box-desc{
+  padding:12px 16px;
+  font-family:'Rajdhani',sans-serif;font-size:13px;color:#7a7a8a;
+  line-height:1.6;border-bottom:1px solid #1a1a24;
+}
+.feat-box-desc b{color:#b0b0be;font-weight:600;}
+
+/* ── ВЕРСИИ V1/V2/V3 ── */
+.feat-versions{padding:10px 0 4px;}
+.feat-ver-row{
+  display:grid;grid-template-columns:40px 1fr;
+  align-items:start;
+  padding:7px 16px;
+  border-bottom:1px solid #141420;
+  transition:background .15s;
+  cursor:default;
+}
+.feat-ver-row:last-child{border-bottom:none;}
+.feat-ver-row:hover{background:rgba(200,67,42,.04);}
+
+.feat-ver-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;
+  color:#c8432a;letter-spacing:1px;
+  padding-top:2px;
+}
+.feat-ver-text{
+  font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.55;
+}
+.feat-ver-text b{color:#d0cfc8;font-weight:600;}
+
+/* ── ПУСТАЯ ЗАМЕТКА ── */
 .empty-card-note{
   font-family:'Share Tech Mono',monospace;font-size:10px;color:#3a3a50;letter-spacing:2px;
   text-align:center;padding:20px;border-top:1px dashed #1e1e2a;line-height:1.9;
@@ -226,13 +236,17 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 .ft-r{display:flex;align-items:center;gap:8px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#3a3a50;letter-spacing:2px;}
 .ft-dot{width:6px;height:6px;border-radius:50%;background:#c8432a;animation:pulse 2s ease infinite;}
 
+/* FIX: добавлен промежуточный breakpoint для планшетов */
+@media(max-width:860px){
+  .card-top{grid-template-columns:160px 1fr;}
+  .card-img{min-height:200px;}
+}
 @media(max-width:680px){
   .card-top{grid-template-columns:1fr;}
   .card-img{min-height:180px;}
-  .path-split{grid-template-columns:1fr;}
+  .traits-grid{grid-template-columns:1fr;padding:14px;}
   .hdr{padding:12px 20px;}
   .card-header{padding:18px;}
-  .level-content{padding:14px 16px;}
 }
 </style>
 </head>
@@ -241,7 +255,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 <header class="hdr">
   <div>
     <div class="logo">DeaD <span>H</span>an<span>D</span></div>
-    <div class="logo-sub">КЛАССЫ ПЕРСОНАЖЕЙ</div>
+    <div class="logo-sub">ОСОБЕННОСТИ</div>
   </div>
   <div class="hdr-right">
     <a class="hdr-back" href="index.html">← ГЛАВНАЯ</a>
@@ -251,1869 +265,335 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 <main>
 
   <div class="hero">
-    <span class="hero-tag">◈ Выбери путь ◈</span>
-    <h1 class="hero-title">Классы <span>&amp;</span> Пути</h1>
-    <p class="hero-desc">Класс — не профессия. Это то чем ты стал.<br>То что уже нельзя изменить обратно.</p>
+    <span class="hero-tag">◈ Выбери особенность ◈</span>
+    <!-- FIX: убран лишний </span> внутри <h1> -->
+    <h1 class="hero-title">Особенности</h1>
   </div>
 
   <!-- SELECTOR -->
   <div class="selector-wrap">
-    <span class="selector-label">◈ Доступные классы</span>
+    <span class="selector-label">◈ Категории</span>
     <div class="selector-grid">
-      <button class="sel-btn active" onclick="showClass('shturmovnik', this)">⚔ Штурмовик</button>
-      <button class="sel-btn" onclick="showClass('strelok', this)">🎯 Стрелок</button>
-      <button class="sel-btn" onclick="showClass('technik', this)">🔧 Техник</button>
-      <button class="sel-btn" onclick="showClass('psionik', this)">◈ Псионик</button>
-      <button class="sel-btn" onclick="showClass('shaman', this)">☠ Шаман</button>
-      <button class="sel-btn" onclick="showClass('ten', this)">👁 Тень</button>
-      <button class="sel-btn empty" disabled>+ Добавить класс</button>
-      <button class="sel-btn empty" disabled>+ Добавить класс</button>
+      <button class="sel-btn active" onclick="showCard('arsenal', this)">Арсенал</button>
+      <button class="sel-btn" onclick="showCard('shturm', this)">Штурм</button>
+      <button class="sel-btn" onclick="showCard('socialnye', this)">⚡ Социальные</button>
+      <button class="sel-btn" onclick="showCard('boevye', this)">⚔ Боевые</button>
+      <button class="sel-btn empty" disabled>+ Добавить</button>
+      <button class="sel-btn empty" disabled>+ Добавить</button>
     </div>
   </div>
 
-  <!-- CARDS AREA -->
+  <!-- FIX: единый card-area, все trait-card на одном уровне, не вложены друг в друга -->
   <div class="card-area">
 
-    <!-- ══════════════════════════════════════════════════
-         КЛАСС: ШТУРМОВИК
-         Чтобы добавить новый класс — скопируй весь блок
-         от  до  и замени содержимое
-    ══════════════════════════════════════════════════ -->
-    <div class="class-card visible" id="card-shturmovnik">
-
-      <!-- ── ШАПКА: изображение + основная инфо ── -->
+    <!-- ══ АРСЕНАЛ ══ -->
+    <div class="trait-card visible" id="card-arsenal">
       <div class="card-top">
-        <div class="card-img">
-          <img id="img-shturmovnik" src="img/shturmovnik.png" alt="Штурмовик"
-               onload="imgLoaded(this,'shturmovnik')" onerror="imgError(this)">
+        <div class="card-img" id="wrap-arsenal">
+          <img id="img-arsenal" src="img/Арсенал.png" alt="Арсенал"
+               onload="imgLoaded(this,'arsenal')" onerror="imgError(this)">
           <div class="card-img-placeholder">
-            <span class="card-img-icon">⚔</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
+            <span class="card-img-icon">◉</span>
+            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
+          <!-- FIX: подключена кнопка загрузки через onclick и скрытый input -->
+          <button class="card-img-upload" onclick="triggerUpload('arsenal')">↑ ЗАГРУЗИТЬ</button>
+          <input type="file" id="upl-arsenal" accept="image/*" style="display:none" onchange="handleImgUpload(event,'arsenal')">
           <div class="card-img-border"></div>
         </div>
-
+        <!-- FIX: убран лишний закрывающий </div> который дублировал закрытие card-header -->
         <div class="card-header">
           <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">Штурмовик</div>
-            <div class="card-slogan">«Тот кто идёт первым и остаётся последним»</div>
+            <div class="card-badge">◈ ОСОБЕННОСТИ</div>
+            <div class="card-name">Арсенал</div>
+            <div class="card-slogan">«Тело помнит всё. Даже то, что разум хочет забыть»</div>
+            <!-- FIX: обращаться (было: обращятса) -->
             <div class="card-desc">
-              Штурмовик не побеждает потому что сильнее. Он побеждает потому что не останавливается.
-              Там где другие ищут укрытие — он давит. Там где другие отступают — он входит глубже.
-              Боль для него не сигнал остановиться. Это подтверждение что он ещё жив и движется вперёд.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Напор, Крепость</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Стартовые Владения</span>
-              <span class="card-meta-val">Дробящее, Дробовики, Пулемёты</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Пути</span>
-              <span class="card-meta-val">Стена | Давление</span>
+              Умение обращаться с оружием в бою и вне его. Чувство опасности, выносливость и физическая подготовка — всё это проявляется в особенностях этой категории.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── УРОВНИ ── -->
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
+      <div class="traits-block">
+        <div class="traits-header">
+          <span class="traits-title">◆ Особенности</span>
+          <!-- FIX: id счётчика соответствует категории -->
+          <span class="traits-sub" id="count-arsenal"></span>
         </div>
+        <div class="traits-grid">
 
-        <!-- УР. 1 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">1</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">Броня из мяса</div>
-            <div class="level-text">
-              Когда штурмовик получает урон снижающий его до <b>половины здоровья или ниже</b> — он немедленно совершает <b>бесплатную атаку ближним боем</b> по ближайшей цели в радиусе. Одноразово за бой.<br><br>
-              Кроме того — при падении до половины здоровья штурмовик <b>автоматически проходит</b> бросок Крепости на сохранение сознания без броска.
+          <!-- МАСТЕР МЕЧА (РЕЖУЩЕЕ) -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Мастер меча (режущее)</div>
             </div>
-          </div>
-        </div>
-
-        <!-- УР. 2 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">2</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">Путь</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">Путь Стены</div>
-                <div class="path-text">
-                  Ближний бой и дробящее оружие. Ты стоищь впереди как несокрушимая стена.<br><br>
-                  Атаки дробящим оружием при попадании накладывают <b>Оглушён</b> на 1 ход если бросок атаки превысил сложность на 3 и более.<br><br>
-                  1/бой — <b>Прорыв:</b> переместиться сквозь клетки занятые врагами без атаки по возможности. Все кого прошёл насквозь получают урон равный кости Напора.
-                </div>
+            <div class="feat-box-desc">
+              Владение клинковым оружием — не просто навык, а стиль жизни. Чувство баланса, ритма и дистанции — всё это превращает бой в танец.
+            </div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <!-- FIX: убран двойной </span>, исправлена пунктуация -->
+                <span class="feat-ver-text"><b>Смена стойки</b> — раз в раунд, если вы атакуете режущим оружием, после атаки вы можете сменить стойку. В атакующей стойке сложность попадания по врагу уменьшается на 3, в защитной — попадание по вам увеличивается на 3.</span>
               </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">Путь Давления</div>
-                <div class="path-text">
-                  Среднее расстояние, дробовики и пулемёты. Ты не даёшь врагу даже подумаь поднять голову.<br><br>
-                  Для броска на попадание с дальним оружием вы можете использовать <b>Напор</b> вместо проворства<br><br>
-                  2/бой<b>Шквал:</b> в этот ход атаки дальним оружием не провоцируют атаку по возможности даже в ближнем бою.
-                </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <!-- FIX: уменьшен → уменьшен (было: уменьшаен) -->
+                <span class="feat-ver-text">В атакующей стойке вы наносите 2 удара ценой 1 действия, в защитной урон М/Б по вам уменьшен на 3. Мин. 1.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <!-- FIX: дополнительный, выбранному, следующего, пробел между "действия" и "получаете" -->
+                <span class="feat-ver-text"><b>3/день.</b> Не тратя действия, получаете дополнительный удар или сопротивление к выбранному типу урона до вашего следующего хода.</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- УР. 3 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">3</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Крепче</div>
-            <div class="level-text">
-              <b>+1 к максимуму Крепости и Напора (макс 3).</b><br><br>
-              Штурмовик игнорирует требования брони или оружия связаные с напором до 4 уровня напона.
+          <!-- [PLACEHOLDER] — сюда добавить следующую особенность Арсенала -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">[Особенность 2]</div>
             </div>
-          </div>
-        </div>
-
-        <!-- УР. 4 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">4</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
-            <div class="level-title">Отточено</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ СТЕНЫ</div>
-                <div class="path-name">Удержание</div>
-                <div class="path-text">
-                  Эффект <b>Оглушения</b> от дробящего теперь срабатывает при превышении сложности на <b>2, а не 3.</b><br><br>
-                  <b>Удержание:</b> враг которого штурмовик атаковал в ближнем бою уменшает свое перемещение на 2 до следующего хода.
-                </div>
+            <div class="feat-box-desc">
+              Описание особенности.
+            </div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
               </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ ДАВЛЕНИЯ</div>
-                <div class="path-name">Сектор огня</div>
-                <div class="path-text">
-                  При атаке в упор (до 3 клеток) дробовиком или пулемётом <b>сложность попадания снижается на 1 сложность</b></b><br><br>
-                  Новая механика <b>Сектор огня:</b> если враг пытается войти в ближний бой с штурмовиком через открытое пространство без укрытия — штурмовик совершает бесплатную атаку дальним оружием без атаки по возможности от врага.
-                </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- УР. 5 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">5</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Не сдаётся</div>
-            <div class="level-text">
-              <b>+1 к максимуму Крепости и Напора (макс 4).</b><br><br>
-              1/день: Когда штурмовик должен получить травму — он проходит бросок Крепости сложности 9. При успехе <b>травма заменяется состоянием Кровотечение.</b>
-            </div>  
-          </div>
-        </div>
-
-        <!-- УР. 6 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">6</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Под огнём</div>
-            <div class="level-text">   
-              <b>+1 к максимуму Напора (макс 5).</b><br><br>
-              Пока штурмовик находится под воздействием <b>хотя бы одного негативного состояния</b> — его перемещение увеличивается на 2 клетки и броски атаки совершаются с <b>преимуществом.</b> Как только все состояния сняты — бонус исчезает.
+          <!-- [PLACEHOLDER] — сюда добавить следующую особенность Арсенала -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">[Особенность 3]</div>
             </div>
-          </div>
-        </div>
-
-        <!-- УР. 7 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">Точка невозврата</div>
-            <div class="level-text">Штурмовик прошёл достаточно боёв чтобы понять: он не может остановиться. Не умеет. Это и есть его пик — и его цена.</div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ СТЕНЫ</div>
-                <div class="path-name">Живая Стена</div>
-                <div class="path-text">
-                  Пока штурмовик находится в сознании — он считается тяжелым укрытием для союзника стоящего за ним.<br><br>
-                  1/бой — <b>Выдержу всё:</b> при достижении 0 здоровья штурмовик не падает, а вместо этого восстанавливает здоровье до половины от максимума.
-                </div>
+            <div class="feat-box-desc">
+              Описание особенности.
+            </div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
               </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ ДАВЛЕНИЯ</div>
-                <div class="path-name">Живой Огонь</div>
-                <div class="path-text">
-                  Все враги в <b>секторе обстрела</b> (радиус 5 клеток) имеют уменьшенную сложность попадания по ним на одну сложность. <br><br>
-                  1/бой — <b>Подавление:</b> один раунд враги входящие в сектор обсстрела получают провоцыворующую атаку по возможности от штурмовика.
-                </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
               </div>
             </div>
           </div>
-        </div>
 
-      </div><!-- /card-levels -->
-    </div><!-- /card-shturmovnik -->
+        </div><!-- /traits-grid -->
+      </div>
+    </div><!-- /card-arsenal -->
 
-
-    <!-- ══════════════════════════════════════════════════
-         КЛАСС: СТРЕЛОК
-    ══════════════════════════════════════════════════ -->
-    <div class="class-card" id="card-strelok">
-
+    <!-- ══ ШТУРМ ══ -->
+    <div class="trait-card" id="card-shturm">
       <div class="card-top">
-        <div class="card-img">
-          <img id="img-strelok" src="img/strelok.png" alt="Стрелок"
-               onload="imgLoaded(this,'strelok')" onerror="imgError(this)">
+        <div class="card-img" id="wrap-shturm">
+          <img id="img-shturm" src="img/Штурм.png" alt="Штурм"
+               onload="imgLoaded(this,'shturm')" onerror="imgError(this)">
           <div class="card-img-placeholder">
-            <span class="card-img-icon">🎯</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
+            <span class="card-img-icon">◉</span>
+            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
-          <div class="card-img-border"></div>
-        </div>
-
-        <div class="card-header">
-          <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">Стрелок</div>
-            <div class="card-slogan">«Видит дальше чем другие — и решает раньше»</div>
-            <div class="card-desc">
-              Стрелок — это не тот кто хорошо стреляет. Хорошо стреляют многие.
-              Стрелок — это тот кто понимает бой целиком: где будет враг через три секунды,
-              куда смотрят союзники, какая позиция закрывает максимум углов.
-              Дальний бой для него не дистанция — это способ мышления.
-              Путь определяет к чему он применяет это мышление: к одной точке на карте
-              или ко всей карте сразу.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Проворство, Разум</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Стартовые Владения</span>
-              <span class="card-meta-val">Пистолеты, Винтовки, Примитивное</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Пути</span>
-              <span class="card-meta-val">Снайпер | Офицер</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
-        </div>
-
-        <!-- УР. 1 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">1</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">Холодный глаз</div>
-            <div class="level-text">
-              Стрелок читает поле боя прежде чем на нём что-то происходит.<br><br>
-              В начале каждого боя стрелок может <b>бесплатно обозначить одну позицию</b>
-              на карте как точку контроля. Атаки из этой позиции совершаются с преимуществом
-              до тех пор пока он её не покинет.<br><br>
-              Кроме того — стрелок <b>никогда не застигается врасплох.</b>
-              Даже при внезапном нападении он действует в первом раунде без штрафов.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 2 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">2</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">Дистанция</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">Снайпер</div>
-                <div class="path-text">
-                  Один выстрел. Один результат. Всё остальное — шум.<br><br>
-                  Стрелок получает механику <b>Прицеливания:</b> каждый ход без движения
-                  и без других действий добавляет <b>+2 к следующему броску атаки</b>
-                  (макс. +6 за 3 хода). Любое перемещение или действие — накопленное сбрасывается.<br><br>
-                  Атаки снайпера против цели которая не знает о его присутствии
-                  совершаются с <b>преимуществом</b> и игнорируют лёгкое укрытие.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">Офицер</div>
-                <div class="path-text">
-                  Видит не цель — видит всю картину. Его сила в том что рядом с ним
-                  все остальные становятся точнее.<br><br>
-                  Раз в ход как <b>бесплатное действие</b> офицер может отдать короткую
-                  команду одному союзнику: тот получает <b>преимущество на следующую атаку</b>
-                  или перемещение.<br><br>
-                  Союзники в радиусе <b>4 клеток</b> от офицера получают <b>+1 к инициативе</b>
-                  и не могут быть застигнуты врасплох пока он в сознании.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 3 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">3</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Острее</div>
-            <div class="level-text">
-              Разум начинает работать быстрее чем раньше казалось возможным.<br><br>
-              <b>+1 к максимуму Разума (макс 3).</b><br><br>
-              Стрелок получает пассивную механику <b>Чтения:</b> раз за бой может
-              задать мастеру один вопрос о намерениях или позиции видимого врага —
-              и получить честный ответ. Это не магия — это наблюдательность.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 4 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">4</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
-            <div class="level-title">Отработано</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ СНАЙПЕР</div>
-                <div class="path-name">Мёртвая точка</div>
-                <div class="path-text">
-                  Максимальный бонус Прицеливания теперь достигается за <b>2 хода</b> вместо 3.<br><br>
-                  При полном прицеливании и попадании — стрелок может выбрать одно:
-                  <b>нанести двойной урон</b> или <b>наложить состояние</b> (Сбит с ног,
-                  Оглушён или Кровотечение — на выбор). Оба эффекта одновременно недоступны.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ОФИЦЕР</div>
-                <div class="path-name">Тактическая сетка</div>
-                <div class="path-text">
-                  Бесплатная команда теперь может выдаваться <b>двум союзникам</b> за ход.<br><br>
-                  Новая способность <b>Перегруппировка:</b> раз за бой офицер может
-                  переместить одного союзника в радиусе 6 клеток на 3 клетки в любом направлении
-                  — без траты их хода. Союзник должен быть в сознании и слышать команду.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 5 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">5</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Позиция</div>
-            <div class="level-text">
-              Тело начинает делать то что раньше требовало усилий.<br><br>
-              <b>+1 к максимуму Проворства (макс 4).</b><br><br>
-              Стрелок получает <b>бесплатное перемещение на 2 клетки</b> в начале каждого
-              хода если он не атаковал в прошлом ходу. Смена позиции без потери темпа.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 6 -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">6</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Контроль</div>
-            <div class="level-text">
-              Стрелок перестаёт реагировать на бой. Он его направляет.<br><br>
-              <b>+1 к максимуму Разума (макс 5).</b><br><br>
-              Раз за бой стрелок может объявить <b>Зону контроля</b> — область 3×3 клетки
-              в пределах видимости. Все броски атаки врагов <b>внутри зоны</b> совершаются
-              с помехой до начала следующего хода стрелка.
-              Это работает через давление, позицию и предсказание — не через магию.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 7 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">Последний аргумент</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ СНАЙПЕР</div>
-                <div class="path-name">Приговор</div>
-                <div class="path-text">
-                  Снайпер может потратить <b>весь раунд</b> на подготовку —
-                  без движения, без других действий. В следующем ходу его атака
-                  становится <b>Приговором:</b><br><br>
-                  Попадание игнорирует броню полностью. Урон максимальный без броска.
-                  Если цель выжила — она получает состояние <b>Паника</b> на 1д4 хода.<br><br>
-                  Один раз за сессию.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ОФИЦЕР</div>
-                <div class="path-name">Инициатива</div>
-                <div class="path-text">
-                  Офицер перекраивает бой одной командой.<br><br>
-                  Раз за сессию — <b>Общая инициатива:</b> все союзники которые слышат
-                  офицера немедленно совершают по одному бесплатному действию вне очереди.
-                  Порядок офицер определяет сам.<br><br>
-                  После использования офицер пропускает следующий ход —
-                  цена координации такого масштаба.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /card-strelok -->
-
-
-    <!-- ══════════════════════════════════════════════════
-         КЛАСС: ТЕХНИК
-    ══════════════════════════════════════════════════ -->
-    <div class="class-card" id="card-technik">
-      <div class="card-top">
-        <div class="card-img">
-                   <img id="img-technik" src="img/technik.png" alt="Техник"
-               onload="imgLoaded(this,'technik')" onerror="imgError(this)">
-          <div class="card-img-placeholder">
-            <span class="card-img-icon">🔧</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
-          </div>
+          <button class="card-img-upload" onclick="triggerUpload('shturm')">↑ ЗАГРУЗИТЬ</button>
+          <input type="file" id="upl-shturm" accept="image/*" style="display:none" onchange="handleImgUpload(event,'shturm')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
           <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">Техник</div>
-            <div class="card-slogan">«Понимает как устроено всё — и знает как это сломать или собрать заново»</div>
+            <div class="card-badge">◈ ОСОБЕННОСТИ</div>
+            <div class="card-name">Штурм</div>
+            <div class="card-slogan">«Движение — это жизнь. Остановка — смерть»</div>
             <div class="card-desc">
-              Техник не видит мир как набор угроз. Он видит его как набор систем.
-              Каждый замок — механизм. Каждый имплант — уязвимость. Каждая куча мусора —
-              детали которым не нашли применение. Хакер смотрит на существующее и думает
-              как разобрать. Оператор смотрит на поле боя и думает сколько точек контроля
-              можно добавить прямо сейчас.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Техника, Разум</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Стартовые Владения</span>
-              <span class="card-meta-val">Технологии (любые), Базовый набор</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Пути</span>
-              <span class="card-meta-val">Хакер | Оператор дронов</span>
+              Тактика прорыва, подавления и доминирования в ближнем бою. Особенности этой категории созданы для тех, кто предпочитает атаку любой обороне.
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
+      <div class="traits-block">
+        <div class="traits-header">
+          <span class="traits-title">◆ Особенности</span>
+          <span class="traits-sub" id="count-shturm"></span>
         </div>
+        <div class="traits-grid">
 
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">1</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">Руки знают</div>
-            <div class="level-text">
-              Техник не думает об инструментах — он просто берёт и делает.<br><br>
-              Техник <b>никогда не получает штраф</b> за использование повреждённого снаряжения.
-              Сломанные предметы работают как повреждённые, повреждённые — как исправные.<br><br>
-              Во время <b>короткого отдыха</b> техник может починить любой предмет
-              с состоянием «Повреждено» до «OK» без материалов. Только руки и время.
+          <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">[Особенность 1]</div>
             </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">2</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">Специализация</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">Хакер</div>
-                <div class="path-text">
-                  Системы, сети, импланты. Ты не взламываешь замки — ты переписываешь правила по которым они работают.<br><br>
-                  Получает <b>Оперативную память</b> = макс. кости Техники + уровень персонажа.
-                  Все способности тратят память при использовании. После длинного отдыха восстанавливается полностью.<br><br>
-                  Стартовые способности: <b>Ping.exe (1), Override.mp4 (2), Virus 0fa12 (3), Data_Leec.bat (2).</b>
-                  Новые изучаются набором нетраннера. Требует технический объект в радиусе.
-                </div>
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
               </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">Оператор дронов</div>
-                <div class="path-text">
-                  Расширение тела через машины. Дрон — не инструмент. Это вторая пара глаз и второй шанс выжить.<br><br>
-                  Получает <b>личного боевого дрона.</b> Действует сразу после хода оператора без действия для управления.<br><br>
-                  Характеристики дрона: HP = Техника×3 · Бр1/5 · Атака 1д6Э · Перемещение 8 кл. · Радиус 20 кл.
-                  При уничтожении — восстанавливается за средний отдых с материалами.
-                </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">3</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Глубже</div>
-            <div class="level-text">
-              <b>+1 к максимуму Техники (макс 3).</b><br><br>
-              Пассивная механика <b>Анализ:</b> при первом взаимодействии с незнакомым устройством или системой
-              бросок Техники совершается с <b>преимуществом.</b>
-              Мозг уже разобрал принцип работы пока руки ещё тянутся к объекту.
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">4</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
-            <div class="level-title">Инструмент совершенствуется</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ХАКЕР</div>
-                <div class="path-name">Глубокий доступ</div>
-                <div class="path-text">
-                  Хакер больше не ограничен прямой видимостью — достаточно знать что устройство
-                  <b>в той же сети или здании.</b> Невидимые цели атакуются без штрафа.<br><br>
-                  Новая способность <b>Захват (4):</b> берёт под контроль одно электронное устройство
-                  (турель, дрон, дверь, освещение) на 1д4 хода. Бросок Техники против сложности устройства.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ОПЕРАТОР</div>
-                <div class="path-name">Апгрейд</div>
-                <div class="path-text">
-                  Дрон получает <b>одну модификацию на выбор</b> (постоянная):<br><br>
-                  <b>Бронированный корпус</b> — Бр2/12 ·
-                  <b>Расширенный арсенал</b> — 2д6Э или 1д8Б ·
-                  <b>Разведчик</b> — радиус 50 кл., видео и звук ·
-                  <b>Медблок</b> — стабилизация союзника 1/бой ·
-                  <b>Камикадзе</b> — 3д8Э в радиусе 2 кл., дрон выходит из строя
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">5</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Точность</div>
-            <div class="level-text">
-              <b>+1 к максимуму Техники (макс 4).</b><br><br>
-              Механика <b>Слабое место:</b> перед атакой или взаимодействием с целью тратит действие на анализ.
-              При успешном броске Техники средней сложности — следующее действие против этой цели
-              совершается с <b>преимуществом</b> и <b>игнорирует одну единицу брони</b> (Бр снижается на 1).
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">6</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Система в системе</div>
-            <div class="level-text"><b>+1 к максимуму Разума (макс 5).</b></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ХАКЕР</div>
-                <div class="path-name">Восстановление в бою</div>
-                <div class="path-text">
-                  Оперативная память больше не восстанавливается только на длинном отдыхе.
-                  Раз за бой при успешном броске Техники — восстанавливает <b>2 единицы памяти</b> в моменте.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ОПЕРАТОР</div>
-                <div class="path-name">Расширение</div>
-                <div class="path-text">
-                  Оператор получает <b>второго дрона</b> — идентичен первому без модификаций.
-                  Оба действуют после хода оператора в его порядке.<br><br>
-                  При состоянии <b>Оглушён или Ступор</b> — оба дрона замирают до следующего хода оператора.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">Архитектор</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ХАКЕР</div>
-                <div class="path-name">Бог машин</div>
-                <div class="path-text">
-                  Удерживает под контролем до <b>трёх устройств</b> одновременно без штрафа к памяти.
-                  Получает их сенсоры — видит и слышит через камеры, дроны, датчики.<br><br>
-                  Раз за сессию — <b>Перезагрузка:</b> обнуляет все электронные системы в радиусе 10 клеток.
-                  Турели останавливаются, импланты дают сбой на 1 ход, двери открываются или закрываются по выбору.
-                  Своих не затрагивает.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ОПЕРАТОР</div>
-                <div class="path-name">Рой</div>
-                <div class="path-text">
-                  Оба дрона получают <b>вторую модификацию</b> из списка уровня 4. Каждый — разную.<br><br>
-                  Раз за сессию — <b>Протокол Роя:</b> оба дрона переходят в автономный режим на 1д4 хода.
-                  Атакуют врагов, прикрывают союзников, не требуют концентрации.
-                  Оператор в это время свободен для любых действий.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        </div><!-- /traits-grid -->
       </div>
-    </div><!-- /card-technik -->
+    </div><!-- /card-shturm -->
 
-
-    <!-- ══════════════════════════════════════════════════
-         КЛАСС: ПСИОНИК
-    ══════════════════════════════════════════════════ -->
-    <div class="class-card" id="card-psionik">
+    <!-- ══ СОЦИАЛЬНЫЕ ══ -->
+    <!-- FIX: карточка создана — кнопка в selector вела в пустоту -->
+    <div class="trait-card" id="card-socialnye">
       <div class="card-top">
-        <div class="card-img">
-            <img id="img-psionik" src="img/psionik.png" alt="Псионик"
-               onload="imgLoaded(this,'psionik')" onerror="imgError(this)">
+        <div class="card-img" id="wrap-socialnye">
+          <img id="img-socialnye" src="img/Социальные.png" alt="Социальные"
+               onload="imgLoaded(this,'socialnye')" onerror="imgError(this)">
           <div class="card-img-placeholder">
-            <span class="card-img-icon">◈</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
+            <span class="card-img-icon">◉</span>
+            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
+          <button class="card-img-upload" onclick="triggerUpload('socialnye')">↑ ЗАГРУЗИТЬ</button>
+          <input type="file" id="upl-socialnye" accept="image/*" style="display:none" onchange="handleImgUpload(event,'socialnye')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
           <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">Псионик</div>
-            <div class="card-slogan">«Слышит то чего нет. Знает то чего не говорили. Меняет то чего не касался.»</div>
+            <div class="card-badge">◈ ОСОБЕННОСТИ</div>
+            <div class="card-name">Социальные</div>
+            <div class="card-slogan">«Слова убивают тише, чем пули»</div>
             <div class="card-desc">
-              Псионик — человек у которого граница между собой и остальными стала проницаемой.
-              Контактёр использует это чтобы тянуться к другим — усиливать, защищать, говорить без слов.
-              Вердинант использует это чтобы уйти глубже в себя — обострить каждое чувство, каждый рефлекс, каждый удар.
-              Оба работают через одну трещину в голове. Просто смотрят в разные стороны.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Контакт, Разум</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ресурс</span>
-              <span class="card-meta-val">Пси-напряжение (макс = Контакт + уровень)</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Пути</span>
-              <span class="card-meta-val">Контактёр | Вердинант</span>
+              Манипуляция, переговоры, харизма и сеть связей. Особенности этой категории — оружие тех, кто действует через людей, а не против них.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── УРОВНИ ── -->
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
+      <div class="traits-block">
+        <div class="traits-header">
+          <span class="traits-title">◆ Особенности</span>
+          <span class="traits-sub" id="count-socialnye"></span>
         </div>
+        <div class="traits-grid">
 
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">1</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">Трещина</div>
-            <div class="level-text">
-              Псионик слышит то чего другие не слышат. Это началось не сегодня — просто сегодня он перестал делать вид что этого нет.<br><br>
-              Псионик получает <b>все четыре стартовые способности.</b><br><br>
-              Пассивная механика <b>Эхо:</b> псионик чувствует сильные эмоции существ в радиусе 4 клеток без броска —
-              злость, страх, боль, радость. Мастер сигнализирует если кто-то рядом скрывает намерение за внешним спокойствием.
+          <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">[Особенность 1]</div>
             </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">2</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">Направление</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">Контактёр</div>
-                <div class="path-text">
-                  Псионик обращён наружу. Его сила — в связях между людьми.<br><br>
-                  Получает способности <b>Щит разума (2)</b> и <b>Резонанс (1).</b><br><br>
-                  Максимум целей для способностей увеличивается на 1 — там где «одна цель»
-                  можно выбрать двух, платя напряжение дважды.
-                </div>
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
               </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">Вердинант</div>
-                <div class="path-text">
-                  Псионик обращён внутрь. Его сила — в том что он сам становится оружием.<br><br>
-                  Получает способности <b>Обострение (2)</b> и <b>Рефлекс (1).</b><br><br>
-                  Стоимость способностей направленных только на себя снижается на 1 (минимум 1).
-                </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">3</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ВЫБОР СПОСОБНОСТИ</div>
-            <div class="level-title">Расширение</div>
-            <div class="level-text">
-              Практика открывает новые возможности. Игрок выбирает <b>одну способность</b> из списка способностей псионика.
-              Доступны: <b>Марионетка, Проекция, Болевой импульс, Считывание намерений.</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">4</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Глубже</div>
-            <div class="level-text">
-              <b>+1 к максимуму Контакта (макс 3).</b><br><br>
-              Пси-напряжение получает <b>зону безопасности</b> — первые 3 единицы не учитываются
-              при проверке достижения половины. Псионик научился держать нижний уровень не напрягаясь.
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">5</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ВЫБОР СПОСОБНОСТИ</div>
-            <div class="level-title">Углубление</div>
-            <div class="level-text">
-              Игрок выбирает <b>одну способность</b> из списка.
-              Доступны: <b>Ментальный барьер, Эмпатический взрыв, Слияние, Предвидение.</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">6</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ВЫБОР СПОСОБНОСТИ + ПОРОГ</div>
-            <div class="level-title">Контроль</div>
-            <div class="level-text">
-              <b>+1 к максимуму Разума (макс 5).</b><br><br>
-              Игрок выбирает <b>одну способность</b> из списка.
-              Доступны: <b>Подавление, Якорь, Выброс.</b>
-            </div>
-          </div>
-        </div>
-
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">Предел</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ КОНТАКТЁР</div>
-                <div class="path-name">Хор</div>
-                <div class="path-text">
-                  Может поддерживать синхронизацию со <b>всей группой</b> одновременно (до 6 существ).
-                  Каждый синхронизированный знает состояние и положение остальных без слов.<br><br>
-                  Раз за сессию — <b>Единый разум:</b> на 1 раунд все синхронизированные союзники
-                  действуют как единый организм — преимущество на все броски, нельзя застигнуть врасплох.
-                  После — псионик получает <b>Психоз 1.</b>
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ВЕРДИНАНТ</div>
-                <div class="path-name">Инсайт</div>
-                <div class="path-text">
-                  Пока пси-напряжение выше половины максимума — каждая атака наносит дополнительно
-                  <b>+1д6П</b> пассивно. Тело фонит психической энергией.<br><br>
-                  Раз за сессию — <b>Инсайт:</b> псионик пропускает ход уходя в себя.
-                  В следующем ходу все атаки <b>попадают автоматически,</b> урон максимальный,
-                  состояния не применяются к нему до конца хода.
-                  После — пси-напряжение сразу достигает максимума.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        </div><!-- /traits-grid -->
       </div>
+    </div><!-- /card-socialnye -->
 
-      <!-- ── СПОСОБНОСТИ ПСИОНИКА ── -->
-      <div class="card-levels">
-        <div class="levels-header" style="background:rgba(58,107,199,.08);">
-          <span class="levels-title" style="color:#5585e0;">◈ Способности псионика</span>
-          <span class="levels-sub">ПСИ-НАПРЯЖЕНИЕ В СКОБКАХ</span>
-        </div>
-
-        <!-- СТАРТОВЫЕ -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(58,107,199,.06);">
-            <span class="ln-num" style="color:#5585e0;font-size:13px;">СТАРТ</span>
-            <span class="ln-label">УР. 1</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#5585e0;">СТАРТОВЫЕ — ДОСТУПНЫ ВСЕМ С 1 УРОВНЯ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #1e1e2a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Шёпот</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Телепатическая связь с одной целью в радиусе 10 клеток. Можно передавать слова, образы, эмоции. Цель чувствует источник но не может ответить если сама не псионик. Работает сквозь стены.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1e1e2a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Считывание</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Псионик касается существа или предмета — получает поверхностный эмоциональный след. Не мысли — ощущения. Страх, ярость, горе, решимость. Мастер описывает что именно. Действие.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1e1e2a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 2</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Сбой воли</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Цель в радиусе 8 клеток делает все броски с помехой 1д4 хода. Бросок Контакта против Разума цели. При провале — эффект не применяется, напряжение всё равно тратится.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1e1e2a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 2</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Ускорение</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Одна цель получает дополнительное действие в свой ход на количество ходов равное уровню Контакта. Пропадает если псионика атакуют до окончания эффекта.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ПУТЕВЫЕ -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(58,107,199,.06);">
-            <span class="ln-num" style="color:#5585e0;font-size:13px;">ПУТЬ</span>
-            <span class="ln-label">УР. 2</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#5585e0;">ПУТЕВЫЕ — ОТКРЫВАЮТСЯ С ВЫБОРОМ ПУТИ</div>
-            <div class="path-split" style="margin-top:8px;">
-              <div class="path-block path-a">
-                <div class="path-label">◈ КОНТАКТЁР</div>
-                <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
-                  <div style="background:#0a0a14;border:1px solid #1a1a3a;border-radius:2px;padding:10px;">
-                    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:4px;">СТОИМОСТЬ: 2</div>
-                    <div style="font-family:'Oswald',sans-serif;font-size:13px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Щит разума</div>
-                    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#8a8a99;line-height:1.6;">Ментальный барьер вокруг одного союзника. Следующая атака по нему наносит на кость урона меньше. Держится до конца хода псионика или первого попадания.</div>
-                  </div>
-                  <div style="background:#0a0a14;border:1px solid #1a1a3a;border-radius:2px;padding:10px;">
-                    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:4px;">СТОИМОСТЬ: 1</div>
-                    <div style="font-family:'Oswald',sans-serif;font-size:13px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Резонанс</div>
-                    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#8a8a99;line-height:1.6;">Синхронизация с союзником в радиусе 6 клеток до конца боя. Союзник чувствует угрозы которые видит псионик. +1 к инициативе, нельзя застигнуть врасплох. Одна синхронизация одновременно.</div>
-                  </div>
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ВЕРДИНАНТ</div>
-                <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
-                  <div style="background:#0a0a14;border:1px solid #1a1a3a;border-radius:2px;padding:10px;">
-                    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:4px;">СТОИМОСТЬ: 2</div>
-                    <div style="font-family:'Oswald',sans-serif;font-size:13px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Обострение</div>
-                    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#8a8a99;line-height:1.6;">Пси-энергия направляется внутрь. Следующие 1д4 хода атаки наносят дополнительно кость Разума психического урона (П). Исчезает если псионик получает урон.</div>
-                  </div>
-                  <div style="background:#0a0a14;border:1px solid #1a1a3a;border-radius:2px;padding:10px;">
-                    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;letter-spacing:2px;margin-bottom:4px;">СТОИМОСТЬ: 1</div>
-                    <div style="font-family:'Oswald',sans-serif;font-size:13px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Рефлекс</div>
-                    <div style="font-family:'Rajdhani',sans-serif;font-size:12px;color:#8a8a99;line-height:1.6;">Предчувствует атаку. Раз за бой — как реакция на объявленную атаку — уходит на 2 клетки без провокации. Атака промахивается если новая позиция выводит из зоны поражения.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ВЫБОРНЫЕ УР.3 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(58,107,199,.06);">
-            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.3</span>
-            <span class="ln-label">ВЫБОР</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 3, ВЫБЕРИ ОДНУ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 3</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Марионетка</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Цель бросает Разум против Контакта псионика. При провале — тратит следующее действие по выбору псионика (если звучит разумно). Одна цель. Не работает на существ с Разумом 0.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 2</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Проекция</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Создаёт иллюзию (звук, образ, ощущение) в радиусе 15 клеток. Существа взаимодействующие с иллюзией бросают Разум против Контакта. При провале — верят в реальность 1д4 хода.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 3</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Болевой импульс</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Урон 2д6П без броска атаки. Цель бросает Разум сложности 12 — при провале дополнительно получает Ступор.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Считывание намерений</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Расширение Считывания. Задаёт мастеру один вопрос о намерениях видимого существа — честный ответ одним словом. Раз за сцену на каждую цель.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ВЫБОРНЫЕ УР.5 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(58,107,199,.06);">
-            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.5</span>
-            <span class="ln-label">ВЫБОР</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 5, ВЫБЕРИ ОДНУ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 2</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Ментальный барьер</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Постоянный пассивный щит вокруг себя. Любое псионическое воздействие на псионика требует от атакующего дополнительно 2 единицы ресурса чтобы вообще достучаться.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 4</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Эмпатический взрыв</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Все существа в радиусе 5 клеток получают 1д8П и бросают Разум 12 — при провале Паника на 1д4 хода. Союзники в зоне тоже попадают если не предупреждены через Шёпот.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 3</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Слияние</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Полная синхронизация с одним союзником на 1д4 хода. Псионик чувствует всё что чувствует союзник и может использовать его умения для своих способностей. Разрывается при потере сознания.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 2</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Предвидение</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Раз за бой — до броска кубиков — псионик видит результат до того как действие совершено. Может отказаться от действия без последствий. Напряжение тратится в любом случае.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ВЫБОРНЫЕ УР.6 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(58,107,199,.06);">
-            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.6</span>
-            <span class="ln-label">ВЫБОР</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 6, ВЫБЕРИ ОДНУ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 4</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Подавление</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Подавляет псионические способности одной цели на 1д4 хода. Цель не может использовать псионику, шаманские способности или ментальные атаки. Бросок Контакта против Разума цели.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 3</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Якорь</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Пока псионик в сознании — союзники в радиусе 8 клеток получают преимущество на броски против Психоза и ментального воздействия. Пассивно, не требует действия.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;grid-column:span 2;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">СТОИМОСТЬ: 5</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Выброс</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Псионик обнуляет своё пси-напряжение направляя всю накопленную энергию в одну точку. Урон = текущее напряжение × 2 (П). После — состояние Оглушён на 1 ход. Напряжение сбрасывается до 0.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /способности -->
-    </div><!-- /card-psionik -->
-
-
-    <!-- ══════════════════════════════════════════════════
-    <!-- ══════════════════════════════════════════════════
-         КЛАСС: ШАМАН
-    ══════════════════════════════════════════════════ -->
-    <div class="class-card" id="card-shaman">
+    <!-- ══ БОЕВЫЕ ══ -->
+    <!-- FIX: карточка создана — кнопка в selector вела в пустоту -->
+    <div class="trait-card" id="card-boevye">
       <div class="card-top">
-        <div class="card-img">
-          <img id="img-shaman" src="" alt="Шаман" style="display:none">
+        <div class="card-img" id="wrap-boevye">
+          <img id="img-boevye" src="img/Боевые.png" alt="Боевые"
+               onload="imgLoaded(this,'boevye')" onerror="imgError(this)">
           <div class="card-img-placeholder">
-            <span class="card-img-icon">☠</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
+            <span class="card-img-icon">◉</span>
+            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('shaman')">↑ ЗАГРУЗИТЬ ФОТО</button>
-          <input type="file" id="upl-shaman" accept="image/*" style="display:none" onchange="handleImgUpload(event,'shaman')">
+          <button class="card-img-upload" onclick="triggerUpload('boevye')">↑ ЗАГРУЗИТЬ</button>
+          <input type="file" id="upl-boevye" accept="image/*" style="display:none" onchange="handleImgUpload(event,'boevye')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
           <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">Шаман</div>
-            <div class="card-slogan">«Знает то чего не должен знать. Платит за это каждый раз.»</div>
+            <div class="card-badge">◈ ОСОБЕННОСТИ</div>
+            <div class="card-name">Боевые</div>
+            <div class="card-slogan">«Выжить — это тоже искусство»</div>
             <div class="card-desc">
-              Шаман — человек который однажды увидел Бездну и не закрыл глаза. Повелитель ужаса
-              превращает этот контакт в оружие — бьёт напрямую через страх и боль. Прерыватель теней
-              идёт глубже — учится вытаскивать оттуда существ, и чем дальше тем страшнее то что он достаёт.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Разум, Крепость</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ресурс</span>
-              <span class="card-meta-val">Сила бездны = уровень + макс. кости Разума</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Пути</span>
-              <span class="card-meta-val">Повелитель ужаса | Прерыватель теней</span>
+              Тактика, рефлексы и боевой опыт. Особенности этой категории формируют бойца — от выбора позиции до реакции на угрозу.
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
+      <div class="traits-block">
+        <div class="traits-header">
+          <span class="traits-title">◆ Особенности</span>
+          <span class="traits-sub" id="count-boevye"></span>
         </div>
+        <div class="traits-grid">
 
-        <!-- УР.1 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">1</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">Первый контакт</div>
-            <div class="level-text">
-              Шаман увидел Бездну. Или она сама нашла его — неважно. Дверь открыта. Закрыть её уже нельзя.<br><br>
-              Получает <b>все четыре стартовые способности.</b><br><br>
-              Пассивная механика <b>На грани:</b> при Психозе 3 сложность всех бросков шамана снижается на 1 категорию. Безумие делает его острее.
+          <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">[Особенность 1]</div>
             </div>
-          </div>
-        </div>
-
-        <!-- УР.2 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">2</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">Цена</div>
-            <div class="level-text">
-              Новая пассивная <b>Сделка:</b> раз за бой шаман может добровольно взять Психоз 1 чтобы перебросить любой провальный бросок. Бездна помогает — но берёт своё.
-            </div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">Повелитель ужаса</div>
-                <div class="path-text">
-                  Прямой урон и страх через Бездну. Она — оружие.<br><br>
-                  <b>Волна страха:</b> все враги в конусе 4 клетки проходят Разум против Силы бездны. Провал — Паника 1д4 хода. Психоз +1 за каждого задетого.<br><br>
-                  <b>Искажение восприятия:</b> один враг в радиусе 8 клеток видит шамана как союзника на 1д4 хода. Бросок Разума против Силы бездны. При атаке шаманом — эффект снимается немедленно. Психоз +1.
-                </div>
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
               </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">Прерыватель теней</div>
-                <div class="path-text">
-                  Призыватель. Существа из Бездны под его контролем — и с каждым уровнем они становятся сильнее.<br><br>
-                  <b>Призыв тени (ур.2):</b> базовое существо. HP и урон(Т) = кость Разума. Перемещение 6 клеток. Держится 4 хода.<br><br>
-                  <b>Якорь тени:</b> призванное существо не уничтожается при 0 HP — рассеивается и восстанавливается со следующего хода с половиной HP. Снимается если шаман получает урон.
-                </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- УР.3 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">3</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ВЫБОР СПОСОБНОСТИ + ПОРОГ</div>
-            <div class="level-title">Глубже</div>
-            <div class="level-text">
-              <b>+1 к максимуму Разума (макс 3).</b><br><br>
-              Игрок выбирает одну способность: <b>Взгляд бездны / Голос мёртвых / Метка.</b><br><br>
-              <b style="color:var(--blue2)">Прерыватель:</b> существо эволюционирует в <b>Тень с когтями</b> — +1д4 к урону, атака накладывает Кровотечение при превышении сложности на 2+.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.4 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">4</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Привычка</div>
-            <div class="level-text">
-              <b>+1 к максимуму Крепости (макс 3).</b><br><br>
-              Психоз снижается на <b>2</b> за продолжительный отдых вместо 1. Существа Бездны держатся <b>6 ходов</b> вместо 4.<br><br>
-              <b style="color:var(--blue2)">Прерыватель:</b> существо эволюционирует в <b>Ночного охотника</b> — HP удваиваются, получает Невидимость (враги не атакуют пока оно не ударило в этом ходу), перемещение 8 клеток.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.5 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">5</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ВЫБОР СПОСОБНОСТИ</div>
-            <div class="level-title">Мастерство</div>
-            <div class="level-text">
-              Игрок выбирает одну способность из доступных пути:<br><br>
-              <b>Поглощение страха</b> — раз за бой при получении урона от существа с Психозом: урон вдвое, Психоз +1, +1д4 к следующей атаке.<br><br>
-              <b>Стая</b> (Повелитель) — два существа вместо одного, каждое по половине кости Разума.<br><br>
-              <b>Двойной якорь</b> (Прерыватель) — два призванных существа одновременно. Второе — уровнем ниже текущего.<br><br>
-              <b style="color:var(--blue2)">Прерыватель:</b> основное существо эволюционирует в <b>Кошмар</b> — урон 2× кость Разума(Т), при атаке враг проходит Разум или получает Паника на 1 ход, перемещение 8 клеток.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.6 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">6</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ВЫБОР СПОСОБНОСТИ + ПОРОГ</div>
-            <div class="level-title">Контроль</div>
-            <div class="level-text">
-              <b>+1 к максимуму Разума (макс 5).</b><br><br>
-              Игрок выбирает одну способность:<br><br>
-              <b>Вой</b> — все враги в радиусе 4 клеток: Разум против Силы бездны, провал — Паника 1д4 хода. Психоз +1 за каждого.<br><br>
-              <b>Тело бездны</b> (Повелитель) — при Психозе 2–3: сопротивление к урону Б и М.<br><br>
-              <b>Призыв без цены</b> (Прерыватель) — раз за бой призыв не добавляет Психоз.<br><br>
-              <b style="color:var(--blue2)">Прерыватель:</b> существо эволюционирует в <b>Бездонного</b> — HP = кость Разума×3, Поглощение (лечит 1д6 при убийстве), атака поражает всех в радиусе 1 клетки, перемещение 10 клеток.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.7 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">Слияние</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПОВЕЛИТЕЛЬ УЖАСА</div>
-                <div class="path-name">Открытая дверь</div>
-                <div class="path-text">
-                  Пассивно — <b>Господство страха:</b> пока хотя бы один враг в Панике в радиусе 8 клеток — все броски шамана с преимуществом.<br><br>
-                  Раз за сессию — <b>Открытая дверь:</b> Психоз немедленно достигает 3. Все враги в радиусе 6 клеток: Разум против Силы бездны — провал: максимальный урон кости Разума (Т) и Паника. После — шаман теряет сознание на 1д4 хода, Психоз сбрасывается до 0.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПРЕРЫВАТЕЛЬ ТЕНЕЙ</div>
-                <div class="path-name">Воплощение</div>
-                <div class="path-text">
-                  Существо достигает финальной формы <b>Воплощение:</b> HP = кость Разума×4, урон = 3× кость Разума, действует дважды за ход, держится 8 ходов. При смерти — взрыв кости Разума (Т) в радиусе 3 клеток.<br><br>
-                  Раз за сессию — <b>Прорыв:</b> шаман призывает Воплощение немедленно без броска и без Психоза. Оно действует сразу — до хода шамана.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        </div><!-- /traits-grid -->
       </div>
-
-      <!-- СПОСОБНОСТИ ШАМАНА -->
-      <div class="card-levels">
-        <div class="levels-header" style="background:rgba(200,67,42,.06);">
-          <span class="levels-title" style="color:#c8432a;">☠ Способности шамана</span>
-          <span class="levels-sub">ПСИХОЗ +1 ЗА КАЖДУЮ ЦЕЛЬ</span>
-        </div>
-
-        <!-- СТАРТОВЫЕ -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.05);">
-            <span class="ln-num" style="color:#c8432a;font-size:13px;">СТАРТ</span>
-            <span class="ln-label">УР. 1</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">СТАРТОВЫЕ — ДОСТУПНЫ ВСЕМ С 1 УРОВНЯ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Зверь</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Противник проходит Разум против Силы бездны. Провал — урон кости Разума (Т) и Сбит с ног. Успех — шаман получает урон кости Разума.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Клеймо бездны</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Цель получает 1д4(Т). Все атаки по ней и по шаману — на 1 сложность ниже до следующего хода шамана.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Пиявка</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Разум против Силы бездны. Провал — 1д6(Т) и лечение себе на половину. Успех — лечит противника на 1д6. Нельзя на союзников.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a1a1a;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Призыв кошмара</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Разум против Силы бездны. Провал — Психоз 1. Успех — существо под контролем шамана. HP и урон(Т) = кость Разума. Держится 4 хода.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ВЫБОРНЫЕ УР.3 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.05);">
-            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.3</span>
-            <span class="ln-label">ВЫБОР</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 3, ВЫБЕРИ ОДНУ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Взгляд бездны</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Цель смотрящая на шамана: Разум против Силы бездны — провал: Паника 1д4 хода и -1 к броскам. Не требует действия при контакте глазами.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">БЕЗ ПСИХОЗА</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Голос мёртвых</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Касание тела погибшего — последние образы и эмоции. Мастер описывает фрагменты: что видело, кто был рядом, что чувствовало. В бою — действие.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Метка</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Знак Бездны на цели. Существа под контролем шамана атакуют помеченную цель в приоритете с +1д4 к урону по ней.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ВЫБОРНЫЕ УР.5 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.05);">
-            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.5</span>
-            <span class="ln-label">ВЫБОР</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 5, ВЫБЕРИ ОДНУ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Поглощение страха</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Раз за бой при получении урона от существа с Психозом или страхом — урон вдвое, Психоз +1, +1д4 к следующей атаке.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1 · ПОВЕЛИТЕЛЬ</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Стая</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Два существа вместо одного при призыве. Каждое — половина кости Разума по HP и урону. Ходят после шамана в его порядке.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПРЕРЫВАТЕЛЬ</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Двойной якорь</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Два призванных существа одновременно. Второе существо — уровнем ниже текущего максимума. Оба защищены Якорем тени.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ВЫБОРНЫЕ УР.6 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.05);">
-            <span class="ln-num" style="color:#d4a017;font-size:13px;">УР.6</span>
-            <span class="ln-label">ВЫБОР</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#d4a017;">ВЫБОРНЫЕ — ОТКРЫВАЮТСЯ НА УР. 6, ВЫБЕРИ ОДНУ</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПСИХОЗ +1 ЗА ЦЕЛЬ</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Вой</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Все враги в радиусе 4 клеток: Разум против Силы бездны — провал: Паника 1д4 хода. Психоз +1 за каждого задетого.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">ПАССИВНО · ПОВЕЛИТЕЛЬ</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Тело бездны</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Пока Психоз 2 или 3 — сопротивление к урону Б и М. Бездна просачивается наружу и делает шамана менее физическим.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #2a2a18;border-radius:2px;padding:12px;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#d4a017;letter-spacing:2px;margin-bottom:5px;">1/БОЙ · ПРЕРЫВАТЕЛЬ</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:14px;color:#f0ede8;font-weight:600;margin-bottom:5px;">Призыв без цены</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">Раз за бой призыв существа Бездны не добавляет Психоз. Бездна сама хочет прийти.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ПРОГРЕССИЯ ПРЕРЫВАТЕЛЯ -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(58,107,199,.06);">
-            <span class="ln-num" style="color:#5585e0;font-size:11px;">РОСТ</span>
-            <span class="ln-label">ПРИЗЫВ</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#5585e0;">ПРЕРЫВАТЕЛЬ ТЕНЕЙ — ПРОГРЕССИЯ ПРИЗЫВА</div>
-            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:8px;">
-              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 2</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Тень</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">HP и урон(Т) = кость Разума. 6 клеток. Базовая форма.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 3</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">С когтями</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">+1д4 урона. Кровотечение при попадании +2 к сложности.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 4</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Охотник</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">HP×2. Невидимость до первой атаки. 8 клеток.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 5</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Кошмар</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">Урон 2× кость. Паника при атаке. 8 клеток.</div>
-              </div>
-              <div style="background:#0d0d10;border:1px solid #1a1a3a;border-radius:2px;padding:10px;text-align:center;">
-                <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#5585e0;margin-bottom:4px;">УР. 6</div>
-                <div style="font-family:'Oswald',sans-serif;font-size:12px;color:#f0ede8;font-weight:600;margin-bottom:4px;">Бездонный</div>
-                <div style="font-family:'Rajdhani',sans-serif;font-size:11px;color:#8a8a99;line-height:1.5;">HP×3. Поглощение. Атака по области. 10 клеток.</div>
-              </div>
-            </div>
-            <div style="background:#0a0a20;border:1px solid #2a2a5a;border-radius:2px;padding:12px;margin-top:8px;text-align:center;">
-              <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#c8432a;margin-bottom:6px;">УР. 7 — ФИНАЛЬНАЯ ФОРМА</div>
-              <div style="font-family:'Oswald',sans-serif;font-size:16px;color:#f0ede8;font-weight:700;margin-bottom:6px;">Воплощение</div>
-              <div style="font-family:'Rajdhani',sans-serif;font-size:13px;color:#8a8a99;line-height:1.6;">HP = кость Разума×4 · Урон = 3× кость Разума · Действует дважды за ход · Держится 8 ходов · При смерти — взрыв кости Разума (Т) в радиусе 3 клеток</div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /способности шамана -->
-    </div><!-- /card-shaman -->
-
-
-    <!-- ══════════════════════════════════════════════════
-         КЛАСС: ТЕНЬ
-    ══════════════════════════════════════════════════ -->
-    <div class="class-card" id="card-ten">
-      <div class="card-top">
-        <div class="card-img">
-          <img id="img-ten" src="" alt="Тень" style="display:none">
-          <div class="card-img-placeholder">
-            <span class="card-img-icon">👁</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
-          </div>
-          <button class="card-img-upload" onclick="triggerUpload('ten')">↑ ЗАГРУЗИТЬ ФОТО</button>
-          <input type="file" id="upl-ten" accept="image/*" style="display:none" onchange="handleImgUpload(event,'ten')">
-          <div class="card-img-border"></div>
-        </div>
-        <div class="card-header">
-          <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">Тень</div>
-            <div class="card-slogan">«Тебя не видят пока ты сам не захочешь. А когда захочешь — уже поздно.»</div>
-            <div class="card-desc">
-              Тень — человек который научился существовать в промежутках. Призрак использует
-              псионику не как оружие — как инструмент исчезновения из чужого восприятия.
-              Убийца не прячется от разума — прячется от глаз. Зато когда находит цель —
-              заканчивает дело одним точным движением.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Проворство, Контакт</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Стартовые Владения</span>
-              <span class="card-meta-val">Колющее, Пистолеты, Метательное</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Пути</span>
-              <span class="card-meta-val">Призрак | Убийца</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
-        </div>
-
-        <!-- УР.1 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">1</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">Незаметность</div>
-            <div class="level-text">
-              Механика <b>Состояние Тень:</b> входит в скрытый режим как действие если враги не смотрят прямо или есть укрытие в радиусе 2 клеток. Пока в Тени — враги не могут атаковать напрямую пока не обнаружат. Обнаружение — Разум врага против Проворства тени.<br><br>
-              <b>Атака из Тени:</b> первая атака из состояния Тень в каждом бою — с преимуществом и +кость Проворства к урону. После атаки — состояние Тень снимается.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.2 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">2</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">Путь</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">Призрак</div>
-                <div class="path-text">
-                  Псионическая скрытность. Его не замечают на уровне восприятия — глубже любой маскировки.<br><br>
-                  Получает <b>Пси-очки</b> (макс = уровень + 3). Восстанавливаются полностью после продолжительного отдыха, на 2 — после среднего.<br><br>
-                  <b>Туман восприятия (2 пси):</b> одно существо в радиусе 6 клеток перестаёт воспринимать призрака как угрозу на 1д4 хода. При атаке призраком — эффект снимается.<br><br>
-                  <b>Эхо (1 пси):</b> ложный звук или образ в точке радиусе 10 клеток. Существа в радиусе 3 клеток — Разум 9 или идут проверить.<br><br>
-                  <b>Возврат в тень:</b> после успешной атаки — возвращается в Тень бесплатно раз за бой. Дополнительно — 2 пси каждый раз.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">Убийца</div>
-                <div class="path-text">
-                  Прячется ровно до момента удара. Один удар — одно решение.<br><br>
-                  <b>Уязвимая точка:</b> если убийца не атаковал цель в прошлый ход — следующая атака по ней наносит дополнительно <b>1д8</b> того же типа урона.<br><br>
-                  <b>Финишер:</b> раз за бой — если цель ниже половины HP — атака с преимуществом. При попадании — урон максимальный без броска костей.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.3 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">3</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Острее</div>
-            <div class="level-text">
-              <b>+1 к максимуму Проворства (макс 3).</b><br><br>
-              Пассивная <b>Читать обстановку:</b> в начале каждой сцены вне боя — один вопрос мастеру о присутствующих или охране. Честный краткий ответ. Внимание — не магия.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.4 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">4</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
-            <div class="level-title">Отточено</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПРИЗРАК</div>
-                <div class="path-name">Глубокий туман</div>
-                <div class="path-text">
-                  <b>Туман восприятия</b> работает на <b>двух существ</b> одновременно за ту же стоимость.<br><br>
-                  Раз за сессию — <b>Слепое пятно (4 пси):</b> все существа в радиусе 4 клеток перестают замечать призрака на 1 раунд. Атаки по нему автоматически промахиваются.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ УБИЙЦА</div>
-                <div class="path-name">Методичность</div>
-                <div class="path-text">
-                  Бонус <b>Уязвимой точки</b> вырастает до <b>2д8.</b><br><br>
-                  Уязвимая точка теперь работает даже если атаковал цель в прошлый ход — при условии что убийца <b>не двигался</b> в этот ход.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.5 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">5</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Контроль</div>
-            <div class="level-text">
-              <b>+1 к максимуму Проворства (макс 4).</b><br><br>
-              <b>Приоритет выхода:</b> раз за бой — при получении урона как реакция — перемещение на 3 клетки. Если выводит из зоны поражения — урон не применяется.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.6 -->
-        <div class="level-row">
-          <div class="level-num"><span class="ln-num">6</span><span class="ln-label">УР.</span></div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">Невидимость</div>
-            <div class="level-text">
-              <b>+1 к максимуму Контакта (макс 5).</b><br><br>
-              Пассивная <b>Второй слой:</b> пока в состоянии Тень — все броски врагов на обнаружение с помехой.
-            </div>
-            <div class="path-split" style="margin-top:12px;">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПРИЗРАК</div>
-                <div class="path-name">Чужие глаза</div>
-                <div class="path-text">
-                  Пси-очки восстанавливаются на <b>3</b> после среднего отдыха вместо 2.<br><br>
-                  Новая способность <b>Чужие глаза (3 пси):</b> смотрит глазами одного существа в радиусе 15 клеток на 1д4 хода. Существо ничего не замечает. Призрак видит всё что видит оно — включая закрытые комнаты.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ УБИЙЦА</div>
-                <div class="path-name">Двойной финишер</div>
-                <div class="path-text">
-                  <b>Финишер</b> теперь доступен <b>дважды за бой.</b><br><br>
-                  Если Финишер убивает цель — убийца немедленно входит в состояние Тень без действия.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР.7 -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">Не существует</div>
-            <div class="level-text"></div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПРИЗРАК</div>
-                <div class="path-name">Стёртый</div>
-                <div class="path-text">
-                  Может войти в состояние Тень в любой момент своего хода — даже после атаки, даже под прямым взглядом. Раз за бой без пси. Дополнительно — 3 пси.<br><br>
-                  Раз за сессию — <b>Небытие (6 пси):</b> полное исчезновение из восприятия всех в радиусе на 1 раунд. Не скрытность — буквальное отсутствие в чужом сознании. Атаки автоматически промахиваются. После — появляется в любой видимой точке в радиусе 8 клеток.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ УБИЙЦА</div>
-                <div class="path-name">Приговор</div>
-                <div class="path-text">
-                  Убийца выбирает цель в начале боя — <b>Приговорённая.</b> Все атаки по ней с преимуществом и +1д6 к урону пассивно. Уязвимая точка по Приговорённой работает всегда — без условий.<br><br>
-                  Раз за сессию — <b>Исполнение:</b> если цель не знает о присутствии убийцы — атака попадает автоматически, урон утроен, броня игнорируется. Если знает — преимущество, урон удвоен.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div><!-- /card-ten -->
-    <div class="class-card" id="card-template">
-
-      <div class="card-top">
-        <div class="card-img">
-          <!-- <img src="img/КЛАСС.jpg" alt="Название"> -->
-          <div class="card-img-placeholder">
-            <span class="card-img-icon">◈</span>
-            <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КЛАССА</span>
-          </div>
-          <div class="card-img-border"></div>
-        </div>
-
-        <div class="card-header">
-          <div>
-            <div class="card-badge">◈ КЛАСС</div>
-            <div class="card-name">НАЗВАНИЕ КЛАССА</div>
-            <div class="card-slogan">«Слоган класса — суть в одном предложении»</div>
-            <div class="card-desc">
-              Описание класса. Кто это. Как мыслит. Чем отличается от других.
-              В чём его сила и в чём его слепое пятно.
-            </div>
-          </div>
-          <div class="card-meta-row">
-            <div class="card-meta-item">
-              <span class="card-meta-label">Ключевые умения</span>
-              <span class="card-meta-val">Умение, Умение</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Владения</span>
-              <span class="card-meta-val">Тип, Тип, Тип</span>
-            </div>
-            <div class="card-meta-item">
-              <span class="card-meta-label">Уровни</span>
-              <span class="card-meta-val">1 — 7</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-levels">
-        <div class="levels-header">
-          <span class="levels-title">◆ Прокачка</span>
-          <span class="levels-sub">7 УРОВНЕЙ</span>
-        </div>
-
-        <!-- УР. 1 — ОСНОВА -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">1</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ОСНОВА</div>
-            <div class="level-title">НАЗВАНИЕ ОСОБЕННОСТИ</div>
-            <div class="level-text">
-              Описание того что получает персонаж на первом уровне.
-              Классовая идентичность — одна ключевая особенность.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 2 — ПУТЬ (с выбором) -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">2</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПУТЬ — ВЫБОР</div>
-            <div class="level-title">НАЗВАНИЕ ВЫБОРА</div>
-            <div class="level-text">Вводный текст перед выбором пути. Что это означает для персонажа.</div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">НАЗВАНИЕ ПУТИ А</div>
-                <div class="path-text">
-                  Описание пути А. Что даёт. Какие механики открывает.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">НАЗВАНИЕ ПУТИ Б</div>
-                <div class="path-text">
-                  Описание пути Б. Что даёт. Чем отличается от пути А.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 3 — ПОРОГ -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">3</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">НАЗВАНИЕ</div>
-            <div class="level-text">
-              <b>+1 к максимуму УМЕНИЯ (макс 3).</b><br><br>
-              Дополнительная пассивная механика класса.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 4 — РОСТ -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">4</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">РОСТ — УСИЛЕНИЕ ПУТИ</div>
-            <div class="level-title">НАЗВАНИЕ</div>
-            <div class="level-text">Усиление выбранного пути.</div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">УЛУЧШЕНИЕ А</div>
-                <div class="path-text">Описание усиления для пути А.</div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">УЛУЧШЕНИЕ Б</div>
-                <div class="path-text">Описание усиления для пути Б.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 5 — ПОРОГ -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">5</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">НАЗВАНИЕ</div>
-            <div class="level-text">
-              <b>+1 к максимуму УМЕНИЯ (макс 4).</b><br><br>
-              Дополнительная механика.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 6 — ПОРОГ -->
-        <div class="level-row">
-          <div class="level-num">
-            <span class="ln-num">6</span>
-            <span class="ln-label">УР.</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type">ПОРОГ — ХАРАКТЕРИСТИКА</div>
-            <div class="level-title">НАЗВАНИЕ </div>
-            <div class="level-text">
-              <b>+1 к максимуму УМЕНИЯ (макс 5).</b><br><br>
-              Дополнительная механика.
-            </div>
-          </div>
-        </div>
-
-        <!-- УР. 7 — ПИК -->
-        <div class="level-row">
-          <div class="level-num" style="background:rgba(200,67,42,.08);">
-            <span class="ln-num" style="font-size:26px;">7</span>
-            <span class="ln-label">ПИК</span>
-          </div>
-          <div class="level-content">
-            <div class="level-type" style="color:#c8432a;">ИТОГ — ВЕРШИНА КЛАССА</div>
-            <div class="level-title">НАЗВАНИЕ ИТОГА</div>
-            <div class="level-text">Нарративное и механическое завершение. Что персонаж потерял и что приобрёл необратимо.</div>
-            <div class="path-split">
-              <div class="path-block path-a">
-                <div class="path-label">◈ ПУТЬ А</div>
-                <div class="path-name">ФИНАЛ А</div>
-                <div class="path-text">
-                  Финальная способность пути А. Один раз за сессию — сигнатурное действие.
-                </div>
-              </div>
-              <div class="path-block path-b">
-                <div class="path-label">◈ ПУТЬ Б</div>
-                <div class="path-name">ФИНАЛ Б</div>
-                <div class="path-text">
-                  Финальная способность пути Б. Один раз за сессию — сигнатурное действие.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="empty-card-note">
-        ⚠ ШАБЛОН · Скопируй этот блок и заполни данными нового класса
-      </div>
-    </div><!-- /card-template -->
+    </div><!-- /card-boevye -->
 
   </div><!-- /card-area -->
 
 </main>
 
 <footer>
-  <div class="ft-l">DeaD HanD System © 2024</div>
-  <div class="ft-r"><div class="ft-dot"></div>КЛАССЫ ·</div>
+  <div class="ft-l">DeaD HanD</div>
+  <div class="ft-r"><div class="ft-dot"></div>ОСОБЕННОСТИ ·</div>
 </footer>
 
 <script>
-// ── ПЕРЕКЛЮЧЕНИЕ КЛАССОВ ──
-function showClass(id, btn) {
-  document.querySelectorAll('.class-card').forEach(c => c.classList.remove('visible'));
+// ── ПЕРЕКЛЮЧЕНИЕ КАРТОЧЕК ──
+function showCard(id, btn) {
+  document.querySelectorAll('.trait-card').forEach(c => c.classList.remove('visible'));
   document.querySelectorAll('.sel-btn').forEach(b => b.classList.remove('active'));
   const card = document.getElementById('card-' + id);
   if (card) {
@@ -2124,57 +604,56 @@ function showClass(id, btn) {
 }
 
 // ── ИЗОБРАЖЕНИЯ ──
-// Запускает file picker для конкретной карточки
-function triggerUpload(classId) {
-  document.getElementById('upl-' + classId).click();
+// FIX: triggerUpload теперь корректно находит input по id upl-{id}
+function triggerUpload(id) {
+  const input = document.getElementById('upl-' + id);
+  if (input) input.click();
 }
 
-// Обрабатывает выбранный файл — конвертит в base64 и вставляет
-function handleImgUpload(event, classId) {
+function handleImgUpload(event, id) {
   const file = event.target.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = function(e) {
-    const img = document.getElementById('img-' + classId);
+    const img = document.getElementById('img-' + id);
     const wrap = img.closest('.card-img');
     img.src = e.target.result;
     img.classList.add('loaded');
     img.style.display = 'block';
     wrap.classList.add('has-img');
-    // Сохраняем в localStorage чтобы не пропадало при перезагрузке
-    try { localStorage.setItem('dh_class_img_' + classId, e.target.result); } catch(e) {}
+    try { localStorage.setItem('dh_trait_img_' + id, e.target.result); } catch(err) {}
   };
   reader.readAsDataURL(file);
   event.target.value = '';
 }
 
-// Картинка загрузилась по src (если файл лежит рядом)
-function imgLoaded(img, classId) {
-  const wrap = img.closest('.card-img');
+function imgLoaded(img, id) {
+  img.closest('.card-img').classList.add('has-img');
   img.classList.add('loaded');
-  wrap.classList.add('has-img');
 }
 
-// Картинка не найдена по src — прячем img, показываем placeholder
 function imgError(img) {
   img.style.display = 'none';
 }
 
-// При загрузке страницы — восстанавливаем сохранённые изображения
+// FIX: список id приведён в соответствие с реальными карточками
 window.addEventListener('DOMContentLoaded', function() {
-  const classes = ['shturmovnik','strelok','technik','psionik','shaman','ten'];
-  classes.forEach(function(id) {
-    const saved = localStorage.getItem('dh_class_img_' + id);
+  ['arsenal', 'shturm', 'socialnye', 'boevye'].forEach(function(id) {
+    const saved = localStorage.getItem('dh_trait_img_' + id);
     if (saved) {
       const img = document.getElementById('img-' + id);
       if (img) {
-        const wrap = img.closest('.card-img');
         img.src = saved;
         img.classList.add('loaded');
         img.style.display = 'block';
-        wrap.classList.add('has-img');
+        img.closest('.card-img').classList.add('has-img');
       }
     }
+  });
+
+  // Анимация задержки для карточек особенностей
+  document.querySelectorAll('.feat-box').forEach(function(box, i) {
+    box.style.animationDelay = (i * 0.06) + 's';
   });
 });
 </script>
