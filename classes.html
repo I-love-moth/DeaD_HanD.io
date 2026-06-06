@@ -266,7 +266,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
   <div class="hero">
     <span class="hero-tag">◈ Выбери особенность ◈</span>
-    <!-- FIX: убран лишний </span> внутри <h1> -->
     <h1 class="hero-title">Особенности</h1>
   </div>
 
@@ -282,8 +281,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       <button class="sel-btn empty" disabled>+ Добавить</button>
     </div>
   </div>
-
-  <!-- FIX: единый card-area, все trait-card на одном уровне, не вложены друг в друга -->
   <div class="card-area">
 
     <!-- ══ АРСЕНАЛ ══ -->
@@ -296,18 +293,13 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <span class="card-img-icon">◉</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
-          <!-- FIX: подключена кнопка загрузки через onclick и скрытый input -->
-          <button class="card-img-upload" onclick="triggerUpload('arsenal')">↑ ЗАГРУЗИТЬ</button>
-          <input type="file" id="upl-arsenal" accept="image/*" style="display:none" onchange="handleImgUpload(event,'arsenal')">
           <div class="card-img-border"></div>
         </div>
-        <!-- FIX: убран лишний закрывающий </div> который дублировал закрытие card-header -->
         <div class="card-header">
           <div>
             <div class="card-badge">◈ ОСОБЕННОСТИ</div>
             <div class="card-name">Арсенал</div>
             <div class="card-slogan">«Тело помнит всё. Даже то, что разум хочет забыть»</div>
-            <!-- FIX: обращаться (было: обращятса) -->
             <div class="card-desc">
               Умение обращаться с оружием в бою и вне его. Чувство опасности, выносливость и физическая подготовка — всё это проявляется в особенностях этой категории.
             </div>
@@ -318,7 +310,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       <div class="traits-block">
         <div class="traits-header">
           <span class="traits-title">◆ Особенности</span>
-          <!-- FIX: id счётчика соответствует категории -->
           <span class="traits-sub" id="count-arsenal"></span>
         </div>
         <div class="traits-grid">
@@ -334,18 +325,38 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <div class="feat-versions">
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V1</span>
-                <!-- FIX: убран двойной </span>, исправлена пунктуация -->
                 <span class="feat-ver-text"><b>Смена стойки</b> — раз в раунд, если вы атакуете режущим оружием, после атаки вы можете сменить стойку. В атакующей стойке сложность попадания по врагу уменьшается на 3, в защитной — попадание по вам увеличивается на 3.</span>
               </div>
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V2</span>
-                <!-- FIX: уменьшен → уменьшен (было: уменьшаен) -->
                 <span class="feat-ver-text">В атакующей стойке вы наносите 2 удара ценой 1 действия, в защитной урон М/Б по вам уменьшен на 3. Мин. 1.</span>
               </div>
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V3</span>
-                <!-- FIX: дополнительный, выбранному, следующего, пробел между "действия" и "получаете" -->
                 <span class="feat-ver-text"><b>3/день.</b> Не тратя действия, получаете дополнительный удар или сопротивление к выбранному типу урона до вашего следующего хода.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Ножевой бой (колющее)</div>
+            </div>
+            <div class="feat-box-desc">
+              Искусство ближнего боя с колющим оружием. Быстрые, точные удары, использование знания уязвимых точек делают вас опасным противником.
+            </div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">При успешной атаке колющим оружием противник получит состояние <b>Кровотечение</b>.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text"> Состояние <b>Кровотечение</b> наносимое вами имеет урон 1д10 и продожительность 5 ходов вместо стандартного 1д4 и 3 хода.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text"> При атаке колющим оружием вы наносите дополнительные 2д10М урона при условии, что цель находится в состоянии <b>Кровотечение</b>.</span>
               </div>
             </div>
           </div>
@@ -353,11 +364,56 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
           <!-- [PLACEHOLDER] — сюда добавить следующую особенность Арсенала -->
           <div class="feat-box">
             <div class="feat-box-head">
-              <div class="feat-box-name">[Особенность 2]</div>
+              <div class="feat-box-name">Крушитель (дробящее)</div>
             </div>
             <div class="feat-box-desc">
-              Описание особенности.
+              Круши и ломай противников с помощью дробящего оружия. Несколько ударов, которые могут сломать кости и волю врага, оставив его уязвимым и обездвиженным.
             </div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text"> При успешной атаке дробящим оружием противник получит состояние <b>Оглушение</b>.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">После атаки дробящим оружием цель в следующем ходу не может использовать атаку по возможности а так же его перемещение будет уменьшено на 2.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text"> Если ваша атака дробящим оружием превышает сложность попадания на 3, то цель получит состояние <b>сбит с ног</b> и все атаки по данной цели будут легче еще на 3.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Стрелок (автоматы)</div>
+            </div>
+            <div class="feat-box-desc">
+              Искусство обращения с автоматическим оружием. Быстрые очереди, контроль отдачи и точность делают вас смертоносным на дистанции.
+            </div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">Перезарядка автоматов не тратит действие. Когда противник заходит в дистанцию ближнего боя, вы можете атаковать его без проводированой атаки в этом ходу.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">Дальность атаки автоматов увеличена на 10. После перезарядки вы можете атаковать еще раз в этом ходу (1раз/ход).</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text"> После успешной атаки автоматом вы автоматически используете <b>Уклонение</b> не тратя действие. Урон от атаки автоматом наносит половину урона цели с сопротивлением.</span>
+              </div>
+            </div>
+          </div>
+
+                    <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Пистолеты</div>
+            </div>
+            <div class="feat-box-desc">Описание особенности.</div>
             <div class="feat-versions">
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V1</span>
@@ -374,14 +430,78 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             </div>
           </div>
 
-          <!-- [PLACEHOLDER] — сюда добавить следующую особенность Арсенала -->
+                    <!-- [PLACEHOLDER] -->
           <div class="feat-box">
             <div class="feat-box-head">
-              <div class="feat-box-name">[Особенность 3]</div>
+              <div class="feat-box-name">Дробовики</div>
             </div>
-            <div class="feat-box-desc">
-              Описание особенности.
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
+              </div>
             </div>
+          </div>
+
+                    <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Винтовки</div>
+            </div>
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+            </div>
+          </div>
+
+                    <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Пулемёты</div>
+            </div>
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+            </div>
+          </div>
+
+                    <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Метательное</div>
+            </div>
+            <div class="feat-box-desc">Описание особенности.</div>
             <div class="feat-versions">
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V1</span>
@@ -412,8 +532,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <span class="card-img-icon">◉</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('shturm')">↑ ЗАГРУЗИТЬ</button>
-          <input type="file" id="upl-shturm" accept="image/*" style="display:none" onchange="handleImgUpload(event,'shturm')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
@@ -462,7 +580,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     </div><!-- /card-shturm -->
 
     <!-- ══ СОЦИАЛЬНЫЕ ══ -->
-    <!-- FIX: карточка создана — кнопка в selector вела в пустоту -->
     <div class="trait-card" id="card-socialnye">
       <div class="card-top">
         <div class="card-img" id="wrap-socialnye">
@@ -472,8 +589,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <span class="card-img-icon">◉</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('socialnye')">↑ ЗАГРУЗИТЬ</button>
-          <input type="file" id="upl-socialnye" accept="image/*" style="display:none" onchange="handleImgUpload(event,'socialnye')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">
@@ -532,8 +647,6 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <span class="card-img-icon">◉</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
           </div>
-          <button class="card-img-upload" onclick="triggerUpload('boevye')">↑ ЗАГРУЗИТЬ</button>
-          <input type="file" id="upl-boevye" accept="image/*" style="display:none" onchange="handleImgUpload(event,'boevye')">
           <div class="card-img-border"></div>
         </div>
         <div class="card-header">

@@ -148,6 +148,17 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
 @media(max-width:760px){.cards.c3,.cards.c4{grid-template-columns:repeat(2,1fr);}.cards.c2{grid-template-columns:1fr;}}
 @media(max-width:480px){.cards.c3,.cards.c4,.cards.c2{grid-template-columns:1fr;}}
+
+/* ═══ OUTRO ═══ */
+.outro{
+  margin-top:64px;padding:28px 32px;
+  background:linear-gradient(135deg,#0d0d10,#1a0a08);
+  border:1px solid #2e2e3e;border-top:2px solid #c8432a;border-radius:3px;
+  text-align:center;
+}
+.outro-title{font-family:'Oswald',sans-serif;font-size:18px;letter-spacing:4px;color:#f0ede8;margin-bottom:8px;}
+.outro-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:#5a5a6a;letter-spacing:3px;line-height:2;}
+
 </style>
 </head>
 <body>
@@ -164,20 +175,20 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
   <div class="hero">
     <span class="hero-tag">◈ Добро пожаловать в систему ◈</span>
     <h1 class="hero-title">Dead <span>Hand</span></h1>
-    <p class="hero-desc">Постапокалиптическая ролевая система.<br>Выбери раздел для начала.</p>
-  </div>
 
-  <div class="status-bar">
-    <div class="st-dot"></div>
-    <span>СИСТЕМА АКТИВНА</span>
-  </div>
+      <div class="outro">
+      <div class="outro-sub">
+        СПАСИБО, ЧТО ИГРАЕТЕ И ПОЛЬЗУЕТЕСЬ СИСТЕМОЙ DeaD HanD<br>
+        АВТОР <span style="color:#c8432a;">I_LOVE_MOTH и BOHDANA586</span> ЖЕЛАЮТ ВАМ САМОГО ЛУЧШЕГО ИГРОВОГО ОПЫТА
+      </div>
+    </div>
+    <br>
 
   <!-- ══ ОСНОВНОЕ ══ -->
   <div class="sec-wrap">
     <div class="sec-hdr">
       <span class="sec-icon"></span>
       <span class="sec-title">Основные разделы</span>
-      <span class="sec-sub">CORE</span>
     </div>
     <div class="cards c2">
 
@@ -203,7 +214,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         </div>
       </a>
 
-
+  <!--
       <a class="card" href="world_book.html">
         <span class="card-icon"></span>
         <div class="card-badge badge-ref">СПРАВОЧНИК</div>
@@ -225,13 +236,14 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
           <span class="card-tag"></span>
         </div>
       </a>
+    -->
 
     </div>
   </div>
 
   <div class="div-line"></div>
 
-  <!-- ══ РАСШИРЕНИЯ ══ -->
+  <!--
   <div class="expander" id="expExt">
     <div class="exp-hdr" onclick="toggleExp('expExt')">
       <span class="exp-hdr-icon">⬡</span>
@@ -289,12 +301,13 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       </div>
     </div>
   </div>
+  -->
 
   <!-- ══ КЛАССЫ И РАСЫ ══ -->
   <div class="expander" id="expChar">
     <div class="exp-hdr" onclick="toggleExp('expChar')">
-      <span class="exp-hdr-icon">★</span>
-      <span class="exp-hdr-title">Классы и расы</span>
+      <span class="exp-hdr-icon"></span>
+      <span class="exp-hdr-title">Особенности и расы</span>
       <span class="exp-hdr-sub">CLASSES &amp; ORIGINS · 2 РАЗДЕЛА</span>
       <span class="exp-arr" id="expChar-arr">▶</span>
     </div>
@@ -302,10 +315,10 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       <div class="cards c2">
 
         <a class="card" href="classes.html">
-          <span class="card-icon">⚡</span>
+          <span class="card-icon"></span>
           <div class="card-badge badge-core">ОСНОВНОЕ</div>
           <div class="card-title">Классы</div>
-          <div class="card-desc">Все доступные классы персонажей — бонусы, пассивные умения, стартовые снаряжения и уникальные механики каждого класса.</div>
+          <div class="card-desc">Все доступные особенности для ваших персонажей: умения, навыки и уникальные механики.</div>
           <div class="card-meta">
             <span class="card-link">ОТКРЫТЬ <span class="card-arr">→</span></span>
             <span class="card-tag">classes.html</span>
@@ -313,7 +326,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         </a>
 
         <a class="card" href="races.html">
-          <span class="card-icon">👁</span>
+          <span class="card-icon"></span>
           <div class="card-badge badge-core">ОСНОВНОЕ</div>
           <div class="card-title">Расы / Происхождения</div>
           <div class="card-desc">Доступные расы и происхождения: особенности, пассивные черты и бонусы к характеристикам при создании персонажа.</div>
@@ -327,7 +340,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     </div>
   </div>
 
-  <!-- ══ КАТАЛОГИ ══ -->
+  <!-- 
   <div class="expander" id="expCat">
     <div class="exp-hdr" onclick="toggleExp('expCat')">
       <span class="exp-hdr-icon">◆</span>
@@ -396,6 +409,8 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       </div>
     </div>
   </div>
+
+    -->
 
   <!-- ══ В РАЗРАБОТКЕ ══ -->
   <div class="expander" id="expWip">
