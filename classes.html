@@ -275,10 +275,8 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
     <div class="selector-grid">
       <button class="sel-btn active" onclick="showCard('arsenal', this)">Арсенал</button>
       <button class="sel-btn" onclick="showCard('shturm', this)">Штурм</button>
-      <button class="sel-btn" onclick="showCard('socialnye', this)">⚡ Социальные</button>
-      <button class="sel-btn" onclick="showCard('boevye', this)">⚔ Боевые</button>
-      <button class="sel-btn empty" disabled>+ Добавить</button>
-      <button class="sel-btn empty" disabled>+ Добавить</button>
+      <button class="sel-btn" onclick="showCard('socialnye', this)">Социальные</button>
+      <button class="sel-btn" onclick="showCard('telo', this)">Тело</button>
     </div>
   </div>
   <div class="card-area">
@@ -395,7 +393,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
             <div class="feat-versions">
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V1</span>
-                <span class="feat-ver-text">Перезарядка автоматов не тратит действие. Когда противник заходит в дистанцию ближнего боя, вы можете атаковать его без проводированой атаки в этом ходу.</span>
+                <span class="feat-ver-text">Перезарядка автоматов не тратит действие. Когда противник заходит в дистанцию ближнего боя, вы можете атаковать его без провоцированой атаки в этом ходу.</span>
               </div>
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V2</span>
@@ -411,21 +409,27 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
                     <!-- [PLACEHOLDER] -->
           <div class="feat-box">
             <div class="feat-box-head">
-              <div class="feat-box-name">Пистолеты</div>
+              <div class="feat-box-name">ХедМан (Пистолеты)</div>
             </div>
-            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-box-desc">Стрельба с двух рук что может быть веселее? Стреляй точно в голову а не по коленкам.</div>
             <div class="feat-versions">
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V1</span>
-                <span class="feat-ver-text">—</span>
+                <span class="feat-ver-text">При наличии второго пистолета вы можете совершить две атаки ценой одного действия используя для этого 2 разных пистолета.</span>
               </div>
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V2</span>
-                <span class="feat-ver-text">—</span>
+                <span class="feat-ver-text">Атака пистолетом всегда с преймуществом.<br>
+                <b>В голову</b> - при броске на попаданиие атакой пистолета вы можете бросить 1д4, результат броска определит эффект.
+                <br>
+                1: урон от выстрела уменьшается на половину<br>
+                2-3: урон от выстрела не изменяется<br>
+                4: урон увеличивается на половину</span>
+                </span>
               </div>
               <div class="feat-ver-row">
                 <span class="feat-ver-label">V3</span>
-                <span class="feat-ver-text">—</span>
+                <span class="feat-ver-text"> При использовании <b>В голову</b> результат 3-4 увеличивает итоговый урон в два раза.</span>
               </div>
             </div>
           </div>
@@ -610,6 +614,55 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         </div>
         <div class="traits-grid">
 
+
+                    <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Проповедник</div>
+            </div>
+            <div class="feat-box-desc">Слова твоё оружие. Ты знаешь как поджечь людей изнутри. Страх, надежда, ярость - всё это топливо и ты умеешь его разжигать.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">Ресурс особенности "Вдохновения" максимум данных очков равно вашему уровню Контакта уменоженый на 2. Данные очки полностю восстанавливаются в начале каждого дня.<br>
+                <b>Идол</b> Потратив 1 очко "Вдохновения", вы даёте союзникам преймущество на следущий броскok на атаки, спасбросок или умений.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text"><b>Речь</b>
+                 Потратив 2 очка и действие, выбираешь до трёх союзников в радиусе 10 клеток. Каждый из них восстанавливает HP равное кости контакта и игнорирует эффекты Психоза и истощения до конца следующего хода</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">1/день <b>Обращение</b>
+                 Действием произносишь речь. Все союзники в радиусе 15 клеток получают преимущество на все броски до конца раунда. Один враг который тебя слышит — бросок Разума сложность 12, при провале переходит в состояние Паника на 1д4 хода.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Капитан</div>
+            </div>
+            <div class="feat-box-desc">Отдавайте приказы и вдохновляйте союзников. Будьте тем, кто ведет за собой и помните важность команды.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">3/день<b>Борись</b> выбрав точку 1x1 любой союзник может вставший на неё получит преймущество на атаки и спасброски. Точка существукт число ходов равное вашему уровню Контакта</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">4/день<b>Целься</b> действием вы вибираете 1 врага на следущие 2 хода, все атаки вас и ваших союзников получают бонус +3 к попаданию и нанесят дополнительно кость урона равную вашей кости контакта</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">Раз в ход вы можете использовать способности <b>Целься</b> и <b>Приказ</b> не потратив действия.<br>
+                1/день<b>Лидерство</b> После произнесения речи вы востановите использования <b>Целься</b> или <b>Приказ</b> равное вашему уровню Контакта.</span>
+              </div>
+            </div>
+          </div>
+
           <!-- [PLACEHOLDER] -->
           <div class="feat-box">
             <div class="feat-box-head">
@@ -636,13 +689,13 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       </div>
     </div><!-- /card-socialnye -->
 
-    <!-- ══ БОЕВЫЕ ══ -->
+    <!-- ══ тело ══ -->
     <!-- FIX: карточка создана — кнопка в selector вела в пустоту -->
-    <div class="trait-card" id="card-boevye">
+    <div class="trait-card" id="card-telo">
       <div class="card-top">
-        <div class="card-img" id="wrap-boevye">
-          <img id="img-boevye" src="img/Боевые.png" alt="Боевые"
-               onload="imgLoaded(this,'boevye')" onerror="imgError(this)">
+        <div class="card-img" id="wrap-telo">
+          <img id="img-telo" src="img/Тело.png" alt="Тело"
+               onload="imgLoaded(this,'telo')" onerror="imgError(this)">
           <div class="card-img-placeholder">
             <span class="card-img-icon">◉</span>
             <span class="card-img-hint">ИЗОБРАЖЕНИЕ<br>КАТЕГОРИИ</span>
@@ -652,7 +705,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
         <div class="card-header">
           <div>
             <div class="card-badge">◈ ОСОБЕННОСТИ</div>
-            <div class="card-name">Боевые</div>
+            <div class="card-name">Тело</div>
             <div class="card-slogan">«Выжить — это тоже искусство»</div>
             <div class="card-desc">
               Тактика, рефлексы и боевой опыт. Особенности этой категории формируют бойца — от выбора позиции до реакции на угрозу.
@@ -664,9 +717,56 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
       <div class="traits-block">
         <div class="traits-header">
           <span class="traits-title">◆ Особенности</span>
-          <span class="traits-sub" id="count-boevye"></span>
+          <span class="traits-sub" id="count-telo"></span>
         </div>
         <div class="traits-grid">
+
+          <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">Оператор Дронов</div>
+            </div>
+            <div class="feat-box-desc"> Оператор дронов видит поле боя через призму дронов, атакуй и разведуй вить они твой главный инструмент.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">Вы можете использовать особый имплант <b>чип оператор</b>.<br>
+                  Раз в ход вы можете отдать команду дрону не потратив действия.</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">Дрон способен использовать одноручное оружие которое вы им дадите заменяя свой базовый урон на урон оружия.<br>
+                  Все ваши особенности связанные с атакой так же работают у дрона.<br>
+                </span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">1/день<b>Не падать</b> если дрон уничтожен, он немедленно восстанавливается с половиной здоровья </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- [PLACEHOLDER] -->
+          <div class="feat-box">
+            <div class="feat-box-head">
+              <div class="feat-box-name">[Особенность 1]</div>
+            </div>
+            <div class="feat-box-desc">Описание особенности.</div>
+            <div class="feat-versions">
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V1</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V2</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+              <div class="feat-ver-row">
+                <span class="feat-ver-label">V3</span>
+                <span class="feat-ver-text">—</span>
+              </div>
+            </div>
+          </div>
 
           <!-- [PLACEHOLDER] -->
           <div class="feat-box">
@@ -692,7 +792,7 @@ footer{background:#111116;border-top:1px solid #2e2e3e;padding:14px 40px;display
 
         </div><!-- /traits-grid -->
       </div>
-    </div><!-- /card-boevye -->
+    </div><!-- /card-telo -->
 
   </div><!-- /card-area -->
 
@@ -751,7 +851,7 @@ function imgError(img) {
 
 // FIX: список id приведён в соответствие с реальными карточками
 window.addEventListener('DOMContentLoaded', function() {
-  ['arsenal', 'shturm', 'socialnye', 'boevye'].forEach(function(id) {
+  ['arsenal', 'shturm', 'socialnye', 'telo'].forEach(function(id) {
     const saved = localStorage.getItem('dh_trait_img_' + id);
     if (saved) {
       const img = document.getElementById('img-' + id);
