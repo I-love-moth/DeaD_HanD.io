@@ -553,6 +553,8 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
 .empty-hint{color:var(--text3);font-size:11px;font-family:var(--font-mono);padding:5px 0;}
+.inv-row{transition:background .12s;}
+.ab-uses-badge{display:inline-flex;align-items:center;gap:3px;font-family:var(--font-mono);font-size:11px;padding:1px 6px;border-radius:2px;border:1px solid var(--border2);background:var(--bg3);}
 @media(max-width:1050px){.app-body{grid-template-columns:240px 1fr 255px;}}
 @media(max-width:820px){.app-body{grid-template-columns:1fr;}.sidebar,.right-col{border:none;border-bottom:1px solid var(--border);}}
 
@@ -562,15 +564,13 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
 </style>
 </head>
 <body>
+
 <header class="app-header">
   <div>
     <div class="logo">DeaD <span>H</span>an<span>D</span></div>
     <div class="logo-sub">СИСТЕМА ПРАВИЛ</div>
   </div>
   <div class="hdr-acts">
-      <div class="hdr-right">
-    <a class="hdr-back" href="index.html">← ГЛАВНАЯ</a>
-  </div>
     <span class="save-info" id="saveInfo">● не сохранено</span>
     <button class="btn blue" onclick="openModal('cloudModal')">☁ ОБЛАКО</button>
     <button class="btn" onclick="newChar()">⊕ НОВЫЙ</button>
@@ -594,7 +594,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
         <input type="file" id="pf" style="display:none" accept="image/*" onchange="handlePortrait(event)">
         <button class="btn sm" onclick="clearPortrait()" id="clearPortBtn" style="display:none;font-size:9px">✕ убрать</button>
       </div>
-      <div class="fld" style="margin-bottom:8px"><label>Имя / Кличка</label><input type="text" id="charName" placeholder="Имя..." oninput="dirty()"></div>
+      <div class="fld" style="margin-bottom:8px"><label>Имя</label><input type="text" id="charName" placeholder="Имя..." oninput="dirty()"></div>
       <div class="fr c2">
         <div class="fld"><label>Уровень</label><input type="number" id="charLevel" value="1" min="1" max="20" oninput="dirty()"></div>
         <div class="fld"><label>Валюта $</label><input type="number" id="charCash" value="0" min="0" oninput="dirty()"></div>
@@ -602,7 +602,7 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
       <!-- RATION -->
       <div class="ration-row">
         <div>
-          <div class="anim-lbl">🍖 РАЦИОН</div>
+          <div class="anim-lbl">РАЦИОН</div>
           <div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);margin-top:2px">потребление / остаток</div>
         </div>
         <div style="display:flex;align-items:center;gap:5px">
@@ -650,6 +650,29 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
   </div>
 
   <div class="sec">
+    <div class="sh">⊙ ВЛАДЕНИЯ</div>
+    <div class="sb">
+      <div class="vl-sub">ДАЛЬНИЙ БОЙ</div>
+      <div class="vl-grid" id="vlD">
+        <div class="vl-tag" onclick="tVl(this)">Автоматы</div><div class="vl-tag" onclick="tVl(this)">Пистолеты</div>
+        <div class="vl-tag" onclick="tVl(this)">Винтовки</div><div class="vl-tag" onclick="tVl(this)">Дробовики</div>
+        <div class="vl-tag" onclick="tVl(this)">Пулемёты</div><div class="vl-tag" onclick="tVl(this)">Метательное</div>
+      </div>
+      <div class="vl-sub">БЛИЖНИЙ БОЙ</div>
+      <div class="vl-grid" id="vlB">
+        <div class="vl-tag" onclick="tVl(this)">Режущее</div><div class="vl-tag" onclick="tVl(this)">Колющее</div>
+        <div class="vl-tag" onclick="tVl(this)">Дробящее</div><div class="vl-tag" onclick="tVl(this)">Иное</div>
+      </div>
+      <div class="vl-sub">СВОЁ ВЛАДЕНИЕ</div>
+      <div style="display:flex;gap:5px">
+        <input type="text" id="vlIn" placeholder="Добавить..." style="flex:1">
+        <button class="btn sm" onclick="addSvoe()">+</button>
+      </div>
+      <div class="vl-grid" id="vlSvoe" style="margin-top:6px"></div>
+    </div>
+  </div>
+
+  <div class="sec">
     <div class="sh">★ ПРЕВОЗМОГАНИЕ</div>
     <div class="sb">
       <div class="pp-row"><div class="pp" onclick="tPP(0)">1</div><div class="pp" onclick="tPP(1)">2</div><div class="pp" onclick="tPP(2)">3</div></div>
@@ -688,29 +711,6 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
   </div>
 
   <div class="sec">
-    <div class="sh">⊙ ВЛАДЕНИЯ</div>
-    <div class="sb">
-      <div class="vl-sub">ДАЛЬНИЙ БОЙ</div>
-      <div class="vl-grid" id="vlD">
-        <div class="vl-tag" onclick="tVl(this)">Примитивное</div><div class="vl-tag" onclick="tVl(this)">Пистолеты</div>
-        <div class="vl-tag" onclick="tVl(this)">Винтовки</div><div class="vl-tag" onclick="tVl(this)">Дробовики</div>
-        <div class="vl-tag" onclick="tVl(this)">Пулемёты</div><div class="vl-tag" onclick="tVl(this)">Метательное</div>
-      </div>
-      <div class="vl-sub">БЛИЖНИЙ БОЙ</div>
-      <div class="vl-grid" id="vlB">
-        <div class="vl-tag" onclick="tVl(this)">Режущее</div><div class="vl-tag" onclick="tVl(this)">Колющее</div>
-        <div class="vl-tag" onclick="tVl(this)">Дробящее</div><div class="vl-tag" onclick="tVl(this)">Иное</div>
-      </div>
-      <div class="vl-sub">СВОЁ ВЛАДЕНИЕ</div>
-      <div style="display:flex;gap:5px">
-        <input type="text" id="vlIn" placeholder="Добавить..." style="flex:1">
-        <button class="btn sm" onclick="addSvoe()">+</button>
-      </div>
-      <div class="vl-grid" id="vlSvoe" style="margin-top:6px"></div>
-    </div>
-  </div>
-
-  <div class="sec">
     <div class="sh"><span>⚗ СПОСОБНОСТИ</span><button class="btn sm" onclick="openAddAbil()">+ ДОБ.</button></div>
     <div class="sb"><div id="abList"></div></div>
   </div>
@@ -735,43 +735,26 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
     </div>
   </div>
 
+  <!-- INVENTORY -->
+  <div class="inv-full">
+    <div class="sh"><span>⊟ ИНВЕНТАРЬ</span><div style="display:flex;gap:5px"><button class="btn sm" style="color:#7289da;border-color:#7289da" onclick="sendAllInv()">📤 ВСЁ</button><button class="btn accent sm" onclick="togAddInv()">+ ПРЕДМЕТ</button></div></div>
+    <div id="invList" style="padding:8px 12px"></div>
+    <div class="add-inv-form" id="addInvForm">
+      <div style="display:grid;grid-template-columns:1fr auto 80px auto;gap:6px;align-items:end">
+        <div class="fld"><label>Предмет</label><input type="text" id="ni_name" placeholder="Название предмета..."></div>
+        <div class="fld"><label>Кол-во</label><input type="number" id="ni_qty" value="1" min="0" style="width:60px"></div>
+        <div class="fld"><label>Урон (если оружие)</label><input type="text" id="ni_dmg" placeholder="1d10Б..."></div>
+        <div style="display:flex;gap:4px;align-items:flex-end"><button class="btn accent" onclick="addInv()">ОК</button><button class="btn" onclick="togAddInv()">✕</button></div>
+      </div>
+    </div>
+  </div>
+
   <div class="sec">
     <div class="sh">✎ ЗАМЕТКИ</div>
     <div class="sb"><textarea id="notes" placeholder="Задания, контакты..."></textarea></div>
   </div>
 
-  <!-- INVENTORY -->
-  <div class="inv-full">
-    <div class="sh"><span>⊟ ИНВЕНТАРЬ</span><button class="btn accent sm" onclick="togAddInv()">+ ПРЕДМЕТ</button></div>
-    <div style="overflow-x:auto">
-      <table class="inv-t">
-        <thead><tr>
-          <th>ТИП</th><th style="min-width:120px">НАЗВАНИЕ</th><th style="min-width:120px">ДЕТАЛИ</th>
-          <th style="min-width:90px">КОЛ-ВО</th><th>СОСТОЯНИЕ</th><th></th><th></th>
-        </tr></thead>
-        <tbody id="invBody"></tbody>
-      </table>
-    </div>
-    <div class="add-inv-form" id="addInvForm">
-      <div style="display:grid;grid-template-columns:90px 1fr 1fr 52px 82px auto;gap:6px;align-items:end">
-        <div class="fld"><label>Тип</label>
-          <select id="ni_type" onchange="toggleDmgField()">
-            <option value="weapon">⚔ Оружие</option><option value="armor">🛡 Броня</option>
-            <option value="item">◎ Предмет</option><option value="material">⬡ Мат.</option><option value="ammo">● Патроны</option>
-          </select>
-        </div>
-        <div class="fld"><label>Название</label><input type="text" id="ni_name" placeholder="Название..."></div>
-        <div class="fld"><label>Детали</label><input type="text" id="ni_detail" placeholder="[Бр2] Дал:25..."></div>
-        <div class="fld"><label>Кол-во</label><input type="number" id="ni_qty" value="1" min="0"></div>
-        <div class="fld"><label>Состояние</label><select id="ni_st"><option value="ok">OK</option><option value="damaged">Повр.</option><option value="broken">Слом.</option></select></div>
-        <div style="display:flex;gap:4px;align-items:flex-end"><button class="btn accent" onclick="addInv()">ОК</button><button class="btn" onclick="togAddInv()">✕</button></div>
-      </div>
-      <div class="fld" id="ni_dmg_row" style="margin-top:7px">
-        <label>Урон оружия (напр. 2d6Б)</label>
-        <input type="text" id="ni_dmg" placeholder="1d10Б, доп: +2d8 если цель дальше 20 кл.">
-      </div>
-    </div>
-  </div>
+
 </div><!-- /main -->
 
 <!-- RIGHT -->
@@ -894,25 +877,48 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
 <!-- MODALS -->
 <div class="modal-ov" id="traitModal">
   <div class="modal">
-    <div class="modal-t">Добавить особенность</div>
-    <div class="fld" style="margin-bottom:9px"><label>Название</label><input type="text" id="trN" placeholder="Преступник..."></div>
-    <div class="fld"><label>Описание</label><textarea id="trD" placeholder="Эффект, бонусы..."></textarea></div>
-    <div class="modal-a"><button class="btn" onclick="closeModal('traitModal')">ОТМЕНА</button><button class="btn accent" onclick="saveTrait()">СОХРАНИТЬ</button></div>
+    <div class="modal-t" id="traitModalTitle">Добавить особенность</div>
+    <input type="hidden" id="trEditIdx" value="-1">
+    <div class="fld" style="margin-bottom:8px"><label>Название</label><input type="text" id="trN" placeholder="Преступник..."></div>
+    <div class="fld" style="margin-bottom:8px"><label>Описание</label><textarea id="trD" placeholder="Эффект, бонусы..."></textarea></div>
+    <div class="fld" style="margin-bottom:0"><label>Использований (0 = безлимит)</label><input type="number" id="trUses" value="0" min="0"></div>
+    <div class="modal-a">
+      <button class="btn" onclick="closeModal('traitModal')">ОТМЕНА</button>
+      <button class="btn" onclick="sendTraitToDiscord()" style="color:#7289da;border-color:#7289da">📤 DISCORD</button>
+      <button class="btn accent" onclick="saveTrait()">СОХРАНИТЬ</button>
+    </div>
   </div>
 </div>
 <div class="modal-ov" id="abilModal">
   <div class="modal">
-    <div class="modal-t">Добавить способность</div>
-    <div class="fr c2" style="margin-bottom:0">
-      <div class="fld"><label>Название</label><input type="text" id="abN" placeholder="Берсерк..."></div>
-      <div class="fld"><label>Тип</label><input type="text" id="abT" placeholder="Пассивная..."></div>
+    <div class="modal-t" id="abilModalTitle">Добавить способность</div>
+    <input type="hidden" id="abEditIdx" value="-1">
+    <div class="fld" style="margin-bottom:8px"><label>Название</label><input type="text" id="abN" placeholder="Берсерк..."></div>
+    <div class="fld" style="margin-bottom:8px"><label>Описание</label><textarea id="abD" placeholder="Эффект, условие применения..."></textarea></div>
+    <div class="fr c2" style="margin-bottom:8px">
+      <div class="fld"><label>Использований (0 = ∞)</label><input type="number" id="abUses" value="0" min="0"></div>
+      <div class="fld"><label>Урон (текстом, напр. 2d8Б)</label><input type="text" id="abDmgTxt" placeholder="2d8Б или 1d6+3..."></div>
     </div>
-    <div class="fld" style="margin-top:8px"><label>Описание</label><textarea id="abD" placeholder="Эффект..."></textarea></div>
-    <div class="fr c2" style="margin-top:8px;margin-bottom:0">
-      <div class="fld"><label>Кость броска</label><select id="abDice"><option value="">— без броска —</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--text3);letter-spacing:1px;margin-bottom:6px">БРОСОК УМЕНИЯ</div>
+    <div class="fr c3" style="margin-bottom:8px">
+      <div class="fld"><label>Умение</label>
+        <select id="abSkill">
+          <option value="">— без умения —</option>
+          <option value="napor">Напор</option>
+          <option value="provor">Проворство</option>
+          <option value="krepkost">Крепость</option>
+          <option value="razum">Разум</option>
+          <option value="tehnika">Техника</option>
+          <option value="kontakt">Контакт</option>
+        </select>
+      </div>
+      <div class="fld"><label>Доп. кость</label><select id="abDice"><option value="">—</option><option>d4</option><option>d6</option><option>d8</option><option>d10</option><option>d12</option></select></div>
       <div class="fld"><label>Бонус</label><input type="number" id="abBon" value="0"></div>
     </div>
-    <div class="modal-a"><button class="btn" onclick="closeModal('abilModal')">ОТМЕНА</button><button class="btn accent" onclick="saveAbil()">СОХРАНИТЬ</button></div>
+    <div class="modal-a">
+      <button class="btn" onclick="closeModal('abilModal')">ОТМЕНА</button>
+      <button class="btn accent" onclick="saveAbil()">СОХРАНИТЬ</button>
+    </div>
   </div>
 </div>
 <div class="modal-ov" id="traumaModal">
@@ -965,14 +971,14 @@ textarea{resize:vertical;min-height:70px;line-height:1.6;}
 <div id="toast"></div>
 
 <script>
-// ═══ CONSTANTS ═══
+// ════════════════════ CONSTANTS ════════════════════
 const SKL=[
-  {id:'napor',name:'Напор',sub:'Ближний бой, сила, запугивание'},
-  {id:'provor',name:'Проворство',sub:'Дальний бой, уклонение, трюки'},
-  {id:'krepkost',name:'Крепость',sub:'Здоровье, выносливость, яды'},
-  {id:'razum',name:'Разум',sub:'Психика, концентрация, восприятие'},
-  {id:'tehnika',name:'Техника',sub:'Создание, починка, взлом'},
-  {id:'kontakt',name:'Контакт',sub:'Речь, обман, убеждение'},
+  {id:'napor',   name:'Напор',      sub:'Ближний бой, сила, запугивание'},
+  {id:'provor',  name:'Проворство', sub:'Дальний бой, уклонение, трюки'},
+  {id:'krepkost',name:'Крепость',   sub:'Здоровье, выносливость, яды'},
+  {id:'razum',   name:'Разум',      sub:'Психика, концентрация, восприятие'},
+  {id:'tehnika', name:'Техника',    sub:'Создание, починка, взлом'},
+  {id:'kontakt', name:'Контакт',    sub:'Речь, обман, убеждение'},
 ];
 const DM=[null,'d4','d6','d8','d10','d12'];
 const CONDS=['Сбит с ног','Оглушён','Ступор','Ослеплён','Горит','Паника','Кровотечение','Опутан'];
@@ -981,21 +987,18 @@ const UDACHA_NEUT=['Встреча с NPC','Пустая зона','Следы',
 const UDACHA_GOOD=['Лёгкая находка','Найден ресурс','Короткий путь','Информация','Временный бонус','Укрытие','Тайник с ценностями','Уникальный NPC'];
 const UDACHA_ALL=[...UDACHA_BAD,...UDACHA_NEUT,...UDACHA_GOOD];
 const THEMES=[
-  {id:'classic',name:'Классика'},{id:'neon',name:'Неон'},{id:'retro',name:'Ретро'},
-  {id:'minimal',name:'Минимал'},{id:'magic',name:'Магия'},{id:'cat',name:'Кот'},
-  {id:'robot',name:'Робот'},{id:'crimson',name:'Алый'},{id:'wasteland',name:'Пустошь'},
+  {id:'classic',name:'Классика'},{id:'neon',name:'Неон'},{id:'magic',name:'Магия'},
+  {id:'cat',name:'Кот'},{id:'robot',name:'Робот'},{id:'crimson',name:'Алый'},
   {id:'terminal',name:'Терминал'},{id:'romance',name:'Романтика'},{id:'space',name:'Космос'},
-  {id:'rain',name:'Дождь'},{id:'chemistry',name:'Химия'},{id:'nature',name:'Природа'},
-  {id:'faceless',name:'Безликий'},
+  {id:'rain',name:'Дождь'},{id:'nature',name:'Природа'},{id:'faceless',name:'Безликий'},
 ];
-// Discord embed colors per theme
 const THEME_COLORS={
-  classic:0xC8432A,neon:0x00FFFF,retro:0xFF8800,minimal:0x333333,magic:0xCC44FF,
-  cat:0xFF7733,robot:0x1A6AAA,crimson:0xFF2200,wasteland:0xE8C030,terminal:0x00FF00,
-  romance:0xFF4499,space:0x4488FF,rain:0x44A0CC,chemistry:0x00FF88,nature:0x66CC44,faceless:0x888888
+  classic:0xC8432A,neon:0x00FFFF,magic:0xCC44FF,cat:0xFF7733,robot:0x1A6AAA,
+  crimson:0xFF2200,terminal:0x00FF00,romance:0xFF4499,space:0x4488FF,
+  rain:0x44A0CC,nature:0x66CC44,faceless:0x888888
 };
 
-// ═══ STATE ═══
+// ════════════════════ STATE ════════════════════
 let S={
   name:'',level:1,cash:0,portrait:'',
   hpCur:10,hpMax:10,arCur:0,arMax:0,arBr:'Бр0',arName:'',arHitDC:6,
@@ -1007,30 +1010,42 @@ let S={
   vladenie:[],vladenieSvoe:[],
   notes:'',whUrl:'',autoSend:false
 };
-let rlog=[],lastRoll='',isDirty=false;
+let rlog=[], lastRoll=null, isDirty=false;
 let animCfg={anim:true,'3d':true,bounce:true,crit:true,shake:true};
 let currentTheme='classic';
 let currentDmgItem=null;
 let d3dTimer=null;
 
-// ═══ INIT ═══
+// ════════════════════ INIT ════════════════════
 window.addEventListener('DOMContentLoaded',()=>{
-  loadPrefs();buildThemes();
-  rSkills();rConds();rInv();rTraits();rAbils();rTraumas();
-  updHp();updAr();updPP();
+  loadPrefs();
+  buildThemes();
+  rSkills(); rConds(); rInv(); rTraits(); rAbils(); rTraumas();
+  updHp(); updAr(); updPP();
   const a=localStorage.getItem('dh_auto');
-  if(a){try{const d=JSON.parse(a);if(d.name){applyS(d);toast('↺ Авто восстановлено');isDirty=false;updInfo();}}catch(e){}}
-  document.getElementById('ni_dmg_row').style.display='block';
+  if(a){
+    try{
+      const d=JSON.parse(a);
+      if(d&&d.name){applyS(d);toast('↺ Автосохранение восстановлено');isDirty=false;updInfo();}
+    }catch(e){}
+  }
 });
 setInterval(()=>{if(isDirty){localStorage.setItem('dh_auto',JSON.stringify(collect()));updInfo();}},20000);
 function dirty(){isDirty=true;updInfo();}
-function updInfo(){const e=document.getElementById('saveInfo');if(isDirty){e.textContent='● не сохранено';e.className='save-info';}else{e.textContent='✓ сохранено';e.className='save-info ok';}}
+function updInfo(){
+  const e=document.getElementById('saveInfo');
+  if(isDirty){e.textContent='● не сохранено';e.className='save-info';}
+  else{e.textContent='✓ сохранено';e.className='save-info ok';}
+}
 
-// ═══ THEME ═══
+// ════════════════════ THEME / PREFS ════════════════════
 function loadPrefs(){
-  const p=localStorage.getItem('dh_prefs');
-  if(p){try{const d=JSON.parse(p);currentTheme=d.theme||'classic';animCfg={...animCfg,...d.anim};}catch(e){}}
-  applyTheme(currentTheme);updateAnimToggles();
+  try{
+    const p=localStorage.getItem('dh_prefs');
+    if(p){const d=JSON.parse(p);currentTheme=d.theme||'classic';animCfg={...animCfg,...(d.anim||{})};}
+  }catch(e){}
+  applyTheme(currentTheme);
+  updateAnimToggles();
 }
 function savePrefs(){localStorage.setItem('dh_prefs',JSON.stringify({theme:currentTheme,anim:animCfg}));}
 function applyTheme(t){
@@ -1040,7 +1055,8 @@ function applyTheme(t){
   savePrefs();
 }
 function buildThemes(){
-  document.getElementById('themeGrid').innerHTML=THEMES.map(t=>`<div class="th-dot${t.id===currentTheme?' active':''}" data-t="${t.id}" onclick="applyTheme('${t.id}')">${t.name}</div>`).join('');
+  document.getElementById('themeGrid').innerHTML=
+    THEMES.map(t=>`<div class="th-dot${t.id===currentTheme?' active':''}" data-t="${t.id}" onclick="applyTheme('${t.id}')">${t.name}</div>`).join('');
 }
 function tAnim(k){animCfg[k]=!animCfg[k];updateAnimToggles();savePrefs();}
 function updateAnimToggles(){
@@ -1048,18 +1064,20 @@ function updateAnimToggles(){
   Object.entries(map).forEach(([k,id])=>{const e=document.getElementById(id);if(e)e.classList.toggle('on',!!animCfg[k]);});
 }
 function doSalto(){
-  document.body.style.animation='spinPage 0.6s ease';
-  setTimeout(()=>document.body.style.animation='',700);
+  document.body.style.transition='transform 0.6s ease';
+  document.body.style.transform='rotate(360deg)';
+  setTimeout(()=>{document.body.style.transform='';document.body.style.transition='';},650);
 }
 
-// ═══ PORTRAIT ═══
+// ════════════════════ PORTRAIT ════════════════════
 function handlePortrait(e){
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();
   r.onload=ev=>{
     S.portrait=ev.target.result;
     document.getElementById('portraitEmoji').style.display='none';
-    const img=document.getElementById('portraitImg');img.src=S.portrait;img.style.display='block';
+    const img=document.getElementById('portraitImg');
+    img.src=S.portrait;img.style.display='block';
     document.getElementById('clearPortBtn').style.display='block';
     dirty();
   };
@@ -1077,79 +1095,100 @@ function restorePortrait(){
     document.getElementById('portraitEmoji').style.display='none';
     const img=document.getElementById('portraitImg');img.src=S.portrait;img.style.display='block';
     document.getElementById('clearPortBtn').style.display='block';
-  } else {
+  }else{
     document.getElementById('portraitEmoji').style.display='';
     document.getElementById('portraitImg').style.display='none';
     document.getElementById('clearPortBtn').style.display='none';
   }
 }
 
-// ═══ SKILLS ═══
+// ════════════════════ SKILLS ════════════════════
 function rSkills(){
   document.getElementById('sklCont').innerHTML=SKL.map(s=>{
-    const lv=S.skills[s.id];
-    // Level 5: 2d12 instead of d10+d12
-    let diceLabel=lv>0?(lv===5?'2d12':DM[lv]):'—';
-    return`<div class="skill-block">
+    const lv=S.skills[s.id]||0;
+    const diceLabel=lv===0?'—':lv===5?'2d12':DM[lv];
+    const pips=[1,2,3,4,5].map(i=>`<div class="pip ${lv>=i?(i===5?'maxl':'on'):''}" onclick="setSk('${s.id}',${i})"></div>`).join('');
+    return `<div class="skill-block">
       <div><div class="sn">${s.name}</div><div class="ss">${s.sub}</div></div>
-      <div class="sl">${[1,2,3,4,5].map(i=>`<div class="pip ${lv>=i?(i===5?'maxl':'on'):''}" onclick="setSk('${s.id}',${i})"></div>`).join('')}</div>
+      <div class="sl">${pips}</div>
       <div class="sd">${diceLabel}</div>
       <button class="rb" onclick="rollSkill('${s.id}','${s.name}')">🎲</button>
     </div>`;
   }).join('');
 }
-function setSk(id,lv){if(S.skills[id]===lv)lv=0;S.skills[id]=lv;dirty();rSkills();}
+function setSk(id,lv){
+  if(S.skills[id]===lv)lv=0;
+  S.skills[id]=lv;dirty();rSkills();
+}
 
-// ═══ HP / ARMOR ═══
+// ════════════════════ HP / ARMOR ════════════════════
 function updHp(){
-  const c=iv('hpCur'),m=iv('hpMax')||1;
+  const c=iv('hpCur'),m=Math.max(1,iv('hpMax'));
   document.getElementById('hpBar').style.width=Math.min(100,Math.max(0,(c/m)*100))+'%';
-  document.getElementById('hpDisp').textContent=`${c}/${m}`;dirty();
+  document.getElementById('hpDisp').textContent=c+'/'+m;
+  dirty();
 }
 function updAr(){
   const c=iv('arCur'),m=iv('arMax');
   document.getElementById('arBar').style.width=(m>0?Math.min(100,Math.max(0,(c/m)*100)):0)+'%';
-  document.getElementById('arDisp').textContent=`${c}/${m}`;dirty();
+  document.getElementById('arDisp').textContent=c+'/'+m;
+  dirty();
 }
-function mS(id,d){const e=document.getElementById(id);e.value=Math.max(0,(parseInt(e.value)||0)+d);if(id==='hpCur')updHp();if(id==='arCur')updAr();}
+function mS(id,delta){
+  const e=document.getElementById(id);
+  e.value=Math.max(0,(parseInt(e.value)||0)+delta);
+  if(id==='hpCur')updHp();
+  if(id==='arCur')updAr();
+}
 function iv(id){return parseInt(document.getElementById(id).value)||0;}
 
-// ═══ PREVOZ ═══
+// ════════════════════ PREVOZ ════════════════════
 function updPP(){document.querySelectorAll('.pp').forEach((p,i)=>p.classList.toggle('on',i<S.prevoz));}
 function tPP(i){S.prevoz=(S.prevoz===i+1)?i:i+1;updPP();dirty();}
 
-// ═══ CONDITIONS ═══
+// ════════════════════ CONDITIONS ════════════════════
 function rConds(){
   document.getElementById('condGrid').innerHTML=CONDS.map(c=>`
     <div class="ci ${S.conds.includes(c)?'on':''}" onclick="tCond('${c}')">
       <div class="cdot"></div><div class="cn">${c}</div>
     </div>`).join('');
 }
-function tCond(c){const i=S.conds.indexOf(c);if(i>=0)S.conds.splice(i,1);else S.conds.push(c);rConds();dirty();}
+function tCond(c){
+  const i=S.conds.indexOf(c);
+  if(i>=0)S.conds.splice(i,1);else S.conds.push(c);
+  rConds();dirty();
+}
 
-// ═══ TRAUMAS ═══
+// ════════════════════ TRAUMAS ════════════════════
 function rTraumas(){
   const el=document.getElementById('traumaList');
-  el.innerHTML=(S.traumas||[]).map((t,i)=>`
+  if(!S.traumas||!S.traumas.length){el.innerHTML='<div class="empty-hint">Нет травм</div>';return;}
+  el.innerHTML=S.traumas.map((t,i)=>`
     <div class="trauma-item">
       <div>
-        <div class="trauma-name">⚕ ${t.name}</div>
-        ${t.desc?`<div style="font-size:11px;color:var(--text3);margin-top:2px">${t.desc}</div>`:''}
+        <div class="trauma-name">${escHtml(t.name)}</div>
+        ${t.desc?`<div style="font-size:11px;color:var(--text3);margin-top:2px">${escHtml(t.desc)}</div>`:''}
       </div>
       <div class="trauma-days">
         <div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);margin-bottom:2px">ДНЕЙ</div>
         <div style="display:flex;align-items:center;gap:3px">
           <button class="qty-b" onclick="chTraumaDays(${i},-1)">−</button>
-          <input class="qty-in" type="number" value="${t.days}" min="0" onchange="setTraumaDays(${i},this.value)">
+          <input class="qty-in" type="number" value="${t.days||0}" min="0" onchange="setTraumaDays(${i},this.value)" style="width:44px">
           <button class="qty-b" onclick="chTraumaDays(${i},1)">+</button>
         </div>
       </div>
       <button class="del-btn" onclick="delTrauma(${i})">✕</button>
-    </div>`).join('')||'<div class="empty-hint">Нет травм</div>';
+    </div>`).join('');
 }
-function openAddTrauma(){document.getElementById('tmN').value='';document.getElementById('tmDays').value='3';document.getElementById('tmD').value='';openModal('traumaModal');}
+function openAddTrauma(){
+  document.getElementById('tmN').value='';
+  document.getElementById('tmDays').value='3';
+  document.getElementById('tmD').value='';
+  openModal('traumaModal');
+}
 function saveTrauma(){
-  const n=document.getElementById('tmN').value.trim();if(!n){toast('Введите название');return;}
+  const n=document.getElementById('tmN').value.trim();
+  if(!n){toast('Введите название');return;}
   if(!S.traumas)S.traumas=[];
   S.traumas.push({name:n,days:parseInt(document.getElementById('tmDays').value)||0,desc:document.getElementById('tmD').value.trim()});
   rTraumas();closeModal('traumaModal');dirty();
@@ -1158,328 +1197,821 @@ function delTrauma(i){S.traumas.splice(i,1);rTraumas();dirty();}
 function chTraumaDays(i,d){S.traumas[i].days=Math.max(0,(S.traumas[i].days||0)+d);rTraumas();dirty();}
 function setTraumaDays(i,v){S.traumas[i].days=Math.max(0,parseInt(v)||0);dirty();}
 
-// ═══ TRAITS ═══
+// ════════════════════ TRAITS ════════════════════
 function rTraits(){
-  document.getElementById('trList').innerHTML=(S.traits||[]).map((t,i)=>`
-    <div class="tr-item"><div style="display:flex;justify-content:space-between">
-      <div class="tr-name">◆ ${t.name}</div><button class="del-btn" onclick="delTrait(${i})">✕</button>
-    </div>${t.desc?`<div class="tr-desc">${t.desc}</div>`:''}</div>`).join('')||'<div class="empty-hint">Нет особенностей</div>';
+  const el=document.getElementById('trList');
+  if(!S.traits||!S.traits.length){el.innerHTML='<div class="empty-hint">Нет особенностей</div>';return;}
+  el.innerHTML=S.traits.map((t,i)=>{
+    const hasUses=t.usesMax>0;
+    const usesOk=!hasUses||t.usesLeft>0;
+    const usesColor=usesOk?'var(--accent3)':'var(--red)';
+    return `<div class="tr-item">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <div class="tr-name">${escHtml(t.name)}</div>
+          ${hasUses?`<span style="font-family:var(--font-mono);font-size:11px;color:${usesColor}">⚡ ${t.usesLeft}/${t.usesMax}</span>`:''}
+        </div>
+        <div style="display:flex;gap:3px;flex-shrink:0">
+          ${hasUses?`<button class="del-btn" title="Убавить" onclick="chTraitUses(${i},-1)" style="color:var(--text2);font-size:16px;line-height:1">−</button>`:''}
+          ${hasUses?`<button class="del-btn" title="Восстановить" onclick="resetTraitUses(${i})" style="color:var(--green2);font-size:13px">↺</button>`:''}
+          <button class="del-btn" title="Редактировать" onclick="editTrait(${i})" style="color:var(--text2);font-size:13px">✏</button>
+          <button class="del-btn" title="Отправить в Discord" onclick="sendTraitCard(${i})" style="color:#7289da;font-size:13px">📤</button>
+          <button class="del-btn" onclick="delTrait(${i})">✕</button>
+        </div>
+      </div>
+      ${t.desc?`<div class="tr-desc">${escHtml(t.desc)}</div>`:''}
+    </div>`;
+  }).join('');
 }
-function openAddTrait(){document.getElementById('trN').value='';document.getElementById('trD').value='';openModal('traitModal');}
-function saveTrait(){const n=document.getElementById('trN').value.trim();if(!n){toast('Введите название');return;}S.traits.push({name:n,desc:document.getElementById('trD').value.trim()});rTraits();closeModal('traitModal');dirty();}
+function openAddTrait(){
+  document.getElementById('trEditIdx').value='-1';
+  document.getElementById('traitModalTitle').textContent='Добавить особенность';
+  document.getElementById('trN').value='';
+  document.getElementById('trD').value='';
+  document.getElementById('trUses').value='0';
+  openModal('traitModal');
+}
+function editTrait(i){
+  const t=S.traits[i];
+  document.getElementById('trEditIdx').value=String(i);
+  document.getElementById('traitModalTitle').textContent='Редактировать особенность';
+  document.getElementById('trN').value=t.name||'';
+  document.getElementById('trD').value=t.desc||'';
+  document.getElementById('trUses').value=t.usesMax||0;
+  openModal('traitModal');
+}
+function saveTrait(){
+  const n=document.getElementById('trN').value.trim();
+  if(!n){toast('Введите название');return;}
+  const idx=parseInt(document.getElementById('trEditIdx').value);
+  const usesMax=parseInt(document.getElementById('trUses').value)||0;
+  const prevLeft=(idx>=0&&S.traits[idx])?S.traits[idx].usesLeft:usesMax;
+  const obj={name:n,desc:document.getElementById('trD').value.trim(),usesMax,usesLeft:idx>=0?prevLeft:usesMax};
+  if(idx>=0)S.traits[idx]=obj;else S.traits.push(obj);
+  rTraits();closeModal('traitModal');dirty();
+}
 function delTrait(i){S.traits.splice(i,1);rTraits();dirty();}
-
-// ═══ VLADENIE ═══
-function tVl(el){el.classList.toggle('on');saveVl();dirty();}
-function saveVl(){S.vladenie=[...document.querySelectorAll('#vlD .vl-tag.on,#vlB .vl-tag.on')].map(t=>t.textContent.trim());}
-function restoreVl(){
-  document.querySelectorAll('#vlD .vl-tag,#vlB .vl-tag').forEach(t=>t.classList.toggle('on',S.vladenie.includes(t.textContent.trim())));
-  document.getElementById('vlSvoe').innerHTML=(S.vladenieSvoe||[]).map((v,i)=>`<div class="vl-tag on">${v}<span onclick="event.stopPropagation();delSvoe(${i})" style="margin-left:3px;opacity:.5;font-size:9px;cursor:pointer">✕</span></div>`).join('');
+function chTraitUses(i,d){
+  const t=S.traits[i];
+  t.usesLeft=Math.max(0,Math.min(t.usesMax,(t.usesLeft||0)+d));
+  rTraits();dirty();
 }
-function addSvoe(){const v=document.getElementById('vlIn').value.trim();if(!v)return;if(!S.vladenieSvoe)S.vladenieSvoe=[];S.vladenieSvoe.push(v);document.getElementById('vlIn').value='';restoreVl();dirty();}
+function resetTraitUses(i){S.traits[i].usesLeft=S.traits[i].usesMax;rTraits();dirty();}
+function sendTraitCard(i){
+  const t=S.traits[i];
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const usesStr=t.usesMax>0?'\n⚡ Использований: **'+t.usesLeft+'/'+t.usesMax+'**':'';
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:gn()+' — '+t.name,
+    description:(t.desc||'Без описания')+usesStr,
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  whPostBody(body).then(ok=>toast(ok?'📤 Отправлено':'✗ Ошибка Discord'));
+}
+function sendTraitToDiscord(){
+  const n=document.getElementById('trN').value.trim();
+  const d=document.getElementById('trD').value.trim();
+  if(!n){toast('Сначала введите название');return;}
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:gn()+' — '+n,
+    description:d||'Без описания',
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  whPostBody(body).then(ok=>toast(ok?'📤 Отправлено':'✗ Ошибка Discord'));
+}
+
+// ════════════════════ VLADENIE ════════════════════
+function tVl(el){el.classList.toggle('on');saveVl();dirty();}
+function saveVl(){
+  S.vladenie=[...document.querySelectorAll('#vlD .vl-tag.on,#vlB .vl-tag.on')].map(t=>t.textContent.trim());
+}
+function restoreVl(){
+  document.querySelectorAll('#vlD .vl-tag,#vlB .vl-tag').forEach(t=>{
+    t.classList.toggle('on',(S.vladenie||[]).includes(t.textContent.trim()));
+  });
+  const sv=document.getElementById('vlSvoe');
+  sv.innerHTML=(S.vladenieSvoe||[]).map((v,i)=>
+    `<div class="vl-tag on">${escHtml(v)}<span onclick="event.stopPropagation();delSvoe(${i})" style="margin-left:4px;opacity:.5;font-size:9px;cursor:pointer">✕</span></div>`
+  ).join('');
+}
+function addSvoe(){
+  const v=document.getElementById('vlIn').value.trim();
+  if(!v)return;
+  if(!S.vladenieSvoe)S.vladenieSvoe=[];
+  S.vladenieSvoe.push(v);
+  document.getElementById('vlIn').value='';
+  restoreVl();dirty();
+}
 function delSvoe(i){S.vladenieSvoe.splice(i,1);restoreVl();dirty();}
 
-// ═══ ABILITIES ═══
+// ════════════════════ ABILITIES ════════════════════
 function rAbils(){
-  document.getElementById('abList').innerHTML=(S.abilities||[]).map((a,i)=>`
-    <div class="ab-item"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:7px">
-      <div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-        <span class="ab-name">⚗ ${a.name}</span>${a.type?`<span class="ab-type">${a.type}</span>`:''}
-      </div>${a.desc?`<div class="ab-desc">${a.desc}</div>`:''}</div>
-      <div style="display:flex;gap:3px;flex-shrink:0">
-        ${a.dice?`<button class="ab-rb" onclick="rollAbil(${i})">🎲${a.dice}</button>`:''}
-        <button class="del-btn" onclick="delAbil(${i})">✕</button>
+  const el=document.getElementById('abList');
+  if(!S.abilities||!S.abilities.length){el.innerHTML='<div class="empty-hint">Нет способностей</div>';return;}
+  el.innerHTML=S.abilities.map((a,i)=>{
+    const hasUses=a.usesMax>0;
+    const usesOk=!hasUses||a.usesLeft>0;
+    const usesColor=usesOk?'var(--accent3)':'var(--red)';
+    const hasRoll=a.skillId||a.dice;
+    let rollLabel='🎲 ';
+    if(a.skillId&&a.dice)rollLabel+=(SKL.find(s=>s.id===a.skillId)||{name:''}).name+'+'+a.dice;
+    else if(a.skillId)rollLabel+=(SKL.find(s=>s.id===a.skillId)||{name:a.skillId}).name;
+    else if(a.dice)rollLabel+=a.dice;
+    else rollLabel='🎲';
+    return `<div class="ab-item">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+            <span class="ab-name">${escHtml(a.name)}</span>
+            ${hasUses?`<span style="font-family:var(--font-mono);font-size:11px;color:${usesColor}">⚡ ${a.usesLeft}/${a.usesMax}</span>`:''}
+            ${a.dmgTxt?`<span style="font-family:var(--font-mono);font-size:10px;color:var(--yellow);background:var(--bg3);padding:1px 5px;border-radius:2px">${escHtml(a.dmgTxt)}</span>`:''}
+          </div>
+          ${a.desc?`<div class="ab-desc">${escHtml(a.desc)}</div>`:''}
+        </div>
+        <div style="display:flex;gap:3px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end">
+          ${hasRoll?`<button class="ab-rb" onclick="rollAbil(${i})">${rollLabel}</button>`:''}
+          ${hasUses?`<button class="ab-rb" onclick="chAbilUses(${i},-1)" style="border-color:var(--text3);color:var(--text3)" title="Убавить">−</button>`:''}
+          ${hasUses?`<button class="ab-rb" onclick="resetAbilUses(${i})" style="border-color:var(--green2);color:var(--green2)" title="Восстановить">↺</button>`:''}
+          <button class="del-btn" title="Отправить" onclick="sendAbilCard(${i})" style="color:#7289da;font-size:13px">📤</button>
+          <button class="del-btn" title="Редактировать" onclick="editAbil(${i})" style="color:var(--text2);font-size:13px">✏</button>
+          <button class="del-btn" onclick="delAbil(${i})">✕</button>
+        </div>
       </div>
-    </div></div>`).join('')||'<div class="empty-hint">Нет способностей</div>';
+    </div>`;
+  }).join('');
 }
-function openAddAbil(){['abN','abT','abD'].forEach(id=>document.getElementById(id).value='');document.getElementById('abBon').value='0';document.getElementById('abDice').value='';openModal('abilModal');}
-function saveAbil(){const n=document.getElementById('abN').value.trim();if(!n){toast('Введите название');return;}S.abilities.push({name:n,type:document.getElementById('abT').value.trim(),desc:document.getElementById('abD').value.trim(),dice:document.getElementById('abDice').value,bonus:parseInt(document.getElementById('abBon').value)||0});rAbils();closeModal('abilModal');dirty();}
+function openAddAbil(){
+  document.getElementById('abEditIdx').value='-1';
+  document.getElementById('abilModalTitle').textContent='Добавить способность';
+  document.getElementById('abN').value='';
+  document.getElementById('abD').value='';
+  document.getElementById('abDmgTxt').value='';
+  document.getElementById('abBon').value='0';
+  document.getElementById('abDice').value='';
+  document.getElementById('abSkill').value='';
+  document.getElementById('abUses').value='0';
+  openModal('abilModal');
+}
+function editAbil(i){
+  const a=S.abilities[i];
+  document.getElementById('abEditIdx').value=String(i);
+  document.getElementById('abilModalTitle').textContent='Редактировать способность';
+  document.getElementById('abN').value=a.name||'';
+  document.getElementById('abD').value=a.desc||'';
+  document.getElementById('abDmgTxt').value=a.dmgTxt||'';
+  document.getElementById('abBon').value=a.bonus||0;
+  document.getElementById('abDice').value=a.dice||'';
+  document.getElementById('abSkill').value=a.skillId||'';
+  document.getElementById('abUses').value=a.usesMax||0;
+  openModal('abilModal');
+}
+function saveAbil(){
+  const n=document.getElementById('abN').value.trim();
+  if(!n){toast('Введите название');return;}
+  const idx=parseInt(document.getElementById('abEditIdx').value);
+  const usesMax=parseInt(document.getElementById('abUses').value)||0;
+  const prevLeft=(idx>=0&&S.abilities[idx])?S.abilities[idx].usesLeft:usesMax;
+  const obj={
+    name:n,
+    desc:document.getElementById('abD').value.trim(),
+    dmgTxt:document.getElementById('abDmgTxt').value.trim(),
+    dice:document.getElementById('abDice').value,
+    skillId:document.getElementById('abSkill').value,
+    bonus:parseInt(document.getElementById('abBon').value)||0,
+    usesMax,
+    usesLeft:idx>=0?prevLeft:usesMax
+  };
+  if(idx>=0)S.abilities[idx]=obj;else S.abilities.push(obj);
+  rAbils();closeModal('abilModal');dirty();
+}
 function delAbil(i){S.abilities.splice(i,1);rAbils();dirty();}
+function chAbilUses(i,d){
+  const a=S.abilities[i];
+  a.usesLeft=Math.max(0,Math.min(a.usesMax,(a.usesLeft||0)+d));
+  rAbils();dirty();
+}
+function resetAbilUses(i){S.abilities[i].usesLeft=S.abilities[i].usesMax;rAbils();dirty();}
+function sendAbilCard(i){
+  const a=S.abilities[i];
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  let desc=a.desc||'';
+  if(a.dmgTxt)desc+='\n🗡 Урон: **'+a.dmgTxt+'**';
+  if(a.usesMax>0)desc+='\n⚡ Использований: **'+a.usesLeft+'/'+a.usesMax+'**';
+  if(!desc)desc='Без описания';
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:gn()+' — '+a.name,
+    description:desc,
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  whPostBody(body).then(ok=>toast(ok?'📤 Отправлено':'✗ Ошибка Discord'));
+}
 function rollAbil(i){
-  const a=S.abilities[i];const sides=parseInt(a.dice.substring(1));
-  const r=rnd(sides)+a.bonus;
-  addLog(`${a.name}[${a.dice}${a.bonus?'+'+a.bonus:''}]`,r,sides,r-a.bonus===sides,r-a.bonus===1);
-  if(document.getElementById('autoSend').checked)whPost(`⚗ **${gn()}** использует **${a.name}**: \`${r}\``);
+  const a=S.abilities[i];
+  if(a.usesMax>0){
+    if(a.usesLeft<=0){toast('Нет использований!');return;}
+    a.usesLeft--;dirty();
+  }
+  let total=0,parts=[];
+  if(a.skillId){
+    const lv=S.skills[a.skillId]||0;
+    const sklName=(SKL.find(s=>s.id===a.skillId)||{name:a.skillId}).name;
+    if(lv===5){
+      const r1=rnd(12),r2=rnd(12);const sv=r1+r2;
+      parts.push(sklName+' 2d12('+r1+'+'+r2+'='+sv+')');total+=sv;
+    }else if(lv>0){
+      const b=rnd(10);const sk=rnd([0,4,6,8,10,12][lv]);const sv=b+sk;
+      parts.push(sklName+' д10('+b+')+'+DM[lv]+'('+sk+')='+sv);total+=sv;
+    }else{
+      const b=rnd(10);parts.push(sklName+' д10('+b+')');total+=b;
+    }
+  }
+  if(a.dice){
+    const sides=parseInt(a.dice.substring(1))||6;
+    const r=rnd(sides)+(a.bonus||0);
+    parts.push(a.dice+'→'+r);total+=r;
+  }
+  const det=parts.join(' + ');
+  addLog(a.name,total,0,false,false,det);
+  rAbils();
+  // Discord card
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const usesStr=a.usesMax>0?'\n⚡ Осталось: **'+a.usesLeft+'/'+a.usesMax+'**':'';
+  const dmgStr=a.dmgTxt?'\n🗡 Урон: **'+a.dmgTxt+'**':'';
+  const descStr=a.desc?'\n'+a.desc:'';
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:'🎲 '+gn()+' — '+a.name,
+    description:'**Результат:** `'+total+'`\n'+det+dmgStr+usesStr+descStr,
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  if(document.getElementById('autoSend').checked)whPostBody(body);
+  show3d(total,a.name,false,false);
 }
 
-// ═══ RATION ═══
+// ════════════════════ RATION ════════════════════
 function eatDay(){
   const consume=parseInt(document.getElementById('rationConsume').value)||1;
   const stock=parseInt(document.getElementById('rationStock').value)||0;
-  if(stock<=0){toast('⚠ Рацион закончился! Персонаж голодает.');return;}
+  if(stock<=0){toast('⚠ Рацион закончился!');return;}
   const newStock=Math.max(0,stock-consume);
   document.getElementById('rationStock').value=newStock;
   dirty();
-  if(newStock===0)toast('⚠ Последний рацион использован!');
-  else toast(`🍖 Рацион: −${consume} → осталось ${newStock}`);
-  if(document.getElementById('autoSend').checked)whPost(`🍖 **${gn()}** — потреблено рационов: ${consume}, остаток: ${newStock}`);
+  toast(newStock===0?'⚠ Последний рацион использован!':'Рацион: −'+consume+' → осталось '+newStock);
+  if(document.getElementById('autoSend').checked){
+    const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+      title:'🍖 '+gn()+' — Рацион',
+      description:'Потреблено: **'+consume+'**\nОстаток: **'+newStock+'**',
+      color:THEME_COLORS[currentTheme]||0xC8432A,
+      footer:{text:'DeaD HanD • '+currentTheme}
+    }]});
+    whPostBody(body);
+  }
 }
 
-// ═══ INVENTORY ═══
-const TI={weapon:'⚔',armor:'🛡',item:'◎',material:'⬡',ammo:'●'};
-const SL={ok:'OK',damaged:'ПОВР.',broken:'СЛОМ.'};
-const SC={ok:'damaged',damaged:'broken',broken:'ok'};
-function parseDmg(str){if(!str)return null;const m=str.match(/(\d+)d(\d+)/i);if(!m)return null;return{count:parseInt(m[1]),sides:parseInt(m[2])};}
+// ════════════════════ INVENTORY ════════════════════
+function parseDmg(str){
+  if(!str)return null;
+  const m=str.match(/(\d+)\s*[dд]\s*(\d+)/i);
+  if(!m)return null;
+  return{count:parseInt(m[1]),sides:parseInt(m[2])};
+}
 function rInv(){
-  const b=document.getElementById('invBody');
-  if(!S.inventory.length){b.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--text3);font-family:var(--font-mono);font-size:11px;padding:18px">Инвентарь пуст</td></tr>`;return;}
-  b.innerHTML=S.inventory.map((it,i)=>{
-    const isWep=it.type==='weapon';
-    const hasDmg=isWep&&it.dmg&&parseDmg(it.dmg);
-    return`<tr>
-      <td style="font-size:16px;text-align:center">${TI[it.type]||'◎'}</td>
-      <td><div class="inv-nm">${it.name}</div></td>
-      <td class="inv-dt">${isWep&&it.dmg?`<span style="color:var(--accent3);font-weight:700">${it.dmg}</span>`:''}${it.detail?`<div>${it.detail}</div>`:''}</td>
-      <td><div class="qty-w"><button class="qty-b" onclick="chQty(${i},-1)">−</button><input class="qty-in" type="number" value="${it.qty||1}" min="0" onchange="setQty(${i},this.value)"><button class="qty-b" onclick="chQty(${i},1)">+</button></div></td>
-      <td><span class="badge b-${it.st||'ok'}" onclick="cycSt(${i})">${SL[it.st||'ok']}</span></td>
-      <td>${hasDmg?`<button class="dmg-btn" onclick="openDmgModal(${i})">🎲 УРОН</button>`:''}</td>
-      <td><button class="del-btn" onclick="delInv(${i})">✕</button></td>
-    </tr>`;
+  const el=document.getElementById('invList');
+  if(!S.inventory||!S.inventory.length){
+    el.innerHTML='<div class="empty-hint" style="text-align:center;padding:12px">Инвентарь пуст</div>';
+    return;
+  }
+  el.innerHTML=S.inventory.map((it,i)=>{
+    if(it._editing){
+      return `<div style="background:var(--bg3);border:1px solid var(--accent);border-radius:2px;padding:8px 10px;margin-bottom:5px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
+          <input type="text" value="${escAttr(it.name)}" oninput="S.inventory[${i}].name=this.value;dirty()" style="font-size:13px;font-weight:700;padding:4px 6px" placeholder="Название">
+          <input type="text" value="${escAttr(it.dmg||'')}" oninput="S.inventory[${i}].dmg=this.value;dirty()" style="font-size:12px;padding:4px 6px" placeholder="Урон (1d8Б)...">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:6px">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);margin-bottom:2px">УМЕНИЕ ДЛЯ ПОПАДАНИЯ</div>
+            <select onchange="S.inventory[${i}].atkSkill=this.value;dirty()" style="font-size:12px;padding:3px 5px;width:100%">
+              <option value="" ${!it.atkSkill?'selected':''}>— не задано —</option>
+              ${SKL.map(s=>`<option value="${s.id}" ${it.atkSkill===s.id?'selected':''}>${s.name}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);margin-bottom:2px">БОНУС К ПОПАДАНИЮ</div>
+            <input type="number" value="${it.atkBonus||0}" oninput="S.inventory[${i}].atkBonus=parseInt(this.value)||0;dirty()" style="font-size:12px;padding:3px 5px;width:100%">
+          </div>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center">
+          <button class="qty-b" onclick="chQty(${i},-1)">−</button>
+          <input class="qty-in" type="number" value="${it.qty||1}" min="0" onchange="setQty(${i},this.value)" style="width:44px">
+          <button class="qty-b" onclick="chQty(${i},1)">+</button>
+          <button class="btn sm accent" onclick="stopEditInv(${i})" style="margin-left:4px">OK</button>
+          <button class="del-btn" onclick="delInv(${i})">✕</button>
+        </div>
+      </div>`;
+    }
+    const hasDmg=it.dmg&&parseDmg(it.dmg);
+    const hasAtk=hasDmg||it.atkSkill;
+    const sklName=it.atkSkill?(SKL.find(s=>s.id===it.atkSkill)||{name:''}).name:'';
+    return `<div style="display:flex;align-items:center;gap:6px;padding:7px 10px;border-bottom:1px solid var(--border);transition:background .1s" onmouseover="this.style.background='rgba(255,255,255,.02)'" onmouseout="this.style.background=''">
+      <div style="flex:1;min-width:0">
+        <span class="inv-nm">${escHtml(it.name)}</span>
+        ${it.dmg?`<span style="font-family:var(--font-mono);font-size:10px;color:var(--accent3);margin-left:6px">${escHtml(it.dmg)}</span>`:''}
+        ${sklName?`<span style="font-family:var(--font-mono);font-size:9px;color:var(--text3);margin-left:4px">[${sklName}${it.atkBonus?'+'+it.atkBonus:''}]</span>`:''}
+      </div>
+      <div class="qty-w">
+        <button class="qty-b" onclick="chQty(${i},-1)">−</button>
+        <input class="qty-in" type="number" value="${it.qty||1}" min="0" onchange="setQty(${i},this.value)" style="width:38px">
+        <button class="qty-b" onclick="chQty(${i},1)">+</button>
+      </div>
+      ${hasAtk?`<button class="dmg-btn" onclick="rollAttack(${i})" style="border-color:var(--accent);color:var(--accent)">⚔ АТАКА</button>`:''}
+      ${hasDmg&&!hasAtk?`<button class="dmg-btn" onclick="openDmgModal(${i})">🎲 УРОН</button>`:''}
+      <button class="del-btn" title="Отправить" onclick="sendInvItem(${i})" style="color:#7289da;font-size:13px">📤</button>
+      <button class="del-btn" title="Редактировать" onclick="startEditInv(${i})" style="color:var(--text2);font-size:13px">✏</button>
+      <button class="del-btn" onclick="delInv(${i})">✕</button>
+    </div>`;
   }).join('');
 }
-function toggleDmgField(){
-  const t=document.getElementById('ni_type').value;
-  document.getElementById('ni_dmg_row').style.display=t==='weapon'?'block':'none';
+function startEditInv(i){S.inventory[i]._editing=true;rInv();}
+function stopEditInv(i){delete S.inventory[i]._editing;rInv();dirty();}
+function togAddInv(){
+  const f=document.getElementById('addInvForm');
+  f.style.display=f.style.display==='block'?'none':'block';
+  if(f.style.display==='block')document.getElementById('ni_name').focus();
 }
-function togAddInv(){const f=document.getElementById('addInvForm');f.style.display=f.style.display==='block'?'none':'block';if(f.style.display==='block'){document.getElementById('ni_name').focus();toggleDmgField();}}
 function addInv(){
-  const n=document.getElementById('ni_name').value.trim();if(!n){toast('Введите название');return;}
-  const t=document.getElementById('ni_type').value;
-  S.inventory.push({name:n,type:t,dmg:t==='weapon'?document.getElementById('ni_dmg').value.trim():'',detail:document.getElementById('ni_detail').value.trim(),qty:parseInt(document.getElementById('ni_qty').value)||1,st:document.getElementById('ni_st').value});
-  ['ni_name','ni_dmg','ni_detail'].forEach(id=>document.getElementById(id).value='');
+  const n=document.getElementById('ni_name').value.trim();
+  if(!n){toast('Введите название');return;}
+  S.inventory.push({
+    name:n,
+    dmg:document.getElementById('ni_dmg').value.trim(),
+    qty:parseInt(document.getElementById('ni_qty').value)||1
+  });
+  document.getElementById('ni_name').value='';
+  document.getElementById('ni_dmg').value='';
   document.getElementById('ni_qty').value='1';
   rInv();dirty();
 }
 function delInv(i){S.inventory.splice(i,1);rInv();dirty();}
 function chQty(i,d){S.inventory[i].qty=Math.max(0,(S.inventory[i].qty||1)+d);rInv();dirty();}
 function setQty(i,v){S.inventory[i].qty=Math.max(0,parseInt(v)||0);dirty();}
-function cycSt(i){S.inventory[i].st=SC[S.inventory[i].st||'ok'];rInv();dirty();}
+function rollAttack(i){
+  const it=S.inventory[i];
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  let hitTotal=0,hitDet='';
+  if(it.atkSkill){
+    const lv=S.skills[it.atkSkill]||0;
+    const sName=(SKL.find(s=>s.id===it.atkSkill)||{name:it.atkSkill}).name;
+    if(lv===5){const r1=rnd(12),r2=rnd(12);hitTotal=r1+r2;hitDet=sName+' 2d12('+r1+'+'+r2+')='+hitTotal;}
+    else if(lv>0){const b=rnd(10);const sk=rnd([0,4,6,8,10,12][lv]);hitTotal=b+sk;hitDet=sName+' д10('+b+')+'+DM[lv]+'('+sk+')='+hitTotal;}
+    else{hitTotal=rnd(10);hitDet=sName+' д10('+hitTotal+')';}
+  }else{hitTotal=rnd(10);hitDet='д10('+hitTotal+')';}
+  if(it.atkBonus){hitTotal+=it.atkBonus;hitDet+=(it.atkBonus>0?'+':'')+it.atkBonus;}
+  let dmgTotal=0,dmgDet='';
+  const p=parseDmg(it.dmg||'');
+  if(p){
+    const rolls=[];
+    for(let j=0;j<p.count;j++){const r=rnd(p.sides);rolls.push(r);dmgTotal+=r;}
+    dmgDet=p.count+'d'+p.sides+'('+rolls.join('+')+')='+dmgTotal;
+  }
+  addLog(it.name+' АТАКА',hitTotal,10,false,false,hitDet);
+  if(p)addLog(it.name+' УРОН',dmgTotal,p.sides,false,false,dmgDet);
+  show3d(hitTotal,it.name+' — АТАКА',false,false);
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:'⚔ '+gn()+' атакует — '+it.name,
+    description:'**Попадание:** `'+hitTotal+'`\n'+hitDet+(p?'\n\n**Урон:** `'+dmgTotal+'`\n'+dmgDet:''),
+    color:tc,
+    fields:[
+      {name:'Оружие',value:it.name,inline:true},
+      {name:'Попадание',value:'**'+hitTotal+'**',inline:true},
+      {name:'Урон',value:p?'**'+dmgTotal+'**':'—',inline:true}
+    ],
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  whPostBody(body);
+}
+function sendInvItem(i){
+  const it=S.inventory[i];
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  let desc='📦 Количество: **'+(it.qty||1)+'**';
+  if(it.dmg)desc+='\n🗡 Урон: **'+it.dmg+'**';
+  if(it.atkSkill){
+    const sName=(SKL.find(s=>s.id===it.atkSkill)||{name:it.atkSkill}).name;
+    desc+='\n🎯 Попадание: **'+sName+(it.atkBonus?'+'+it.atkBonus:'')+'**';
+  }
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:'📦 '+gn()+' — '+it.name,
+    description:desc,
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  whPostBody(body).then(ok=>toast(ok?'📤 '+it.name+' отправлен':'✗ Ошибка'));
+}
+function sendAllInv(){
+  if(!S.inventory||!S.inventory.length){toast('Инвентарь пуст');return;}
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const lines=S.inventory.map(it=>'• **'+it.name+'**'+(it.dmg?' ['+it.dmg+']':'')+(it.qty!==1?' ×'+it.qty:''));
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:'📦 Инвентарь — '+gn(),
+    description:lines.join('\n'),
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  whPostBody(body).then(ok=>toast(ok?'📤 Инвентарь отправлен':'✗ Ошибка'));
+}
 function openDmgModal(i){
-  currentDmgItem=i;const it=S.inventory[i];
+  currentDmgItem=i;
+  const it=S.inventory[i];
   document.getElementById('dmgModalTitle').textContent='Урон: '+it.name;
   const p=parseDmg(it.dmg||'');
-  document.getElementById('dmgModalInfo').textContent=(it.dmg||'нет урона');
-  if(p){document.getElementById('dmgDice').value='d'+p.sides;document.getElementById('dmgCount').value=p.count;}
-  document.getElementById('dmgBonus').value='0';document.getElementById('dmgExtra').value='';document.getElementById('dmgCond').value='';
+  document.getElementById('dmgModalInfo').textContent=it.dmg||'нет урона';
+  document.getElementById('dmgDice').value=p?'d'+p.sides:'d8';
+  document.getElementById('dmgCount').value=p?p.count:1;
+  document.getElementById('dmgBonus').value='0';
+  document.getElementById('dmgExtra').value='';
+  document.getElementById('dmgCond').value='';
   openModal('dmgModal');
 }
 function rollDmg(){
-  const sides=parseInt(document.getElementById('dmgDice').value.substring(1));
+  const sides=parseInt(document.getElementById('dmgDice').value.substring(1))||8;
   const cnt=parseInt(document.getElementById('dmgCount').value)||1;
   const bon=parseInt(document.getElementById('dmgBonus').value)||0;
   const extraStr=document.getElementById('dmgExtra').value.trim();
-  let rolls=[],total=0;
-  for(let i=0;i<cnt;i++){const r=rnd(sides);rolls.push(r);total+=r;}
+  const rolls=[];let total=0;
+  for(let j=0;j<cnt;j++){const r=rnd(sides);rolls.push(r);total+=r;}
   total+=bon;
-  let detail=`${cnt}d${sides}(${rolls.join('+')})+${bon}`;
-  if(extraStr){const ep=parseDmg(extraStr);if(ep){let et=0,er=[];for(let i=0;i<ep.count;i++){const r=rnd(ep.sides);er.push(r);et+=r;}detail+=`+${extraStr}(${er.join('+')}=${et})`;total+=et;}}
+  let detail=cnt+'d'+sides+'('+rolls.join('+')+')+'+ bon;
+  if(extraStr){
+    const ep=parseDmg(extraStr);
+    if(ep){
+      const er=[];let et=0;
+      for(let j=0;j<ep.count;j++){const r=rnd(ep.sides);er.push(r);et+=r;}
+      detail+=' + '+extraStr+'('+er.join('+')+')=+'+et;total+=et;
+    }
+  }
   const it=currentDmgItem!=null?S.inventory[currentDmgItem]:{name:'Урон'};
-  addLog(`${it.name} УРОН`,total,sides,false,false,detail);
-  if(document.getElementById('autoSend').checked)whPost(`⚔ **${gn()}** → **${it.name}** урон: \`${total}\` *(${detail})*`);
-  closeModal('dmgModal');show3d(total,`${it.name} УРОН`,false,false);
+  addLog(it.name+' УРОН',total,sides,false,false,detail);
+  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:'⚔ '+gn()+' — урон '+it.name,
+    description:'**Урон:** `'+total+'`\n'+detail,
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  if(document.getElementById('autoSend').checked)whPostBody(body);
+  closeModal('dmgModal');
+  show3d(total,it.name+' УРОН',false,false);
 }
 
-// ═══ DICE ═══
+// ════════════════════ DICE ════════════════════
 function rnd(s){return Math.floor(Math.random()*s)+1;}
-function rollDBtn(sides,label,icon){
-  const count=iv('dCount')||1;const bonus=iv('dBonus')||0;const mode=document.getElementById('dMode').value;
+function rollDBtn(sides,label){
+  const count=iv('dCount')||1;
+  const bonus=iv('dBonus')||0;
+  const mode=document.getElementById('dMode').value;
   const btnEl=document.getElementById('db'+sides);
-  let rolls=[],total=0;
-  if(mode==='n'){for(let i=0;i<count;i++){const r=rnd(sides);rolls.push(r);total+=r;}}
-  else{for(let i=0;i<count;i++){const r1=rnd(sides),r2=rnd(sides);const r=mode==='a'?Math.max(r1,r2):Math.min(r1,r2);rolls.push(r);total+=r;}}
+  const rolls=[];let total=0;
+  for(let j=0;j<count;j++){
+    let r;
+    if(mode==='a')r=Math.max(rnd(sides),rnd(sides));
+    else if(mode==='d')r=Math.min(rnd(sides),rnd(sides));
+    else r=rnd(sides);
+    rolls.push(r);total+=r;
+  }
   total+=bonus;
   const isCrit=count===1&&rolls[0]===sides;
   const isFail=count===1&&rolls[0]===1;
-  const det=count>1||bonus?`(${rolls.join('+')})${bonus?'+'+bonus:''}${mode!='n'?(mode==='a'?'↑':'↓'):''}`:''
   if(animCfg.anim&&btnEl){
-    btnEl.classList.remove('rolling','bounce','shake','flash-crit');void btnEl.offsetWidth;
+    btnEl.classList.remove('rolling','bounce','shake','flash-crit');
+    void btnEl.offsetWidth;
     if(animCfg.bounce)btnEl.classList.add('bounce');else btnEl.classList.add('rolling');
     if(isCrit&&animCfg.crit){btnEl.classList.add('flash-crit');triggerCritExplosion();}
     if(isFail&&animCfg.shake)btnEl.classList.add('shake');
     setTimeout(()=>btnEl.classList.remove('rolling','bounce','shake','flash-crit'),700);
   }
-  const fullLabel=`${label}${count>1?'x'+count:''}${bonus?'+'+bonus:''}${mode==='a'?'↑':mode==='d'?'↓':''}`;
+  const modeLabel=mode==='a'?'↑':mode==='d'?'↓':'';
+  const det=(count>1||bonus||mode!=='n')?(count>1?'('+rolls.join('+')+')'+(bonus?'+'+bonus:''):bonus?rolls[0]+'+'+bonus:'')+modeLabel:'';
+  const fullLabel=label+(count>1?'×'+count:'')+(bonus?'+'+bonus:'')+modeLabel;
   addLog(fullLabel,total,sides,isCrit,isFail,det);
-  if(document.getElementById('autoSend').checked)whPost(buildDCMsg(fullLabel,total,sides,isCrit,isFail,det));
+  if(document.getElementById('autoSend').checked)
+    whPostBody(buildDCEmbed(fullLabel,total,isCrit,isFail,det));
   show3d(total,fullLabel,isCrit,isFail);
   return total;
 }
 function rollSkill(id,name){
-  const lv=S.skills[id];
+  const lv=S.skills[id]||0;
   let total,det;
   if(lv===5){
-    // 2d12 at level 5
-    const r1=rnd(12),r2=rnd(12);total=r1+r2;det=`2d12(${r1}+${r2})`;
-  } else {
-    const base=rnd(10);const sk=lv>0?rnd([0,4,6,8,10,12][lv]):0;total=base+sk;
-    det=lv>0?`д10(${base})+${DM[lv]}(${sk})`:`д10(${base})`;
+    const r1=rnd(12),r2=rnd(12);total=r1+r2;det='2d12('+r1+'+'+r2+')';
+  }else{
+    const base=rnd(10);const sk=lv>0?rnd([0,4,6,8,10,12][lv]):0;
+    total=base+sk;
+    det=lv>0?'д10('+base+')+'+DM[lv]+'('+sk+')':'д10('+base+')';
   }
-  const lbl=`${name}[${lv===5?'2d12':'д10'+(lv>0?'+'+DM[lv]:'')}]`;
-  const isCrit=lv===5?(total===24):(total-Math.floor(total)===0&&total>=20);
-  const isFail=total<=1;
+  const lbl=name+'['+(lv===5?'2d12':'д10'+(lv>0?'+'+DM[lv]:''))+']';
+  const isCrit=(lv===5&&total===24)||(lv>0&&total>=18);
+  const isFail=total<=2;
   if(isCrit&&animCfg.anim&&animCfg.crit)triggerCritExplosion();
   addLog(lbl,total,0,isCrit,isFail,det);
-  if(document.getElementById('autoSend').checked)whPost(buildDCMsg(name,total,0,isCrit,isFail,det));
+  if(document.getElementById('autoSend').checked)
+    whPostBody(buildDCEmbed(lbl,total,isCrit,isFail,det));
   show3d(total,lbl,isCrit,isFail);
 }
 function rollInit(){
-  const r=S.skills.razum;const b=rnd(10);let rd=0,det;
-  if(r===5){const r1=rnd(12);rd=r1;det=`д10(${b})+2d12 top(${rd})`;}
-  else{rd=r>0?rnd([0,4,6,8,10,12][r]):0;det=`д10(${b})${r>0?'+'+DM[r]+'('+rd+')':''}`;}
-  const t=b+rd;
-  addLog('Инициатива',t,0,false,false,det);
-  if(document.getElementById('autoSend').checked)whPost(`⚔ **${gn()}** — Инициатива: \`${t}\``);
-  show3d(t,'Инициатива',false,false);
+  const lv=S.skills.razum||0;
+  let total,det;
+  if(lv===5){const r1=rnd(12),r2=rnd(12);const b=rnd(10);total=b+r1+r2;det='д10('+b+')+2d12('+r1+'+'+r2+')';}
+  else{const b=rnd(10);const sk=lv>0?rnd([0,4,6,8,10,12][lv]):0;total=b+sk;det='д10('+b+')'+(lv>0?'+'+DM[lv]+'('+sk+')':'');}
+  addLog('Инициатива',total,0,false,false,det);
+  if(document.getElementById('autoSend').checked)
+    whPostBody(buildDCEmbed('Инициатива',total,false,false,det));
+  show3d(total,'⚔ Инициатива',false,false);
 }
 function rollCustom(mode){
   const nm=document.getElementById('crName').value||'Бросок';
-  const ds=document.getElementById('crDice').value;const cnt=parseInt(document.getElementById('crCount').value)||1;
-  const bon=parseInt(document.getElementById('crBonus').value)||0;const sides=parseInt(ds.substring(1));
-  let rolls=[],total=0;
-  for(let i=0;i<cnt;i++){let r;if(mode==='a')r=Math.max(rnd(sides),rnd(sides));else if(mode==='d')r=Math.min(rnd(sides),rnd(sides));else r=rnd(sides);rolls.push(r);total+=r;}
+  const ds=document.getElementById('crDice').value;
+  const cnt=parseInt(document.getElementById('crCount').value)||1;
+  const bon=parseInt(document.getElementById('crBonus').value)||0;
+  const sides=parseInt(ds.substring(1))||10;
+  const rolls=[];let total=0;
+  for(let j=0;j<cnt;j++){
+    let r;
+    if(mode==='a')r=Math.max(rnd(sides),rnd(sides));
+    else if(mode==='d')r=Math.min(rnd(sides),rnd(sides));
+    else r=rnd(sides);
+    rolls.push(r);total+=r;
+  }
   total+=bon;
-  const det=`${cnt}${ds}(${rolls.join(',')})${bon?'+'+bon:''}${mode==='a'?'↑':mode==='d'?'↓':''}`;
+  const modeLabel=mode==='a'?'↑ Преим.':mode==='d'?'↓ Помеха':'';
+  const det=cnt+'×'+ds+'('+rolls.join(',')+')'+(bon?'+'+bon:'')+' '+modeLabel;
   addLog(nm,total,0,false,false,det);
-  if(document.getElementById('autoSend').checked)whPost(buildDCMsg(nm,total,0,false,false,det));
+  if(document.getElementById('autoSend').checked)
+    whPostBody(buildDCEmbed(nm,total,false,false,det));
   show3d(total,nm,false,false);
 }
 function rollUdacha(){
-  const idx=Math.floor(Math.random()*UDACHA_ALL.length);const result=UDACHA_ALL[idx];
-  const isGood=UDACHA_GOOD.includes(result);const isBad=UDACHA_BAD.includes(result);
+  const idx=Math.floor(Math.random()*UDACHA_ALL.length);
+  const result=UDACHA_ALL[idx];
+  const isGood=UDACHA_GOOD.includes(result);
+  const isBad=UDACHA_BAD.includes(result);
   const color=isGood?'var(--green2)':isBad?'var(--red)':'var(--yellow)';
   addLog('🍀 dУдача',result,0,isGood,isBad,'');
-  const res=document.getElementById('udachaRes');const txt=document.getElementById('udachaText');
-  txt.textContent=result;txt.style.color=color;res.style.display='block';
+  const res=document.getElementById('udachaRes');
+  const txt=document.getElementById('udachaText');
+  txt.textContent=result;txt.style.color=color;
+  res.style.display='block';
   res.style.animation='none';void res.offsetWidth;res.style.animation='fadeUp .3s ease';
-  if(document.getElementById('autoSend').checked)
-    whPost(`🍀 **${gn()}** — Удача Судьбы: **${result}**`);
+  const tc=isGood?0x4caf50:isBad?0xc0392b:0xd4a017;
+  const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+    title:'🍀 '+gn()+' — Удача Судьбы',
+    description:'## '+result,
+    color:tc,
+    footer:{text:'DeaD HanD • '+currentTheme},
+    timestamp:new Date().toISOString()
+  }]});
+  if(document.getElementById('autoSend').checked)whPostBody(body);
   show3d(result,'🍀 dУдача',isGood,isBad);
 }
 
-// ═══ 3D VISUAL ═══
+// ════════════════════ 3D OVERLAY ════════════════════
 function show3d(val,label,crit,fail){
   if(!animCfg['3d'])return;
   if(d3dTimer)clearTimeout(d3dTimer);
   const ov=document.getElementById('d3dOverlay');
-  const rv=document.getElementById('d3dResult');const rl=document.getElementById('d3dLabel');
-  const isText=typeof val==='string';
-  rv.style.fontSize=isText?(val.length>10?'26px':'34px'):'72px';
-  rv.textContent=val;
+  const rv=document.getElementById('d3dResult');
+  const rl=document.getElementById('d3dLabel');
+  const isText=typeof val==='string'&&isNaN(val);
+  rv.style.fontSize=isText?(val.length>12?'22px':val.length>6?'30px':'42px'):'72px';
+  rv.textContent=String(val);
   rl.textContent=label+(crit?' ⭐ КРИТ':fail?' 💀 ПРОВАЛ':'');
   rv.style.color=crit?'var(--yellow)':fail?'var(--red)':'var(--white)';
   const ring=document.querySelector('.d3d-ring');
-  ring.style.borderColor=crit?'var(--yellow)':fail?'var(--red)':'var(--accent)';
-  ring.style.boxShadow=crit?`0 0 60px var(--yellow),inset 0 0 40px rgba(255,215,0,.3)`:fail?`0 0 40px var(--red),inset 0 0 30px rgba(255,0,0,.2)`:`0 0 40px var(--glow),inset 0 0 40px var(--glow)`;
+  if(ring){
+    ring.style.borderColor=crit?'var(--yellow)':fail?'var(--red)':'var(--accent)';
+    ring.style.boxShadow=crit
+      ?'0 0 60px var(--yellow),inset 0 0 40px rgba(255,215,0,.3)'
+      :fail
+        ?'0 0 40px var(--red),inset 0 0 30px rgba(255,0,0,.2)'
+        :'0 0 40px var(--glow),inset 0 0 40px var(--glow)';
+  }
   ov.classList.add('show');
   d3dTimer=setTimeout(()=>ov.classList.remove('show'),6000);
 }
 function close3d(){if(d3dTimer)clearTimeout(d3dTimer);document.getElementById('d3dOverlay').classList.remove('show');}
-
 function triggerCritExplosion(){
   const ov=document.getElementById('critOverlay');
   const star=document.getElementById('critStar');
+  if(!ov||!star)return;
   ov.style.display='flex';
   star.style.animation='none';void star.offsetWidth;
   star.style.animation='critExplosion .8s ease forwards';
-  setTimeout(()=>ov.style.display='none',900);
+  setTimeout(()=>{ov.style.display='none';},900);
 }
 
-// ═══ LOG ═══
-function addLog(lbl,res,sides,crit,fail,det=''){
-  const now=new Date();const t=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  rlog.unshift({lbl,res,crit,fail,det,t});if(rlog.length>80)rlog.pop();
+// ════════════════════ LOG ════════════════════
+function addLog(lbl,res,sides,crit,fail,det){
+  const now=new Date();
+  const t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  rlog.unshift({lbl,res,crit,fail,det,t});
+  if(rlog.length>80)rlog.pop();
   lastRoll={lbl,res,crit,fail,det};
   rLog();
 }
 function rLog(){
   const el=document.getElementById('rlog');
   if(!rlog.length){el.innerHTML='<div class="empty-hint" style="text-align:center;padding:16px 0">Броски появятся здесь...</div>';return;}
-  el.innerHTML=rlog.map(e=>`<div class="re"><span class="rt">${e.t}</span><span class="rl">${e.lbl}${e.det?` <span style="color:var(--text3)">(${e.det})</span>`:''}</span><span class="rv ${e.crit?'crit':e.fail?'fail':''}">${e.res}${e.crit?' ★':e.fail?' ✗':''}</span></div>`).join('');
+  el.innerHTML=rlog.map(e=>`<div class="re">
+    <span class="rt">${e.t}</span>
+    <span class="rl">${escHtml(String(e.lbl))}${e.det?` <span style="color:var(--text3)">(${escHtml(String(e.det))})</span>`:''}</span>
+    <span class="rv ${e.crit?'crit':e.fail?'fail':''}">${escHtml(String(e.res))}${e.crit?' ★':e.fail?' ✗':''}</span>
+  </div>`).join('');
 }
 function clearLog(){rlog=[];rLog();}
 
-// ═══ DISCORD ═══
+// ════════════════════ DISCORD ════════════════════
 function gn(){return document.getElementById('charName').value.trim()||'Персонаж';}
-function buildDCMsg(label,result,sides,crit,fail,det){
+function buildDCEmbed(label,result,crit,fail,det){
   const tc=THEME_COLORS[currentTheme]||0xC8432A;
-  // Build rich embed JSON as JSON payload
   const emoji=crit?'⭐':fail?'💀':'🎲';
-  const desc=`**Результат:** \`${result}\`${det?' *('+det+')*':''}\n${crit?'🌟 **КРИТИЧЕСКИЙ УСПЕХ!**':fail?'💀 **ПРОВАЛ!**':''}`;
+  let desc='> **'+gn()+'** бросает **'+label+'**\n\n## '+result;
+  if(det)desc+='\n`'+det+'`';
+  if(crit)desc+='\n\n🌟 **КРИТИЧЕСКИЙ УСПЕХ!**';
+  if(fail)desc+='\n\n💀 **ПРОВАЛ!**';
   return JSON.stringify({
-    username:`DeaD HanD 🎲`,
+    username:'DeaD HanD',
     embeds:[{
-      title:`${emoji} ${gn()} — ${label}`,
+      title:emoji+' '+gn()+' — '+label,
       description:desc,
       color:tc,
-      footer:{text:`DeaD HanD • ${currentTheme}`},
+      fields:[
+        {name:'Персонаж',value:gn(),inline:true},
+        {name:'Бросок',value:label,inline:true},
+        {name:'Итог',value:'**'+result+'**',inline:true}
+      ],
+      footer:{text:'DeaD HanD v1.03 • '+currentTheme},
       timestamp:new Date().toISOString()
     }]
   });
 }
 async function testWH(){
-  const url=document.getElementById('whUrl').value.trim();const el=document.getElementById('dcSt');
+  const url=document.getElementById('whUrl').value.trim();
+  const el=document.getElementById('dcSt');
   if(!url){el.textContent='Введите URL';el.className='ds err';return;}
   if(!url.startsWith('https://discord.com/api/webhooks/')&&!url.startsWith('https://discordapp.com/api/webhooks/')){
-    el.textContent='✗ Неверный формат URL';el.className='ds err';return;
+    el.textContent='✗ Неверный формат URL';el.className='ds err';
+    toast('URL должен начинаться с https://discord.com/api/webhooks/');return;
   }
   el.textContent='Проверяю...';el.className='ds';
   try{
-    const body=JSON.stringify({username:'DeaD HanD 🎲',embeds:[{title:`✅ DeaD HanD подключён!`,description:`Персонаж: **${gn()}**\nТема: **${currentTheme}**`,color:THEME_COLORS[currentTheme]||0xC8432A,footer:{text:'DeaD HanD'}}]});
+    const body=JSON.stringify({username:'DeaD HanD',embeds:[{
+      title:'✅ DeaD HanD подключён!',
+      description:'Персонаж: **'+gn()+'**\nТема: **'+currentTheme+'**',
+      color:THEME_COLORS[currentTheme]||0xC8432A,
+      footer:{text:'DeaD HanD'}
+    }]});
     const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});
     if(r.ok||r.status===204){el.textContent='✓ Подключено';el.className='ds ok';toast('✓ Discord подключён');}
-    else{el.textContent=`✗ Ошибка ${r.status}`;el.className='ds err';}
+    else{el.textContent='✗ Ошибка '+r.status;el.className='ds err';}
   }catch(e){el.textContent='✗ Нет соединения';el.className='ds err';}
 }
 async function sendLast(){
   const url=document.getElementById('whUrl').value.trim();
   if(!url){toast('Введите Webhook URL');return;}
   if(!lastRoll){toast('Сначала сделайте бросок');return;}
-  const body=buildDCMsg(lastRoll.lbl,lastRoll.res,0,lastRoll.crit,lastRoll.fail,lastRoll.det);
-  try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});toast(r.ok||r.status===204?'📤 Отправлено':'✗ Ошибка');}catch(e){toast('✗ Нет соединения');}
+  const ok=await whPostBody(buildDCEmbed(lastRoll.lbl,lastRoll.res,lastRoll.crit,lastRoll.fail,lastRoll.det));
+  toast(ok?'📤 Отправлено':'✗ Ошибка');
 }
 async function whPost(content){
-  const url=document.getElementById('whUrl').value.trim();if(!url)return;
-  if(!url.startsWith('https://discord.com/api/webhooks/')&&!url.startsWith('https://discordapp.com/api/webhooks/'))return;
-  // content can be JSON string (embed) or plain string
+  const url=document.getElementById('whUrl').value.trim();
+  if(!url)return false;
+  if(!url.startsWith('https://discord.com/api/webhooks/')&&!url.startsWith('https://discordapp.com/api/webhooks/'))return false;
   let body;
   try{JSON.parse(content);body=content;}
-  catch(e){body=JSON.stringify({content,username:'DeaD HanD 🎲'});}
-  try{await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});}catch(e){}
+  catch(e){body=JSON.stringify({content,username:'DeaD HanD'});}
+  try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});return r.ok||r.status===204;}catch(e){return false;}
+}
+async function whPostBody(body){
+  const url=document.getElementById('whUrl').value.trim();
+  if(!url)return false;
+  if(!url.startsWith('https://discord.com/api/webhooks/')&&!url.startsWith('https://discordapp.com/api/webhooks/'))return false;
+  try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});return r.ok||r.status===204;}catch(e){return false;}
 }
 
-// ═══ CLOUD ═══
-function hk(k){return 'dh_'+btoa(unescape(encodeURIComponent(k))).substring(0,22);}
-function cloudSave(){const k=document.getElementById('cloudKey').value.trim();if(!k){toast('Введи ключ');return;}localStorage.setItem(hk(k),JSON.stringify(collect()));toast('💾 Сохранено');isDirty=false;updInfo();const e=document.getElementById('clSt');e.textContent='✓ Сохранено';e.className='cl-st ok';}
-function cloudLoad(){const k=document.getElementById('cloudKey').value.trim();if(!k){toast('Введи ключ');return;}const d=localStorage.getItem(hk(k));if(!d){document.getElementById('clSt').textContent='Не найдено';document.getElementById('clSt').className='cl-st err';toast('Ничего нет');return;}applyS(JSON.parse(d));isDirty=false;updInfo();document.getElementById('clSt').textContent='✓ Загружен';document.getElementById('clSt').className='cl-st ok';toast('✓ Загружен');}
-function cloudSaveM(){const k=document.getElementById('cmKey').value.trim();const e=document.getElementById('cmSt');if(!k){e.textContent='Введи ключ';e.className='cl-st err';return;}localStorage.setItem(hk(k),JSON.stringify(collect()));isDirty=false;updInfo();e.textContent='✓ Сохранено: «'+k+'»';e.className='cl-st ok';}
-function cloudLoadM(){const k=document.getElementById('cmKey').value.trim();const e=document.getElementById('cmSt');if(!k){e.textContent='Введи ключ';e.className='cl-st err';return;}const d=localStorage.getItem(hk(k));if(!d){e.textContent='Не найдено';e.className='cl-st err';return;}applyS(JSON.parse(d));isDirty=false;updInfo();e.textContent='✓ Загружен: '+(JSON.parse(d).name||'?');e.className='cl-st ok';}
+// ════════════════════ CLOUD SAVE ════════════════════
+function hk(k){
+  try{return 'dh_'+btoa(unescape(encodeURIComponent(k))).substring(0,22);}
+  catch(e){return 'dh_'+k.substring(0,20);}
+}
+function cloudSave(){
+  const k=document.getElementById('cloudKey').value.trim();
+  if(!k){toast('Введи ключ');return;}
+  localStorage.setItem(hk(k),JSON.stringify(collect()));
+  toast('💾 Сохранено по ключу «'+k+'»');isDirty=false;updInfo();
+  const e=document.getElementById('clSt');e.textContent='✓ Сохранено';e.className='cl-st ok';
+}
+function cloudLoad(){
+  const k=document.getElementById('cloudKey').value.trim();
+  if(!k){toast('Введи ключ');return;}
+  const d=localStorage.getItem(hk(k));
+  if(!d){const e=document.getElementById('clSt');e.textContent='Не найдено';e.className='cl-st err';toast('Ничего нет');return;}
+  try{applyS(JSON.parse(d));isDirty=false;updInfo();
+    const e=document.getElementById('clSt');e.textContent='✓ Загружен';e.className='cl-st ok';toast('✓ Персонаж загружен');}
+  catch(e){toast('Ошибка данных');}
+}
+function cloudSaveM(){
+  const k=document.getElementById('cmKey').value.trim();
+  const e=document.getElementById('cmSt');
+  if(!k){e.textContent='Введи ключ';e.className='cl-st err';return;}
+  localStorage.setItem(hk(k),JSON.stringify(collect()));
+  isDirty=false;updInfo();e.textContent='✓ Сохранено: «'+k+'»';e.className='cl-st ok';
+}
+function cloudLoadM(){
+  const k=document.getElementById('cmKey').value.trim();
+  const e=document.getElementById('cmSt');
+  if(!k){e.textContent='Введи ключ';e.className='cl-st err';return;}
+  const d=localStorage.getItem(hk(k));
+  if(!d){e.textContent='Не найдено';e.className='cl-st err';return;}
+  try{applyS(JSON.parse(d));isDirty=false;updInfo();e.textContent='✓ Загружен: '+(JSON.parse(d).name||'?');e.className='cl-st ok';}
+  catch(err){e.textContent='Ошибка данных';e.className='cl-st err';}
+}
 
-// ═══ FILE SAVE/LOAD ═══
+// ════════════════════ FILE SAVE / LOAD ════════════════════
 function collect(){
-  return{name:document.getElementById('charName').value,level:iv('charLevel'),cash:iv('charCash'),
-    portrait:S.portrait||'',rationConsume:iv('rationConsume'),rationStock:iv('rationStock'),
+  return{
+    name:document.getElementById('charName').value,
+    level:iv('charLevel'),cash:iv('charCash'),portrait:S.portrait||'',
+    rationConsume:iv('rationConsume'),rationStock:iv('rationStock'),
     hpCur:iv('hpCur'),hpMax:iv('hpMax'),arCur:iv('arCur'),arMax:iv('arMax'),
-    arBr:document.getElementById('arBr').value,arName:document.getElementById('arName').value,arHitDC:iv('arHitDC'),
-    prevoz:S.prevoz,skills:{...S.skills},conds:[...S.conds],exh:iv('exh'),psy:iv('psy'),inf:iv('inf'),
-    traumas:[...(S.traumas||[])],traits:[...(S.traits||[])],abilities:[...(S.abilities||[])],
-    inventory:[...(S.inventory||[])],
+    arBr:document.getElementById('arBr').value,
+    arName:document.getElementById('arName').value,
+    arHitDC:iv('arHitDC'),prevoz:S.prevoz,
+    skills:{...S.skills},
+    conds:[...S.conds],exh:iv('exh'),psy:iv('psy'),inf:iv('inf'),
+    traumas:JSON.parse(JSON.stringify(S.traumas||[])),
+    traits:JSON.parse(JSON.stringify(S.traits||[])),
+    abilities:JSON.parse(JSON.stringify(S.abilities||[])),
+    inventory:(S.inventory||[]).map(it=>{const c={...it};delete c._editing;return c;}),
     vladenie:[...document.querySelectorAll('#vlD .vl-tag.on,#vlB .vl-tag.on')].map(t=>t.textContent.trim()),
     vladenieSvoe:[...(S.vladenieSvoe||[])],
     notes:document.getElementById('notes').value,
-    whUrl:document.getElementById('whUrl').value,autoSend:document.getElementById('autoSend').checked,v:'1.03'};
+    whUrl:document.getElementById('whUrl').value,
+    autoSend:document.getElementById('autoSend').checked,
+    v:'1.04'
+  };
 }
-function saveFile(){const d=collect();const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`DeaD_HanD_${(d.name||'персонаж').replace(/\s+/g,'_')}.json`;a.click();isDirty=false;updInfo();toast('💾 Файл скачан');}
-function handleLoad(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{try{applyS(JSON.parse(ev.target.result));isDirty=false;updInfo();toast('✓ Загружен');}catch(err){toast('Ошибка файла');}};r.readAsText(f);e.target.value='';}
+function saveFile(){
+  const d=collect();
+  const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(b);
+  a.download='DeaD_HanD_'+(d.name||'персонаж').replace(/[^\w\-а-яёА-ЯЁ]/gi,'_')+'.json';
+  a.click();
+  isDirty=false;updInfo();toast('💾 Файл скачан');
+}
+function handleLoad(e){
+  const f=e.target.files[0];if(!f)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{applyS(JSON.parse(ev.target.result));isDirty=false;updInfo();toast('✓ Загружен');}
+    catch(err){toast('Ошибка файла');}
+  };
+  reader.readAsText(f);e.target.value='';
+}
 function applyS(d){
+  if(!d)return;
   S={...S,...d};
-  const fm={charName:'name',charLevel:'level',charCash:'cash',hpCur:'hpCur',hpMax:'hpMax',arCur:'arCur',arMax:'arMax',arName:'arName',exh:'exh',psy:'psy',inf:'inf',rationConsume:'rationConsume',rationStock:'rationStock'};
-  Object.entries(fm).forEach(([id,k])=>{const e=document.getElementById(id);if(e)e.value=d[k]!==undefined?d[k]:(S[k]||'');});
-  document.getElementById('arBr').value=d.arBr||'Бр0';
-  document.getElementById('arHitDC').value=d.arHitDC||6;
-  document.getElementById('notes').value=d.notes||'';
-  document.getElementById('whUrl').value=d.whUrl||'';
-  document.getElementById('autoSend').checked=d.autoSend||false;
-  updHp();updAr();updPP();rSkills();rConds();rInv();rTraits();rAbils();rTraumas();restoreVl();restorePortrait();
+  // Fill DOM
+  const fieldMap={charName:'name',charLevel:'level',charCash:'cash',
+    hpCur:'hpCur',hpMax:'hpMax',arCur:'arCur',arMax:'arMax',arName:'arName',
+    exh:'exh',psy:'psy',inf:'inf',rationConsume:'rationConsume',rationStock:'rationStock'};
+  Object.entries(fieldMap).forEach(([elId,key])=>{
+    const el=document.getElementById(elId);
+    if(el)el.value=(d[key]!==undefined)?d[key]:'';
+  });
+  const arBr=document.getElementById('arBr');if(arBr)arBr.value=d.arBr||'Бр0';
+  const arHit=document.getElementById('arHitDC');if(arHit)arHit.value=d.arHitDC||6;
+  const notes=document.getElementById('notes');if(notes)notes.value=d.notes||'';
+  const whUrl=document.getElementById('whUrl');if(whUrl)whUrl.value=d.whUrl||'';
+  const autoS=document.getElementById('autoSend');if(autoS)autoS.checked=d.autoSend||false;
+  // Fix usesLeft fields after load
+  (S.abilities||[]).forEach(a=>{if(a.usesMax>0&&a.usesLeft===undefined)a.usesLeft=a.usesMax;});
+  (S.traits||[]).forEach(t=>{if(t.usesMax>0&&t.usesLeft===undefined)t.usesLeft=t.usesMax;});
+  // Re-render all
+  updHp();updAr();updPP();
+  rSkills();rConds();rInv();rTraits();rAbils();rTraumas();
+  restoreVl();restorePortrait();
 }
 function newChar(){
   if(isDirty&&!confirm('Несохранённые изменения потеряются. Продолжить?'))return;
@@ -1491,15 +2023,31 @@ function newChar(){
   applyS(S);isDirty=false;updInfo();toast('Новый персонаж');
 }
 
-// ═══ MODAL ═══
-function openModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-ov.open').forEach(m=>m.classList.remove('open'));});
+// ════════════════════ UTILS ════════════════════
+function escHtml(str){
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(str){
+  return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
 
-// ═══ TOAST ═══
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);}
-window.addEventListener('beforeunload',e=>{if(isDirty){e.preventDefault();e.returnValue='';}});
+// ════════════════════ MODAL ════════════════════
+function openModal(id){const el=document.getElementById(id);if(el)el.classList.add('open');}
+function closeModal(id){const el=document.getElementById(id);if(el)el.classList.remove('open');}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')document.querySelectorAll('.modal-ov.open').forEach(m=>m.classList.remove('open'));
+});
 
+// ════════════════════ TOAST ════════════════════
+function toast(msg){
+  const t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+window.addEventListener('beforeunload',e=>{
+  if(isDirty){e.preventDefault();e.returnValue='';}
+});
 </script>
 </body>
 </html>
