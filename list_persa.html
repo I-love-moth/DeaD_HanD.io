@@ -1260,7 +1260,7 @@ function chTraitUses(i,d){
 function resetTraitUses(i){S.traits[i].usesLeft=S.traits[i].usesMax;rTraits();dirty();}
 function sendTraitCard(i){
   const t=S.traits[i];
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   const usesStr=t.usesMax>0?'\n⚡ Использований: **'+t.usesLeft+'/'+t.usesMax+'**':'';
   const body=JSON.stringify({username:'DeaD HanD',embeds:[{
     title:gn()+' — '+t.name,
@@ -1275,7 +1275,7 @@ function sendTraitToDiscord(){
   const n=document.getElementById('trN').value.trim();
   const d=document.getElementById('trD').value.trim();
   if(!n){toast('Сначала введите название');return;}
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   const body=JSON.stringify({username:'DeaD HanD',embeds:[{
     title:gn()+' — '+n,
     description:d||'Без описания',
@@ -1399,7 +1399,7 @@ function chAbilUses(i,d){
 function resetAbilUses(i){S.abilities[i].usesLeft=S.abilities[i].usesMax;rAbils();dirty();}
 function sendAbilCard(i){
   const a=S.abilities[i];
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   let desc=a.desc||'';
   if(a.dmgTxt)desc+='\n🗡 Урон: **'+a.dmgTxt+'**';
   if(a.usesMax>0)desc+='\n⚡ Использований: **'+a.usesLeft+'/'+a.usesMax+'**';
@@ -1442,7 +1442,7 @@ function rollAbil(i){
   addLog(a.name,total,0,false,false,det);
   rAbils();
   // Discord card
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   const usesStr=a.usesMax>0?'\n⚡ Осталось: **'+a.usesLeft+'/'+a.usesMax+'**':'';
   const dmgStr=a.dmgTxt?'\n🗡 Урон: **'+a.dmgTxt+'**':'';
   const descStr=a.desc?'\n'+a.desc:'';
@@ -1470,7 +1470,7 @@ function eatDay(){
     const body=JSON.stringify({username:'DeaD HanD',embeds:[{
       title:'🍖 '+gn()+' — Рацион',
       description:'Потреблено: **'+consume+'**\nОстаток: **'+newStock+'**',
-      color:THEME_COLORS[currentTheme]||0xC8432A,
+      color:parseInt(String(THEME_COLORS[currentTheme]||0xC8432A)),
       footer:{text:'DeaD HanD • '+currentTheme}
     }]});
     whPostBody(body);
@@ -1566,7 +1566,7 @@ function chQty(i,d){S.inventory[i].qty=Math.max(0,(S.inventory[i].qty||1)+d);rIn
 function setQty(i,v){S.inventory[i].qty=Math.max(0,parseInt(v)||0);dirty();}
 function rollAttack(i){
   const it=S.inventory[i];
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   let hitTotal=0,hitDet='';
   if(it.atkSkill){
     const lv=S.skills[it.atkSkill]||0;
@@ -1602,7 +1602,7 @@ function rollAttack(i){
 }
 function sendInvItem(i){
   const it=S.inventory[i];
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   let desc='📦 Количество: **'+(it.qty||1)+'**';
   if(it.dmg)desc+='\n🗡 Урон: **'+it.dmg+'**';
   if(it.atkSkill){
@@ -1620,7 +1620,7 @@ function sendInvItem(i){
 }
 function sendAllInv(){
   if(!S.inventory||!S.inventory.length){toast('Инвентарь пуст');return;}
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   const lines=S.inventory.map(it=>'• **'+it.name+'**'+(it.dmg?' ['+it.dmg+']':'')+(it.qty!==1?' ×'+it.qty:''));
   const body=JSON.stringify({username:'DeaD HanD',embeds:[{
     title:'📦 Инвентарь — '+gn(),
@@ -1663,7 +1663,7 @@ function rollDmg(){
   }
   const it=currentDmgItem!=null?S.inventory[currentDmgItem]:{name:'Урон'};
   addLog(it.name+' УРОН',total,sides,false,false,detail);
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
   const body=JSON.stringify({username:'DeaD HanD',embeds:[{
     title:'⚔ '+gn()+' — урон '+it.name,
     description:'**Урон:** `'+total+'`\n'+detail,
@@ -1777,7 +1777,7 @@ function rollUdacha(){
   const tc=isGood?0x4caf50:isBad?0xc0392b:0xd4a017;
   const body=JSON.stringify({username:'DeaD HanD',embeds:[{
     title:'🍀 '+gn()+' — Удача Судьбы',
-    description:'## '+result,
+    description:String(result),
     color:tc,
     footer:{text:'DeaD HanD • '+currentTheme},
     timestamp:new Date().toISOString()
@@ -1842,26 +1842,27 @@ function rLog(){
 function clearLog(){rlog=[];rLog();}
 
 // ════════════════════ DISCORD ════════════════════
-function gn(){return document.getElementById('charName').value.trim()||'Персонаж';}
+function gn(){try{const n=document.getElementById('charName');return(n&&n.value.trim())||'Персонаж';}catch(e){return 'Персонаж';}}
 function buildDCEmbed(label,result,crit,fail,det){
-  const tc=THEME_COLORS[currentTheme]||0xC8432A;
-  const emoji=crit?'⭐':fail?'💀':'🎲';
-  let desc='> **'+gn()+'** бросает **'+label+'**\n\n## '+result;
-  if(det)desc+='\n`'+det+'`';
-  if(crit)desc+='\n\n🌟 **КРИТИЧЕСКИЙ УСПЕХ!**';
-  if(fail)desc+='\n\n💀 **ПРОВАЛ!**';
+  const tc=parseInt(String(THEME_COLORS[currentTheme]||0xC8432A));
+  const emoji=crit?'\u2B50':fail?'\u{1F480}':'\uD83C\uDFB2';
+  let desc='**Результат: '+String(result)+'**';
+  if(det)desc+='\n'+det;
+  if(crit)desc+='\n\n\u{1F31F} КРИТИЧЕСКИЙ УСПЕХ!';
+  if(fail)desc+='\n\n ПРОВАЛ!';
+  const charName=gn();
   return JSON.stringify({
     username:'DeaD HanD',
     embeds:[{
-      title:emoji+' '+gn()+' — '+label,
+      title:charName+' — '+String(label),
       description:desc,
       color:tc,
       fields:[
-        {name:'Персонаж',value:gn(),inline:true},
-        {name:'Бросок',value:label,inline:true},
-        {name:'Итог',value:'**'+result+'**',inline:true}
+        {name:'Персонаж',value:charName,inline:true},
+        {name:'Бросок',value:String(label),inline:true},
+        {name:'Итог',value:String(result),inline:true}
       ],
-      footer:{text:'DeaD HanD v1.03 • '+currentTheme},
+      footer:{text:'DeaD HanD • '+currentTheme},
       timestamp:new Date().toISOString()
     }]
   });
@@ -1879,7 +1880,7 @@ async function testWH(){
     const body=JSON.stringify({username:'DeaD HanD',embeds:[{
       title:'✅ DeaD HanD подключён!',
       description:'Персонаж: **'+gn()+'**\nТема: **'+currentTheme+'**',
-      color:THEME_COLORS[currentTheme]||0xC8432A,
+      color:parseInt(String(THEME_COLORS[currentTheme]||0xC8432A)),
       footer:{text:'DeaD HanD'}
     }]});
     const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body});
